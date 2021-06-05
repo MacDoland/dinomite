@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "QuiteMagicalRegular";
+    src: url("../../fonts/QuiteMagicalRegular-8VA2.ttf");
+}
+
+/* General Styles */
+
+body, html {
+    font-family: "QuiteMagicalRegular", Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    font-family: "QuiteMagicalRegular", Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    border-radius: 200px;
+    border: 2px solid #000;
+    cursor: pointer;
+    margin: 10px;
+    min-width: 200px;
+    padding: 5px 20px;
+}
+
+button:hover {
+    background-color: rgb(138, 138, 138);
+}
+
+canvas {
+    border: 1px solid #000;
+}
+
+h2 {
+    font-size: 46px;
+    font-weight: bold;
+}
