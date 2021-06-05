@@ -26,7 +26,7 @@ class GameManager {
         this.#moveDelay = 150;
 
         this.#player = new Player();
-        this.#player.move(new Vector(125, 125));
+        this.#player.move(new Vector(175, 175));
 
         this.#inputManager = new InputManager();
         // this.#inputManager.onUp(() => this.#snake.changeDirection(directions.UP));
@@ -56,17 +56,77 @@ class GameManager {
         this.#timer.stop();
         this.#timer.clearHandlers();;
         this.#timer.onElapsed(this.#update.bind(this));
+        let input;
+        const speed = 500;
+        let prev = 0;
+        let deltaTime = 0;
+        let now;
+        let potentialPositionX;
+        let potentialPositionY;
+        let offset;
         // this.#audioManager.play('bg');
 
-        //Have inputs update on game loop rather than event callback
-        this.#timer.onTick(() => {
-            this.#inputManager.update();
-        })
+        const loop = () => {
+            now = performance.now();
+            deltaTime = (now - prev) / 1000;
+            input = this.#inputManager.update();
 
-        this.#eventDispatcher.dispatch(this.#events.UPDATE, {
-            grid: this.#grid,
-            player: this.#player
-        });
+            this.#player.update();
+
+            offset = new Vector(0, 0);
+
+            if (input.DOWN) {
+                offset.add(new Vector(0, speed * deltaTime));
+            }
+
+            if (input.RIGHT) {
+                offset.add(new Vector(speed * deltaTime, 0))
+            }
+
+            if (input.UP) {
+                offset.add(new Vector(0, -speed * deltaTime))
+            }
+
+            if (input.LEFT) {
+                offset.add(new Vector(-speed * deltaTime, 0))
+            }
+
+            potentialPositionX = Vector.add(this.#player.getPosition(), offset.getXOnly());
+            potentialPositionY = Vector.add(this.#player.getPosition(), offset.getYOnly());
+
+
+
+            let gridCoordinateX = Vector.multiplyScalar(potentialPositionX, 1 / 100).floor();
+            let indexX = this.#grid.getIndex(gridCoordinateX.x, gridCoordinateX.y);
+
+            let gridCoordinateY = Vector.multiplyScalar(potentialPositionY, 1 / 100).floor();
+            let indexY = this.#grid.getIndex(gridCoordinateY.x, gridCoordinateY.y);
+
+           
+
+            if (indexX > 0 && indexX < this.#grid.getGrid().length && this.#grid.getGrid()[indexX] === 0) {
+                this.#player.move(offset.getXOnly());
+            }
+
+            if (indexY > 0 && indexY < this.#grid.getGrid().length && this.#grid.getGrid()[indexY] === 0) {
+                this.#player.move(offset.getYOnly());
+            }
+
+            prev = now;
+
+            this.#eventDispatcher.dispatch(this.#events.UPDATE, {
+                grid: this.#grid,
+                player: this.#player,
+                direction: this.#player.getDirection(),
+                playerState: this.#player.getState(),
+                gridIndex: indexX
+            });
+
+            requestAnimationFrame(loop);
+
+        }
+
+        requestAnimationFrame(loop);
     }
 
     start() {

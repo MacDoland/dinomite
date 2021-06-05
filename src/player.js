@@ -1,23 +1,59 @@
+import directions from './helpers/direction';
 import Vector from './structures/vector';
 
 class Player {
     #position;
+    #direction;
     #origin;
     #width;
     #height;
+    #state;
     constructor() {
+        this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
         this.#height = 50;
         this.#width = 50;
-        this.#origin = new Vector(0, -this.#height);
+        this.#origin = new Vector(0,0);
+        this.#state = PlayerState.IDLE;
     }
 
-    move(position) {
-        this.#position = position;
+    update(){
+        this.#state = PlayerState.IDLE;
+    }
+
+    move(offset) {
+        if(offset.x < 0){
+            this.#direction = directions.LEFT;
+            this.#state = PlayerState.WALKING;
+        }
+
+        if(offset.x > 0){
+            this.#direction = directions.RIGHT;
+            this.#state = PlayerState.WALKING;
+        }
+
+        if(offset.y < 0){
+            this.#direction = directions.UP;
+            this.#state = PlayerState.WALKING;
+        }
+
+        if(offset.y > 0){
+            this.#direction = directions.DOWN;
+            this.#state = PlayerState.WALKING;
+        }
+
+        this.#position = Vector.add(this.#position, offset);
+    }
+    
+    getDirection() {
+        return this.#direction;
     }
 
     getPosition() {
         return Vector.add(this.#position, this.#origin);
+    }
+    getState() {
+        return this.#state;
     }
     getWidth() {
         return this.#width;
@@ -25,6 +61,14 @@ class Player {
     getHeight() {
         return this.#height;
     }
+
+    
+}
+
+
+export const PlayerState = {
+    IDLE: 'IDLE',
+    WALKING: 'WALKING'
 }
 
 export default Player;

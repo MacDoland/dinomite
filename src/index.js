@@ -6,7 +6,7 @@ import Grid from './structures/grid';
 
 const grid = new Grid(11, 11);
 const canvas = document.getElementById('canvas');
-const renderer = new CanvasRenderer(canvas, 50, grid.getColumnCount(), grid.getRowCount());
+const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
 const gameManager = new GameManager(grid);
 const audioManager = new AudioManager();
 //audioManager.load('menu-bg', './audio/Komiku_-_12_-_Bicycle.mp3', 0.5, true);
@@ -25,18 +25,33 @@ const audioManager = new AudioManager();
 // ui.onStartGame(() => {
 //     gameManager.start();
 // });
+let position = '';
+let direction = '';
+let gridIndex = '';
+let state = '';
 
-// var app = new Vue({
-//     el: '#app',
-//     data: {
-//       message: 'Hello Vue!'
-//     }
-//   })
+var app = new Vue({
+    el: '#debug-window',
+    data: {
+        position,
+        direction,
+        gridIndex,
+        state
+    },
+    mounted() {
+        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex }) => {
+            this.position = `position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
+            this.direction = `direction: ${direction}`;
+            this.gridIndex = `gridIndex: ${gridIndex}`;
+            this.state = `state: ${playerState}`;
+        });
+    }
+  })
 
-const updateGame = ({ grid, player }) => {
+const updateGame = ({ grid, player, playerState, direction  }) => {
     renderer.clear();
     renderer.drawGrid(grid.getGrid())
-    renderer.drawPlayer(player);
+    renderer.drawPlayer(player, playerState, direction);
 }
 
 gameManager.onInit(updateGame);

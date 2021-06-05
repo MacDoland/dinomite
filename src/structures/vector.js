@@ -26,6 +26,27 @@ class Vector {
         return new Vector(this.x, this.y);
     }
 
+    floor(){
+        this.x = Math.floor(this.x);
+        this.y = Math.floor(this.y);
+
+        return this;
+    }
+
+    getYOnly() {
+        return {
+            x: 0,
+            y: this.y
+        }
+    }
+
+    getXOnly() {
+        return {
+            x: this.x,
+            y: 0 
+        }
+    }
+
     static add(vectorA, vectorB) {
         return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
     }

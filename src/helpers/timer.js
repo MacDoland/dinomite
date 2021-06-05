@@ -8,6 +8,8 @@ class Timer {
     #isActive;
     #eventDispatcher;
     #events;
+    #previousTick;
+    #deltaTime;
 
     constructor(){
         this.#eventDispatcher = new EventDispatcher();
@@ -15,6 +17,7 @@ class Timer {
             TICK: "TICK",
             ELAPSED: "ELAPSED"
         }
+        this.#previousTick = 0;
     }
 
     start(target) {
@@ -41,7 +44,9 @@ class Timer {
 
     tick() {
         if (this.#isActive) {
-            this.#eventDispatcher.dispatch(this.#events.TICK, this.#current / this.#target );
+            this.#deltaTime = (performance.now() - this.#previousTick) / 1000;
+            this.#previousTick = performance.now();
+            this.#eventDispatcher.dispatch(this.#events.TICK, this.#deltaTime );
             this.#current = performance.now() - this.#startTime;
             this.#elaspsed = this.#current > this.#target;
 

@@ -13,14 +13,17 @@ class Grid {
         this.#grid = this.#grid
             .map((value, index) => {
                 const coordinates = Grid.convertIndexToCoordinate(index, numberOfColumns, numberOfRows);
-
-                if ((coordinates.x % 2) === 1
-                    && (coordinates.y % 2) === 1) {
+                if (coordinates.x === 0 || coordinates.y === 0 || coordinates.x === numberOfColumns -1 || coordinates.y === numberOfRows -1) {
                     return 1;
-                }
-                else{
-                    return 0;
-                }
+                };
+
+                if ((coordinates.x % 2) !== 1
+                    && (coordinates.y % 2) !== 1) {
+                    return 1;
+                };
+
+                return 0;
+
             });
     }
 

@@ -23,7 +23,12 @@ class InputManager {
             KEY_UP: 38,
             KEY_DOWN: 40,
             KEY_LEFT: 37,
-            KEY_RIGHT: 39
+            KEY_RIGHT: 39,
+            KEY_W: 87,
+            KEY_A: 65,
+            KEY_S: 83,
+            KEY_D: 68
+
         }
 
         const keyEventLogger = (e) => {
@@ -49,6 +54,13 @@ class InputManager {
 
         if (this.#keyState[this.#keys.KEY_DOWN]) {
             this.#eventDispatcher.dispatch(this.#events.DOWN)
+        }
+
+        return {
+            UP: this.#keyState[this.#keys.KEY_UP] || this.#keyState[this.#keys.KEY_W],
+            RIGHT: this.#keyState[this.#keys.KEY_RIGHT] || this.#keyState[this.#keys.KEY_D],
+            DOWN: this.#keyState[this.#keys.KEY_DOWN] || this.#keyState[this.#keys.KEY_S],
+            LEFT: this.#keyState[this.#keys.KEY_LEFT] || this.#keyState[this.#keys.KEY_A],
         }
     }
 

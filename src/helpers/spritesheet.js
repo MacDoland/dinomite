@@ -1,17 +1,17 @@
 
 class SpriteSheet {
-    #spriteSheet;
+    #image;
     #sprites;
 
     constructor(imagePath) {
-        this.#spriteSheet = document.createElement('img');
-        this.#spriteSheet.src = imagePath;
+        this.#image = document.createElement('img');
+        this.#image.src = imagePath;
         this.#sprites = {};
     }
 
     addSprite(key, x, y, width, height) {
         this.#sprites[key] = {
-            spriteSheet: this.#spriteSheet,
+            image: this.#image,
             x,
             y,
             width,
