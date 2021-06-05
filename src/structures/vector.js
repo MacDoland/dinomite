@@ -1,5 +1,5 @@
 class Vector {
-    constructor(x, y) {
+    constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
     }
@@ -22,11 +22,11 @@ class Vector {
         }
     }
 
-    clone(){
+    clone() {
         return new Vector(this.x, this.y);
     }
 
-    floor(){
+    floor() {
         this.x = Math.floor(this.x);
         this.y = Math.floor(this.y);
 
@@ -34,17 +34,17 @@ class Vector {
     }
 
     getYOnly() {
-        return {
-            x: 0,
-            y: this.y
-        }
+        return new Vector(
+            0,
+            this.y
+        );
     }
 
     getXOnly() {
-        return {
-            x: this.x,
-            y: 0 
-        }
+        return new Vector(
+            this.x,
+            0
+        );
     }
 
     static add(vectorA, vectorB) {

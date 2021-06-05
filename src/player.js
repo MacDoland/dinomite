@@ -1,4 +1,5 @@
 import directions from './helpers/direction';
+import Rectangle from './structures/rectangle';
 import Vector from './structures/vector';
 
 class Player {
@@ -8,6 +9,7 @@ class Player {
     #width;
     #height;
     #state;
+    #boundingBox;
     constructor() {
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
@@ -15,6 +17,7 @@ class Player {
         this.#width = 50;
         this.#origin = new Vector(0,0);
         this.#state = PlayerState.IDLE;
+        this.#boundingBox = new Rectangle(new Vector(), 0, 0);
     }
 
     update(){
@@ -51,6 +54,9 @@ class Player {
 
     getPosition() {
         return Vector.add(this.#position, this.#origin);
+    }
+    getBoundingBox() {
+        return this.#boundingBox;
     }
     getState() {
         return this.#state;

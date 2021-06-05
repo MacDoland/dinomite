@@ -73,6 +73,9 @@ class GameManager {
 
             this.#player.update();
 
+            let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
+            let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
+
             offset = new Vector(0, 0);
 
             if (input.DOWN) {
@@ -107,6 +110,7 @@ class GameManager {
             if (indexX > 0 && indexX < this.#grid.getGrid().length && this.#grid.getGrid()[indexX] === 0) {
                 this.#player.move(offset.getXOnly());
             }
+            
 
             if (indexY > 0 && indexY < this.#grid.getGrid().length && this.#grid.getGrid()[indexY] === 0) {
                 this.#player.move(offset.getYOnly());
@@ -119,7 +123,7 @@ class GameManager {
                 player: this.#player,
                 direction: this.#player.getDirection(),
                 playerState: this.#player.getState(),
-                gridIndex: indexX
+                gridIndex
             });
 
             requestAnimationFrame(loop);
@@ -128,6 +132,8 @@ class GameManager {
 
         requestAnimationFrame(loop);
     }
+
+    
 
     start() {
         this.#gameInProgess = true;

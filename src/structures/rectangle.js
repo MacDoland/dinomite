@@ -14,18 +14,36 @@ class Rectangle {
     }
 
     getTopLeft() {
-        return Vector.add(this.#center, new Vector(-this.halfWidth, -this.halfHeight));
+        return Vector.add(this.center, new Vector(-this.halfWidth, -this.halfHeight));
     }
 
     getTopRight() {
-        return Vector.add(this.#center, new Vector(this.halfWidth, -this.halfHeight));
+        return Vector.add(this.center, new Vector(this.halfWidth, -this.halfHeight));
     }
 
     getBottomLeft() {
-        return Vector.add(this.#center, new Vector(-this.halfWidth, this.halfHeight));
+        return Vector.add(this.center, new Vector(-this.halfWidth, this.halfHeight));
     }
 
     getBottomRight() {
-        return Vector.add(this.#center, new Vector(this.halfWidth, this.halfHeight));
+        return Vector.add(this.center, new Vector(this.halfWidth, this.halfHeight));
+    }
+
+    getLeft() {
+        return this.center.x - this.halfWidth;
+    }
+
+    getRight() {
+        return this.center.x + this.halfWidth;
+    }
+
+    getBottom() {
+        return this.center.y + this.halfWidth;
+    }
+
+    getTop() {
+        return this.center.y - this.halfWidth;
     }
 }
+
+export default Rectangle;

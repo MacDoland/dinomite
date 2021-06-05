@@ -5,26 +5,29 @@ class Grid {
     #numberOfColumns;
     #numberOfRows;
 
-    constructor(numberOfColumns = 0, numberOfRows = 0) {
+    constructor(numberOfColumns = 0, numberOfRows = 0, data) {
+
         this.#numberOfColumns = numberOfColumns;
         this.#numberOfRows = numberOfRows;
-        this.#grid = new Array(this.#numberOfColumns * this.#numberOfRows);
-        this.#grid.fill(0);
-        this.#grid = this.#grid
-            .map((value, index) => {
-                const coordinates = Grid.convertIndexToCoordinate(index, numberOfColumns, numberOfRows);
-                if (coordinates.x === 0 || coordinates.y === 0 || coordinates.x === numberOfColumns -1 || coordinates.y === numberOfRows -1) {
-                    return 1;
-                };
+        data = data || new Array(this.#numberOfColumns * this.#numberOfRows);
 
-                if ((coordinates.x % 2) !== 1
-                    && (coordinates.y % 2) !== 1) {
-                    return 1;
-                };
+        this.#grid = data;
+        // this.#grid.fill(0);
+        // this.#grid = this.#grid
+        //     .map((value, index) => {
+        //         const coordinates = Grid.convertIndexToCoordinate(index, numberOfColumns, numberOfRows);
+        //         if (coordinates.x === 0 || coordinates.y === 0 || coordinates.x === numberOfColumns - 1 || coordinates.y === numberOfRows - 1) {
+        //             return 1;
+        //         };
 
-                return 0;
+        //         if ((coordinates.x % 2) !== 1
+        //             && (coordinates.y % 2) !== 1) {
+        //             return 1;
+        //         };
 
-            });
+        //         return 0;
+
+        //     });
     }
 
     getCenter() {

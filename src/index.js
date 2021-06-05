@@ -3,8 +3,9 @@ import GameManager from './game-management/game-manager';
 import AudioManager from './game-management/audio-manager';
 import Vue from 'vue';
 import Grid from './structures/grid';
+import { defaultLevel } from './levels/levels';
 
-const grid = new Grid(11, 11);
+const grid = new Grid(11, 11, defaultLevel);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
 const gameManager = new GameManager(grid);
@@ -26,6 +27,7 @@ const audioManager = new AudioManager();
 //     gameManager.start();
 // });
 let position = '';
+let gridPosition = '';
 let direction = '';
 let gridIndex = '';
 let state = '';
@@ -34,12 +36,15 @@ var app = new Vue({
     el: '#debug-window',
     data: {
         position,
+        gridPosition,
         direction,
         gridIndex,
         state
     },
     mounted() {
         gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex }) => {
+            let coordinate = Grid.convertIndexToCoordinate(gridIndex, 11, 11);
+            this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
             this.position = `position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
             this.direction = `direction: ${direction}`;
             this.gridIndex = `gridIndex: ${gridIndex}`;
@@ -48,10 +53,10 @@ var app = new Vue({
     }
   })
 
-const updateGame = ({ grid, player, playerState, direction  }) => {
+const updateGame = ({ grid, player, playerState, direction, gridIndex  }) => {
     renderer.clear();
     renderer.drawGrid(grid.getGrid())
-    renderer.drawPlayer(player, playerState, direction);
+    renderer.drawPlayer(player, playerState, direction, gridIndex);
 }
 
 gameManager.onInit(updateGame);

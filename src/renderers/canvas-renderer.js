@@ -63,9 +63,16 @@ class CanvasRenderer {
                 this.#context.fillStyle = (coordinate.y % 2) === (coordinate.x % 2) ? "#eee" : "#ced7dd";
                 this.#context.fill();
             }
-            else {
+            else if (element === 1) {
                 this.#context.lineWidth = 1;
                 this.#context.fillStyle = "#666";
+                this.#context.strokeStyle = "#000";
+                this.#context.fill();
+                this.#context.stroke();
+            }
+            else if (element === 2) {
+                this.#context.lineWidth = 1;
+                this.#context.fillStyle = "#d17026";
                 this.#context.strokeStyle = "#000";
                 this.#context.fill();
                 this.#context.stroke();
@@ -76,10 +83,11 @@ class CanvasRenderer {
         });
 
         this.#context.closePath();
-    }
+    } q
 
 
-    drawPlayer(player, state, direction) {
+    drawPlayer(player, state, direction, gridIndex) {
+        let gridCoordinate = Grid.convertIndexToCoordinate(gridIndex, 11, 11);
         this.#currentTime = performance.now();
         this.#deltaTime = this.#currentTime - this.#previousTime;
         this.#previousTime = this.#currentTime;
@@ -90,7 +98,14 @@ class CanvasRenderer {
         if (player && direction) {
 
             this.#context.beginPath();
-            // this.#context.rect(
+            this.#context.fillStyle = "#fcfabb";
+            this.#context.rect(
+                gridCoordinate.x  * this.#cellSize + this.#borderWidth,
+                gridCoordinate.y  * this.#cellSize + this.#borderWidth,
+                this.#cellSize,
+                this.#cellSize);
+
+             // this.#context.rect(
             //     player.getPosition().x + this.#borderWidth - this.#cellSize,
             //     player.getPosition().y + this.#borderWidth - this.#cellSize * 2,
             //     this.#cellSize * 2,
@@ -100,7 +115,7 @@ class CanvasRenderer {
             if (state === PlayerState.WALKING && direction === directions.LEFT || state === PlayerState.WALKING && direction === directions.DOWN) {
                 sprite = this.#animations.walkLeft.getCurrentFrame();
             }
-            else if (state === PlayerState.WALKING && direction === directions.RIGHT ||  state === PlayerState.WALKING && direction === directions.UP) {
+            else if (state === PlayerState.WALKING && direction === directions.RIGHT || state === PlayerState.WALKING && direction === directions.UP) {
                 sprite = this.#animations.walkRight.getCurrentFrame();
             }
             else {
@@ -108,7 +123,6 @@ class CanvasRenderer {
             }
 
 
-            this.#context.fillStyle = 'red';
             this.#context.fill();
 
             this.#context.drawImage(
