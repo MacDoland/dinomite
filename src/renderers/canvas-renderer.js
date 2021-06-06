@@ -77,6 +77,13 @@ class CanvasRenderer {
                 this.#context.fill();
                 this.#context.stroke();
             }
+            else if (element === 4) {
+                this.#context.lineWidth = 1;
+                this.#context.fillStyle = "#32a6a8";
+                this.#context.strokeStyle = "#000";
+                this.#context.fill();
+                this.#context.stroke();
+            }
 
 
             this.#context.closePath();
@@ -100,16 +107,33 @@ class CanvasRenderer {
             this.#context.beginPath();
             this.#context.fillStyle = "#fcfabb";
             this.#context.rect(
-                gridCoordinate.x  * this.#cellSize + this.#borderWidth,
-                gridCoordinate.y  * this.#cellSize + this.#borderWidth,
+                gridCoordinate.x * this.#cellSize + this.#borderWidth,
+                gridCoordinate.y * this.#cellSize + this.#borderWidth,
                 this.#cellSize,
                 this.#cellSize);
 
-             // this.#context.rect(
+            //  this.#context.rect(
             //     player.getPosition().x + this.#borderWidth - this.#cellSize,
             //     player.getPosition().y + this.#borderWidth - this.#cellSize * 2,
             //     this.#cellSize * 2,
             //     this.#cellSize * 2);
+
+            this.#context.fill();
+
+            this.#context.closePath();
+            this.#context.beginPath();
+
+            this.#context.fillStyle = "red";
+            this.#context.rect(
+                player.getPosition().x + this.#borderWidth - player.getBoundingBox().halfWidth,
+                player.getPosition().y + this.#borderWidth - player.getBoundingBox().halfWidth,
+                player.getBoundingBox().width,
+                player.getBoundingBox().height);
+            this.#context.fill();
+
+            this.#context.closePath();
+            this.#context.beginPath();
+
 
             let sprite;
             if (state === PlayerState.WALKING && direction === directions.LEFT || state === PlayerState.WALKING && direction === directions.DOWN) {
@@ -132,7 +156,7 @@ class CanvasRenderer {
                 200,
                 200,
                 player.getPosition().x + this.#borderWidth - this.#cellSize,
-                player.getPosition().y + this.#borderWidth - this.#cellSize * 2,
+                player.getPosition().y + this.#borderWidth - this.#cellSize * 2 + 20,
                 this.#cellSize * 2,
                 this.#cellSize * 2);
 

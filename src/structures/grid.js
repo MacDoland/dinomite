@@ -78,6 +78,11 @@ class Grid {
             return gridItem;
         });
     }
+    set(index, value){
+        if(index > 0 && index < this.#grid.length){
+            this.#grid[index] = value;
+        }
+    }
 }
 
 export default Grid;

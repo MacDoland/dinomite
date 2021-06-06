@@ -14,6 +14,7 @@ class InputManager {
             DOWN: 'DOWN',
             LEFT: 'LEFT',
             E: 'E',
+            SPACE: 'SPACE',
             ANY: 'ANY'
         }
 
@@ -27,7 +28,8 @@ class InputManager {
             KEY_W: 87,
             KEY_A: 65,
             KEY_S: 83,
-            KEY_D: 68
+            KEY_D: 68,
+            KEY_SPACE: 32
 
         }
 
@@ -56,11 +58,16 @@ class InputManager {
             this.#eventDispatcher.dispatch(this.#events.DOWN)
         }
 
+        if (this.#keyState[this.#keys.KEY_SPACE]) {
+            this.#eventDispatcher.dispatch(this.#events.SPACE)
+        }
+
         return {
             UP: this.#keyState[this.#keys.KEY_UP] || this.#keyState[this.#keys.KEY_W],
             RIGHT: this.#keyState[this.#keys.KEY_RIGHT] || this.#keyState[this.#keys.KEY_D],
             DOWN: this.#keyState[this.#keys.KEY_DOWN] || this.#keyState[this.#keys.KEY_S],
             LEFT: this.#keyState[this.#keys.KEY_LEFT] || this.#keyState[this.#keys.KEY_A],
+            SPACE: this.#keyState[this.#keys.KEY_SPACE]
         }
     }
 
