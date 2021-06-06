@@ -57,6 +57,7 @@ const updateGame = ({ grid, player, playerState, direction, gridIndex  }) => {
     renderer.clear();
     renderer.drawGrid(grid.getGrid())
     renderer.drawPlayer(player, playerState, direction, gridIndex);
+    renderer.draw();
 }
 
 gameManager.onInit(updateGame);

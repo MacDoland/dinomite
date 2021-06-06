@@ -172,7 +172,7 @@ class GameManager {
         const potentialPosition = Vector.add(position, offset);
         let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
         let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-        return index > 0 && index < grid.getGrid().length && grid.getGrid()[index] === 0;
+        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === 0 || grid.getGrid()[index] === 4);
     }
 
 
