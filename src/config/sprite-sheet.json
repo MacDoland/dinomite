@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "dino-rex-idle-left/idle-left",
+	"filename": "dino-rex-idle-down/idle-right",
 	"frame": {"x":0,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "dino-rex-idle-right/idle-right",
+	"filename": "dino-rex-idle-left/idle-left",
 	"frame": {"x":200,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "dino-rex-walking-left/walking-left_1",
+	"filename": "dino-rex-idle-right/idle-right",
 	"frame": {"x":400,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "dino-rex-walking-left/walking-left_2",
+	"filename": "dino-rex-idle-up/idle-left",
 	"frame": {"x":600,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "dino-rex-walking-right/walking-right_1",
+	"filename": "dino-rex-walking-down/walking-left_1",
 	"frame": {"x":800,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "dino-rex-walking-right/walking-right_2",
+	"filename": "dino-rex-walking-down/walking-left_2",
 	"frame": {"x":1000,"y":0,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -49,7 +49,15 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-1",
+	"filename": "dino-rex-walking-left/walking-left_1",
+	"frame": {"x":1200,"y":0,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "dino-rex-walking-left/walking-left_2",
 	"frame": {"x":0,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -57,7 +65,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-2",
+	"filename": "dino-rex-walking-right/walking-right_1",
 	"frame": {"x":200,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -65,7 +73,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-3",
+	"filename": "dino-rex-walking-right/walking-right_2",
 	"frame": {"x":400,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -73,7 +81,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-4",
+	"filename": "dino-rex-walking-up/walking-left_1",
 	"frame": {"x":600,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -81,7 +89,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-5",
+	"filename": "dino-rex-walking-up/walking-left_2",
 	"frame": {"x":800,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -89,7 +97,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-6",
+	"filename": "egg-teal-wobble/egg-teal-wobble-1",
 	"frame": {"x":1000,"y":200,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -97,7 +105,15 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-7",
+	"filename": "egg-teal-wobble/egg-teal-wobble-2",
+	"frame": {"x":1200,"y":200,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "egg-teal-wobble/egg-teal-wobble-3",
 	"frame": {"x":0,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -105,7 +121,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-8",
+	"filename": "egg-teal-wobble/egg-teal-wobble-4",
 	"frame": {"x":200,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -113,7 +129,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-9",
+	"filename": "egg-teal-wobble/egg-teal-wobble-5",
 	"frame": {"x":400,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -121,7 +137,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-10",
+	"filename": "egg-teal-wobble/egg-teal-wobble-6",
 	"frame": {"x":600,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -129,7 +145,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-11",
+	"filename": "egg-teal-wobble/egg-teal-wobble-7",
 	"frame": {"x":800,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -137,7 +153,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-12",
+	"filename": "egg-teal-wobble/egg-teal-wobble-8",
 	"frame": {"x":1000,"y":400,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -145,7 +161,15 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-13",
+	"filename": "egg-teal-wobble/egg-teal-wobble-9",
+	"frame": {"x":1200,"y":400,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "egg-teal-wobble/egg-teal-wobble-10",
 	"frame": {"x":0,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -153,7 +177,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-14",
+	"filename": "egg-teal-wobble/egg-teal-wobble-11",
 	"frame": {"x":200,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -161,7 +185,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-15",
+	"filename": "egg-teal-wobble/egg-teal-wobble-12",
 	"frame": {"x":400,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -169,7 +193,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-16",
+	"filename": "egg-teal-wobble/egg-teal-wobble-13",
 	"frame": {"x":600,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -177,7 +201,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-17",
+	"filename": "egg-teal-wobble/egg-teal-wobble-14",
 	"frame": {"x":800,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -185,7 +209,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-18",
+	"filename": "egg-teal-wobble/egg-teal-wobble-15",
 	"frame": {"x":1000,"y":600,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -193,7 +217,15 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-19",
+	"filename": "egg-teal-wobble/egg-teal-wobble-16",
+	"frame": {"x":1200,"y":600,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "egg-teal-wobble/egg-teal-wobble-17",
 	"frame": {"x":0,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -201,7 +233,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-20",
+	"filename": "egg-teal-wobble/egg-teal-wobble-18",
 	"frame": {"x":200,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -209,7 +241,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-21",
+	"filename": "egg-teal-wobble/egg-teal-wobble-19",
 	"frame": {"x":400,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -217,7 +249,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-22",
+	"filename": "egg-teal-wobble/egg-teal-wobble-20",
 	"frame": {"x":600,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -225,7 +257,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-23",
+	"filename": "egg-teal-wobble/egg-teal-wobble-21",
 	"frame": {"x":800,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -233,7 +265,7 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-24",
+	"filename": "egg-teal-wobble/egg-teal-wobble-22",
 	"frame": {"x":1000,"y":800,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
@@ -241,8 +273,24 @@
 	"sourceSize": {"w":200,"h":200}
 },
 {
-	"filename": "egg-teal-wobble/egg-teal-wobble-25",
+	"filename": "egg-teal-wobble/egg-teal-wobble-23",
+	"frame": {"x":1200,"y":800,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "egg-teal-wobble/egg-teal-wobble-24",
 	"frame": {"x":0,"y":1000,"w":200,"h":200},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
+	"sourceSize": {"w":200,"h":200}
+},
+{
+	"filename": "egg-teal-wobble/egg-teal-wobble-25",
+	"frame": {"x":200,"y":1000,"w":200,"h":200},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":200},
@@ -253,8 +301,8 @@
 	"version": "1.0",
 	"image": "sprite-sheet.png",
 	"format": "RGBA8888",
-	"size": {"w":1200,"h":1200},
+	"size": {"w":1400,"h":1400},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f23b361dc08f14c5540b3534f8cc1557:4914fc6de02b1db51b1e994a7b0d5d43:4cb984b15aa0f50ff47c18de1fc08384$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4b08b9ffb5dfad0930bcc8652fc400bf:5d7a379d8dab8d786f9aca2c268dd09d:4cb984b15aa0f50ff47c18de1fc08384$"
 }
 }

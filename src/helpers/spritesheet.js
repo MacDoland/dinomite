@@ -1,26 +1,38 @@
+import Animation from "./animation";
 
 class SpriteSheet {
     #image;
-    #sprites;
+    #animations;
 
-    constructor(imagePath) {
+    constructor(imagePath, config, speed) {
         this.#image = document.createElement('img');
         this.#image.src = imagePath;
-        this.#sprites = {};
+        this.#animations = {};
+
+        const animationNames = config.frames.map((frame) => {
+            return frame.filename.includes('/')
+                ? frame.filename.split('/')[0]
+                : frame.filename;
+        });
+
+        animationNames.forEach(animationName => {
+            const animationFrames = config.frames
+                .filter(frame => frame.filename.includes(animationName));
+
+              this.#animations[animationName] = new Animation(animationName, animationFrames, speed);
+        });
     }
 
-    addSprite(key, x, y, width, height) {
-        this.#sprites[key] = {
-            image: this.#image,
-            x,
-            y,
-            width,
-            height
-        };
+    getImage(){
+        return this.#image;
+    }
+    
+    getAnimation(name) {
+        return this.#animations[name];
     }
 
-    getSprite(key) {
-        return this.#sprites[key];
+    updateAnimations(deltaTime) {
+        Object.keys(this.#animations).forEach(key => this.#animations[key].update(deltaTime));
     }
 }
 

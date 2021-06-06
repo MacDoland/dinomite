@@ -2,14 +2,12 @@ import Timer from "./timer";
 
 class Animation {
     frames;
-    spriteSheet;
     name;
     speed /* millseconds */;
     timer;
     currentIndex;
     currentStepTime;
-    constructor (spriteSheet, name, frames, speed) {
-        this.spriteSheet = spriteSheet;
+    constructor (name, frames, speed) {
         this.frames = frames;
         this.name = name;
         this.speed = speed;

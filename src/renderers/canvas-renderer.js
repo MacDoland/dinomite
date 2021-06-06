@@ -2,6 +2,7 @@ import directions from "../helpers/direction";
 import Animation from "../helpers/animation";
 import SpriteSheet from "../helpers/spritesheet";
 import Grid from "../structures/grid";
+import spritesheetConfig from "../config/sprite-sheet.json";
 import { PlayerState } from '../player';
 
 class CanvasRenderer {
@@ -23,19 +24,18 @@ class CanvasRenderer {
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
         this.#animations = {};
-        this.#spriteSheet = new SpriteSheet('./images/dino-sprites.png');
-        this.#loadSprites();
+        this.#spriteSheet = new SpriteSheet('./images/sprite-sheet.png', spritesheetConfig, 200);
         this.#previousTime = 0;
 
         this.#canvas.height = this.#cellSize * columnCount + (this.#borderWidth * 2);
         this.#canvas.width = this.#cellSize * rowCount + (this.#borderWidth * 2);
 
-        const walkLeftOne = this.#spriteSheet.getSprite(`dino-walk-left-1`);
-        const walkLeftTwo = this.#spriteSheet.getSprite(`dino-walk-left-2`);
-        const walkRightOne = this.#spriteSheet.getSprite(`dino-walk-right-1`);
-        const walkRightTwo = this.#spriteSheet.getSprite(`dino-walk-right-2`);
-        this.#animations.walkLeft = new Animation(this.#spriteSheet, 'walk-left', [walkLeftOne, walkLeftTwo], 200);
-        this.#animations.walkRight = new Animation(this.#spriteSheet, 'walk-right', [walkRightOne, walkRightTwo], 200);
+        // const walkLeftOne = this.#spriteSheet.getSprite(`dino-walk-left-1`);
+        // const walkLeftTwo = this.#spriteSheet.getSprite(`dino-walk-left-2`);
+        // const walkRightOne = this.#spriteSheet.getSprite(`dino-walk-right-1`);
+        // const walkRightTwo = this.#spriteSheet.getSprite(`dino-walk-right-2`);
+        // this.#animations.walkLeft = new Animation(this.#spriteSheet, 'walk-left', [walkLeftOne, walkLeftTwo], 200);
+        // this.#animations.walkRight = new Animation(this.#spriteSheet, 'walk-right', [walkRightOne, walkRightTwo], 200);
     }
 
     clear() {
@@ -99,8 +99,7 @@ class CanvasRenderer {
         this.#deltaTime = this.#currentTime - this.#previousTime;
         this.#previousTime = this.#currentTime;
 
-        this.#animations.walkLeft.update(this.#deltaTime);
-        this.#animations.walkRight.update(this.#deltaTime);
+       this.#spriteSheet.updateAnimations(this.#deltaTime);
 
         if (player && direction) {
 
@@ -111,12 +110,6 @@ class CanvasRenderer {
                 gridCoordinate.y * this.#cellSize + this.#borderWidth,
                 this.#cellSize,
                 this.#cellSize);
-
-            //  this.#context.rect(
-            //     player.getPosition().x + this.#borderWidth - this.#cellSize,
-            //     player.getPosition().y + this.#borderWidth - this.#cellSize * 2,
-            //     this.#cellSize * 2,
-            //     this.#cellSize * 2);
 
             this.#context.fill();
 
@@ -137,24 +130,24 @@ class CanvasRenderer {
 
             let sprite;
             if (state === PlayerState.WALKING && direction === directions.LEFT || state === PlayerState.WALKING && direction === directions.DOWN) {
-                sprite = this.#animations.walkLeft.getCurrentFrame();
+                //sprite = this.#animations.walkLeft.getCurrentFrame();
+                sprite = this.#spriteSheet.getAnimation('dino-rex-walking-left').getCurrentFrame();
             }
             else if (state === PlayerState.WALKING && direction === directions.RIGHT || state === PlayerState.WALKING && direction === directions.UP) {
-                sprite = this.#animations.walkRight.getCurrentFrame();
+                sprite = this.#spriteSheet.getAnimation('dino-rex-walking-right').getCurrentFrame();
             }
             else {
-                sprite = this.#spriteSheet.getSprite(`dino-stand-${direction.toLowerCase()}`)
+                sprite = this.#spriteSheet.getAnimation(`dino-rex-idle-${direction.toLowerCase()}`).getCurrentFrame()
             }
-
 
             this.#context.fill();
 
             this.#context.drawImage(
-                sprite.image,
-                sprite.x,
-                sprite.y,
-                200,
-                200,
+                this.#spriteSheet.getImage(),
+                sprite.frame.x,
+                sprite.frame.y,
+                sprite.frame.w,
+                sprite.frame.y,
                 player.getPosition().x + this.#borderWidth - this.#cellSize,
                 player.getPosition().y + this.#borderWidth - this.#cellSize * 2 + 20,
                 this.#cellSize * 2,
@@ -166,20 +159,6 @@ class CanvasRenderer {
     takeScreenshot() {
         return this.#canvas.toDataURL('png');
     }
-
-    #loadSprites() {
-        this.#spriteSheet.addSprite('dino-stand-left', 0, 200, 200, 200);
-        this.#spriteSheet.addSprite('dino-stand-down', 0, 0, 200, 200);
-        this.#spriteSheet.addSprite('dino-stand-right', 0, 0, 200, 200);
-        this.#spriteSheet.addSprite('dino-stand-up', 0, 0, 200, 200);
-
-        this.#spriteSheet.addSprite('dino-walk-right-1', 0, 400, 200, 200);
-        this.#spriteSheet.addSprite('dino-walk-right-2', 200, 400, 200, 200);
-
-        this.#spriteSheet.addSprite('dino-walk-left-1', 0, 600, 200, 200);
-        this.#spriteSheet.addSprite('dino-walk-left-2', 200, 600, 200, 200);
-    }
-
 }
 
 export default CanvasRenderer;
