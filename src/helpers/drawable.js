@@ -25,13 +25,13 @@ class Drawable {
         }
 
         if (this.fill) {
-            this.context.fillStyle = this.fill;
-            this.context.fill();
+            context.fillStyle = this.fill;
+            context.fill();
         }
 
         if (this.stroke) {
-            this.context.strokeStyle = this.stroke;
-            this.context.stroke();
+            context.strokeStyle = this.stroke;
+            context.stroke();
         }
 
         context.closePath();
