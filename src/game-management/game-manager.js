@@ -144,27 +144,26 @@ class GameManager {
         this.#bombShop.onExplode(({ index, strength }) => {
             console.log('EXPLODE FIRED', index)
             this.#grid.set(index, 0);
-            let neighbours = this.#grid.getNeighbours(index);
+            let neighbours = this.#grid.getNeighbours(index, strength);
 
-            if (neighbours && neighbours[directions.UP] && this.#grid.getElementAt(neighbours[directions.UP]) === 2) {
-                this.#grid.set(neighbours[directions.UP], 0);
-            }
-
-            if (neighbours && neighbours[directions.DOWN] && this.#grid.getElementAt(neighbours[directions.DOWN]) === 2) {
-                this.#grid.set(neighbours[directions.DOWN], 0);
-            }
-
-            if (neighbours && neighbours[directions.LEFT] && this.#grid.getElementAt(neighbours[directions.LEFT]) === 2) {
-                this.#grid.set(neighbours[directions.LEFT], 0);
-            }
-
-            if (neighbours && neighbours[directions.RIGHT] && this.#grid.getElementAt(neighbours[directions.RIGHT]) === 2) {
-                this.#grid.set(neighbours[directions.RIGHT], 0);
-            }
+            this.destroyBlocks(neighbours, directions.UP);
+            this.destroyBlocks(neighbours, directions.DOWN);
+            this.destroyBlocks(neighbours, directions.LEFT);
+            this.destroyBlocks(neighbours, directions.RIGHT);
         });
 
 
         requestAnimationFrame(loop);
+    }
+
+    destroyBlocks(neighbours, direction) {
+        if (neighbours && Array.isArray(neighbours[direction])) {
+            neighbours[direction].forEach(neighbour => {
+                if (this.#grid.getElementAt(neighbour) === 2) {
+                    this.#grid.set(neighbour, 0);
+                }
+            });
+        }
     }
 
 

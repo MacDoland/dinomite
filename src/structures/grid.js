@@ -75,28 +75,36 @@ class Grid {
         return Grid.convertIndexToCoordinate(randomIndex, this.#numberOfColumns, this.#numberOfRows);
     }
 
-    getNeighbours(index) {
-        let neighbours = {};
+    getNeighbours(index, depth) {
+        let neighbours = {}, offset;
         let coordinate = Grid.convertIndexToCoordinate(index, this.#numberOfColumns, this.#numberOfRows);
 
-        if (coordinate.y > 0) {
-            let up = Vector.add(coordinate, new Vector(0, -1))
-            neighbours[directions.UP] = this.getIndex(up.x, up.y);
-        }
+        neighbours[directions.UP] = [];
+        neighbours[directions.DOWN] = [];
+        neighbours[directions.LEFT] = [];
+        neighbours[directions.RIGHT] = [];
 
-        if (coordinate.y < this.#numberOfRows - 1) {
-            let down = Vector.add(coordinate, new Vector(0, 1));
-            neighbours[directions.DOWN] = this.getIndex(down.x, down.y);
-        }
+        /* FIX BUG WITH BLASTING THROUGH SOLID MATTER */
+        for (let i = 0; i < depth; i++) {
+            offset = Vector.add(coordinate, new Vector(0, -(i + 1)))
+            if (offset.y > 0) {
+                neighbours[directions.UP].push(this.getIndex(offset.x, offset.y));
+            }
 
-        if (coordinate.x > 0) {
-            let left = Vector.add(coordinate, new Vector(-1, 0));;
-            neighbours[directions.LEFT] = this.getIndex(left.x, left.y);
-        }
+            offset = Vector.add(coordinate, new Vector(0, (i + 1)))
+            if (offset.y < this.#numberOfRows - 1) {
+                neighbours[directions.UP].push(this.getIndex(offset.x, offset.y));
+            }
 
-        if (coordinate.x < this.#numberOfColumns - 1) {
-            let right = Vector.add(coordinate, new Vector(1, 0));
-            neighbours[directions.RIGHT] = this.getIndex(right.x, right.y);
+            offset = Vector.add(coordinate, new Vector(-(i + 1), 0))
+            if (offset.x > 0) {
+                neighbours[directions.LEFT].push(this.getIndex(offset.x, offset.y));
+            }
+
+            offset = Vector.add(coordinate, new Vector((i + 1), 0))
+            if (offset.x < this.#numberOfColumns - 1) {
+                neighbours[directions.RIGHT].push(this.getIndex(offset.x, offset.y));
+            }
         }
 
         return neighbours;

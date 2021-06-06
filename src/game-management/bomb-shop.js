@@ -10,7 +10,7 @@ class BombShop {
 
     constructor() {
         this.#bombs = [];
-        this.#strength = 1;
+        this.#strength = 4;
         this.#fuseDuration = 3000;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
