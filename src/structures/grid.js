@@ -1,3 +1,4 @@
+import directions from "../helpers/direction";
 import Vector from "./vector";
 
 class Grid {
@@ -46,6 +47,10 @@ class Grid {
         return this.#grid;
     }
 
+    getElementAt(index) {
+        return this.#grid[index];
+    }
+
     static convertIndexToCoordinate(index, numberOfColumns, numberOfRows) {
         return new Vector(index % numberOfColumns, Math.floor(index / numberOfRows));
     }
@@ -70,6 +75,33 @@ class Grid {
         return Grid.convertIndexToCoordinate(randomIndex, this.#numberOfColumns, this.#numberOfRows);
     }
 
+    getNeighbours(index) {
+        let neighbours = {};
+        let coordinate = Grid.convertIndexToCoordinate(index, this.#numberOfColumns, this.#numberOfRows);
+
+        if (coordinate.y > 0) {
+            let up = Vector.add(coordinate, new Vector(0, -1))
+            neighbours[directions.UP] = this.getIndex(up.x, up.y);
+        }
+
+        if (coordinate.y < this.#numberOfRows - 1) {
+            let down = Vector.add(coordinate, new Vector(0, 1));
+            neighbours[directions.DOWN] = this.getIndex(down.x, down.y);
+        }
+
+        if (coordinate.x > 0) {
+            let left = Vector.add(coordinate, new Vector(-1, 0));;
+            neighbours[directions.LEFT] = this.getIndex(left.x, left.y);
+        }
+
+        if (coordinate.x < this.#numberOfColumns - 1) {
+            let right = Vector.add(coordinate, new Vector(1, 0));
+            neighbours[directions.RIGHT] = this.getIndex(right.x, right.y);
+        }
+
+        return neighbours;
+    }
+
     fillGrid(indices, value) {
         return this.#grid.map((gridItem, index) => {
             if (indices.includes(index)) {
@@ -78,8 +110,9 @@ class Grid {
             return gridItem;
         });
     }
-    set(index, value){
-        if(index > 0 && index < this.#grid.length){
+
+    set(index, value) {
+        if (index > 0 && index < this.#grid.length) {
             this.#grid[index] = value;
         }
     }

@@ -166,8 +166,6 @@ class CanvasRenderer {
             sprite.frame.h];
 
             this.#drawQueue.push(new Drawable('image', playerSpriteParams, 99 + player.getPosition().y));
-
-            console.log("player", 99 + y);
         }
     }
 

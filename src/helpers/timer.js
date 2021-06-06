@@ -52,7 +52,7 @@ class Timer {
 
             if (this.hasElapsed()) {
                 this.#eventDispatcher.dispatch(this.#events.ELAPSED);
-                this.reset();
+                this.#isActive = false;
             }
         }
     }

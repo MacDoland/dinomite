@@ -6,6 +6,7 @@ import Vector from "../structures/vector";
 import InputManager from "./input-manager";
 import AudioManager from "./audio-manager";
 import Player from "../player";
+import BombShop from "./bomb-shop";
 
 class GameManager {
     #grid;
@@ -16,7 +17,7 @@ class GameManager {
     #inputManager;
     #eventDispatcher;
     #events;
-
+    #bombShop;
     #player;
 
     constructor(grid) {
@@ -27,6 +28,7 @@ class GameManager {
 
         this.#player = new Player();
         this.#player.move(new Vector(155, 155));
+        this.#bombShop = new BombShop();
 
         this.#inputManager = new InputManager();
         // this.#inputManager.onUp(() => this.#snake.changeDirection(directions.UP));
@@ -95,7 +97,7 @@ class GameManager {
             }
 
             if (input.SPACE) {
-                this.#grid.set(gridIndex, 4);
+                this.#bombShop.plant(gridIndex);
             }
 
             const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
@@ -108,11 +110,11 @@ class GameManager {
             const canMoveTopLeftY = this.#canMove(offset.getYOnly(), this.#player.getTopLeft(), this.#grid);
             const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), this.#player.getBottomLeft(), this.#grid);
 
-            if(canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX){
+            if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
                 this.#player.move(offset.getXOnly());
             }
 
-            if(canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY){
+            if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
                 this.#player.move(offset.getYOnly());
             }
 
@@ -133,6 +135,34 @@ class GameManager {
             requestAnimationFrame(loop);
 
         }
+
+        this.#bombShop.onPlant(({ index }) => {
+            console.log('PLANT FIRED', index)
+            this.#grid.set(index, 4);
+        });
+
+        this.#bombShop.onExplode(({ index, strength }) => {
+            console.log('EXPLODE FIRED', index)
+            this.#grid.set(index, 0);
+            let neighbours = this.#grid.getNeighbours(index);
+
+            if (neighbours && neighbours[directions.UP] && this.#grid.getElementAt(neighbours[directions.UP]) === 2) {
+                this.#grid.set(neighbours[directions.UP], 0);
+            }
+
+            if (neighbours && neighbours[directions.DOWN] && this.#grid.getElementAt(neighbours[directions.DOWN]) === 2) {
+                this.#grid.set(neighbours[directions.DOWN], 0);
+            }
+
+            if (neighbours && neighbours[directions.LEFT] && this.#grid.getElementAt(neighbours[directions.LEFT]) === 2) {
+                this.#grid.set(neighbours[directions.LEFT], 0);
+            }
+
+            if (neighbours && neighbours[directions.RIGHT] && this.#grid.getElementAt(neighbours[directions.RIGHT]) === 2) {
+                this.#grid.set(neighbours[directions.RIGHT], 0);
+            }
+        });
+
 
         requestAnimationFrame(loop);
     }
