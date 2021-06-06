@@ -181,12 +181,18 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/idle-left.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/idle-right.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/walking-left_1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/walking-left_2.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/walking-right_1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex/walking-right_2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-idle-down/idle-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-idle-left/idle-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-idle-right/idle-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-idle-up/idle-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-down/walking-left_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-down/walking-left_2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-left/walking-left_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-left/walking-left_2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-right/walking-right_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-right/walking-right_2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-up/walking-left_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/dino-rex-walking-up/walking-left_2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -219,7 +225,20 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-23.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-24.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-25.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-26.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-27.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-28.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-29.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-3.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-30.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-31.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-32.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-33.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-34.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-35.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-36.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-37.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-38.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-4.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-5.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-6.png</key>
@@ -230,7 +249,7 @@
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>spriteScale</key>
-                <double>0.3333</double>
+                <double>0.2</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>

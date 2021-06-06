@@ -23,7 +23,7 @@ class Animation {
     update (deltaTime){
         this.currentStepTime += deltaTime;
 
-        if(this.currentStepTime >= this.speed) {
+        if(this.currentStepTime > this.speed) {
             this.currentStepTime = 0;
             this.incrementIndex();
         }

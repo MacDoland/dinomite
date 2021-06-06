@@ -37,16 +37,30 @@ class CanvasRenderer {
     }
 
     drawBasicTile(coordinate) {
+        let sprite = this.#spriteSheet.getAnimation(`tile-grass`).getCurrentFrame();
         let drawParams = [
+            this.#spriteSheet.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
             coordinate.x * this.#cellSize + this.#borderWidth,
             coordinate.y * this.#cellSize + this.#borderWidth,
-            this.#cellSize,
-            this.#cellSize
-        ]
+            sprite.frame.w,
+            sprite.frame.h];
 
-        let fillStyle = (coordinate.y % 2) === (coordinate.x % 2) ? "#eee" : "#ced7dd";
-        
-        this.#drawQueue.push(new Drawable('rect', drawParams, 0, fillStyle, '#000'));
+        this.#drawQueue.push(new Drawable('image', drawParams, 0));
+
+        // let drawParams = [
+        //     coordinate.x * this.#cellSize + this.#borderWidth,
+        //     coordinate.y * this.#cellSize + this.#borderWidth,
+        //     this.#cellSize,
+        //     this.#cellSize
+        // ]
+
+        //let fillStyle = (coordinate.y % 2) === (coordinate.x % 2) ? "#eee" : "#ced7dd";
+
+        //this.#drawQueue.push(new Drawable('rect', drawParams, 0, fillStyle, '#000'));
     }
 
     drawBasicSolidBlock(coordinate) {
@@ -56,7 +70,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize
         ]
-        
+
         this.#drawQueue.push(new Drawable('rect', drawParams, 20, '#666', '#000'));
     }
 
