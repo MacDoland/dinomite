@@ -144,7 +144,7 @@ class GameManager {
 
         this.#bombShop.onExplode(({ index, strength }) => {
             console.log('EXPLODE FIRED', index)
-            this.#grid.set(index, TileState.EMPTY);
+            this.#grid.set(index, TileState.SCORCH);
             let neighbours = this.#grid.getNeighbours(index, strength);
 
             this.destroyBlocks(neighbours, directions.UP);
@@ -167,7 +167,7 @@ class GameManager {
                 neighbourIndex = neighbours[direction][index];
                 hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === TileState.INDESTRUCTIBLE;
                 if(!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === TileState.DESTRUCTABLE){
-                    this.#grid.set(neighbourIndex, TileState.EMPTY);
+                    this.#grid.set(neighbourIndex, TileState.RUBBLE);
                 }
                 index++;
             }
@@ -214,7 +214,7 @@ class GameManager {
         const potentialPosition = Vector.add(position, offset);
         let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
         let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === TileState.EMPTY || grid.getGrid()[index] === TileState.BOMB);
+        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === TileState.EMPTY || grid.getGrid()[index] === TileState.BOMB || grid.getGrid()[index] === TileState.RUBBLE || grid.getGrid()[index] === TileState.SCORCH);
     }
 
 

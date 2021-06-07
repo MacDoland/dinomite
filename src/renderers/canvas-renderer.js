@@ -1,9 +1,11 @@
 import directions from "../helpers/direction";
 import Animation from "../helpers/animation";
 import Drawable from "../helpers/drawable";
-import SpriteSheet from "../helpers/spritesheet";
+import SpriteSheet from "../helpers/spriteSheet";
 import Grid from "../structures/grid";
-import spritesheetConfig from "../config/sprite-sheet-0.json";
+import spriteSheetGeneralConfig from "../config/sprite-sheet-general-0.json";
+import spriteSheetEnvironmentConfig from "../config/sprite-sheet-env-0.json";
+import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
 
 class CanvasRenderer {
@@ -11,7 +13,9 @@ class CanvasRenderer {
     #context;
     #cellSize;
     #borderWidth;
-    #spriteSheet;
+    #spriteSheetGeneral;
+    #spriteSheetEnvironment;
+    #spriteSheetItems;
     #previousTime;
     #currentTime;
     #deltaTime;
@@ -26,7 +30,9 @@ class CanvasRenderer {
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
-        this.#spriteSheet = new SpriteSheet('./images/sprite-sheet-0.png', spritesheetConfig, 1000 / 24);
+        this.#spriteSheetGeneral = new SpriteSheet('./images/sprite-sheet-general-0.png', spriteSheetGeneralConfig, 1000 / 24);
+        this.#spriteSheetEnvironment = new SpriteSheet('./images/sprite-sheet-env-0.png', spriteSheetEnvironmentConfig, 1000 / 24);
+        this.#spriteSheetItems = new SpriteSheet('./images/sprite-sheet-items-0.png', spriteSheetItemsConfig, 1000 / 24);
         this.#previousTime = 0;
         this.#drawQueue = [];
         this.#columnCount = columnCount;
@@ -40,9 +46,9 @@ class CanvasRenderer {
     }
 
     drawBasicTile(coordinate) {
-        let sprite = this.#spriteSheet.getAnimation(`tile-grass`).getCurrentFrame();
+        let sprite = this.#spriteSheetEnvironment.getAnimation(`tile-grass`).getCurrentFrame();
         let drawParams = [
-            this.#spriteSheet.getImage(),
+            this.#spriteSheetEnvironment.getImage(),
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.w,
@@ -79,33 +85,50 @@ class CanvasRenderer {
 
         let solidNeighbourCount = Object.keys(neighbours).map(key => neighbours[key]).map(neighbourIndex => grid[neighbourIndex]).filter(value => value === 1).length;
 
-        if(solidNeighbourCount > 0){
+        if (solidNeighbourCount > 0) {
             color = '#518bc9';
         }
 
         this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
+
+
+
+
     }
 
     drawBasicBlock(coordinate) {
-        let drawParams = [
-            coordinate.x * this.#cellSize + this.#borderWidth,
-            coordinate.y * this.#cellSize + this.#borderWidth,
-            this.#cellSize,
-            this.#cellSize
-        ]
 
-        this.#drawQueue.push(new Drawable('rect', drawParams, 50, '#d17026', '#000'));
+        this.drawBasicTile(coordinate);
+        let sprite = this.#spriteSheetEnvironment.getAnimation('destructable-rock').getCurrentFrame();
+        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
+        sprite.frame.x,
+        sprite.frame.y,
+        sprite.frame.w,
+        sprite.frame.h,
+        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2),
+        sprite.frame.w,
+        sprite.frame.h];
+
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        //     let drawParams = [
+        //         coordinate.x * this.#cellSize + this.#borderWidth,
+        //         coordinate.y * this.#cellSize + this.#borderWidth,
+        //         this.#cellSize,
+        //         this.#cellSize
+        //     ]
+        //     this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth, '#d17026'));
     }
 
     drawBomb(coordinate) {
-        let sprite = this.#spriteSheet.getAnimation('egg-teal-wobble').getCurrentFrame();
-        let x = coordinate.x * this.#cellSize + this.#borderWidth - (sprite.frame.w - this.#cellSize) / 2;
-        let y = coordinate.y * this.#cellSize + this.#borderWidth - (sprite.frame.h - this.#cellSize) / 2 - 30;
+        let sprite = this.#spriteSheetItems.getAnimation('egg-teal-wobble').getCurrentFrame();
+        let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2) ;
+        let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
 
         this.drawBasicTile(coordinate);
 
         let bombDrawParams = [
-            this.#spriteSheet.getImage(),
+            this.#spriteSheetItems.getImage(),
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.w,
@@ -117,6 +140,39 @@ class CanvasRenderer {
         ];
 
         this.#drawQueue.push(new Drawable('image', bombDrawParams, 100 + y));
+    }
+
+    drawRubble(coordinate) {
+        this.drawBasicTile(coordinate);
+        let sprite = this.#spriteSheetEnvironment.getAnimation('rock-rubble').getCurrentFrame();
+        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
+        sprite.frame.x,
+        sprite.frame.y,
+        sprite.frame.w,
+        sprite.frame.h,
+        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2),
+        sprite.frame.w,
+        sprite.frame.h];
+
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+    }
+
+
+    drawScorch(coordinate) {
+        this.drawBasicTile(coordinate);
+        let sprite = this.#spriteSheetEnvironment.getAnimation('scorched-terrain').getCurrentFrame();
+        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
+        sprite.frame.x,
+        sprite.frame.y,
+        sprite.frame.w,
+        sprite.frame.h,
+        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2),
+        sprite.frame.w,
+        sprite.frame.h];
+
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
     }
 
     drawGrid(grid) {
@@ -139,6 +195,12 @@ class CanvasRenderer {
             else if (element === 4) {
                 this.drawBomb(coordinate);
             }
+            else if (element === 5) {
+                this.drawRubble(coordinate);
+            }
+            else if (element === 6) {
+                this.drawScorch(coordinate);
+            }
         });
     }
 
@@ -148,26 +210,29 @@ class CanvasRenderer {
         this.#deltaTime = this.#currentTime - this.#previousTime;
         this.#previousTime = this.#currentTime;
 
-
         if (player && direction) {
-            this.#context.beginPath();
-
 
             let sprite;
-            if (state === PlayerState.WALKING && direction === directions.LEFT || state === PlayerState.WALKING && direction === directions.DOWN) {
-                //sprite = this.#animations.walkLeft.getCurrentFrame();
-                sprite = this.#spriteSheet.getAnimation('dino-rex-walking-left').getCurrentFrame();
+            if (state === PlayerState.WALKING && direction === directions.LEFT) {
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left').getCurrentFrame();
             }
-            else if (state === PlayerState.WALKING && direction === directions.RIGHT || state === PlayerState.WALKING && direction === directions.UP) {
-                sprite = this.#spriteSheet.getAnimation('dino-rex-walking-right').getCurrentFrame();
+            else if (state === PlayerState.WALKING && direction === directions.DOWN) {
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down').getCurrentFrame();
+            }
+            else if (state === PlayerState.WALKING && direction === directions.RIGHT) {
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right').getCurrentFrame();
+            }
+            else if (state === PlayerState.WALKING && direction === directions.UP) {
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up').getCurrentFrame();
             }
             else {
-                sprite = this.#spriteSheet.getAnimation(`dino-rex-idle-${direction.toLowerCase()}`).getCurrentFrame()
+                sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}`).getCurrentFrame()
             }
+
             this.#context.fill();
             let x = player.getPosition().x + this.#borderWidth - sprite.frame.w / 2;
-            let y = player.getPosition().y + this.#borderWidth - sprite.frame.h;
-            let playerSpriteParams = [this.#spriteSheet.getImage(),
+            let y = player.getPosition().y + this.#borderWidth - sprite.frame.h  + 48;
+            let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.w,
@@ -178,11 +243,22 @@ class CanvasRenderer {
             sprite.frame.h];
 
             this.#drawQueue.push(new Drawable('image', playerSpriteParams, 99 + player.getPosition().y));
+
+            // let drawParams = [
+            //     player.getPosition().x + this.#borderWidth - player.getBoundingBox().halfWidth,
+            //     player.getPosition().y + this.#borderWidth - player.getBoundingBox().halfWidth,
+            //     player.getBoundingBox().width,
+            //     player.getBoundingBox().height
+            // ]
+
+            // this.#drawQueue.push(new Drawable('rect', drawParams, 20, 'red'));
         }
     }
 
     draw() {
-        this.#spriteSheet.updateAnimations(this.#deltaTime);
+        this.#spriteSheetGeneral.updateAnimations(this.#deltaTime);
+        this.#spriteSheetEnvironment.updateAnimations(this.#deltaTime);
+        this.#spriteSheetItems.updateAnimations(this.#deltaTime);
 
         this.#drawQueue.sort((a, b) => {
             if (a.zIndex > b.zIndex) return 1;

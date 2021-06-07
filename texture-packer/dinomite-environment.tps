@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>json-array</string>
         <key>textureFileName</key>
-        <filename>../images/sprite-sheet-general-{n}.png</filename>
+        <filename>../images/sprite-sheet-env-{n}.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../src/config/sprite-sheet-general-{n}.json</filename>
+                <filename>../src/config/sprite-sheet-env-{n}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,91 +181,28 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down/walking-down-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-left/dino-rex-idle-left-11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-down/walking-down-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock/rock-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/rock-rubble/rock-2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/scorched-terrain/scorched_terrain-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass/tile-grass.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>spriteScale</key>
-                <double>1</double>
+                <double>0.2</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>270,270,540,540</rect>
+                <rect>200,200,400,400</rect>
                 <key>scale9Paddings</key>
-                <rect>270,270,540,540</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-up/idle-left.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-up/walking-left_1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-up/walking-left_2.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>50,50,100,100</rect>
-                <key>scale9Paddings</key>
-                <rect>50,50,100,100</rect>
+                <rect>200,200,400,400</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>../../../../Dropbox/dinomite-sprites/general</filename>
+            <filename>../../../../Dropbox/dinomite-sprites/environment</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
