@@ -5,7 +5,7 @@ import Vue from 'vue';
 import Grid from './structures/grid';
 import { defaultLevel } from './levels/levels';
 
-const grid = new Grid(11, 11, defaultLevel);
+const grid = new Grid(15, 15, defaultLevel);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
 const gameManager = new GameManager(grid);
@@ -43,7 +43,7 @@ var app = new Vue({
     },
     mounted() {
         gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex }) => {
-            let coordinate = Grid.convertIndexToCoordinate(gridIndex, 11, 11);
+            let coordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15);
             this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
             this.position = `position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
             this.direction = `direction: ${direction}`;

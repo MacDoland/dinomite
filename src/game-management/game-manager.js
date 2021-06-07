@@ -7,6 +7,7 @@ import InputManager from "./input-manager";
 import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
+import { TileState } from "../state/tile-state";
 
 class GameManager {
     #grid;
@@ -27,7 +28,7 @@ class GameManager {
         this.#moveDelay = 150;
 
         this.#player = new Player();
-        this.#player.move(new Vector(155, 155));
+        this.#player.move(new Vector(355, 355));
         this.#bombShop = new BombShop();
 
         this.#inputManager = new InputManager();
@@ -138,12 +139,12 @@ class GameManager {
 
         this.#bombShop.onPlant(({ index }) => {
             console.log('PLANT FIRED', index)
-            this.#grid.set(index, 4);
+            this.#grid.set(index, TileState.BOMB);
         });
 
         this.#bombShop.onExplode(({ index, strength }) => {
             console.log('EXPLODE FIRED', index)
-            this.#grid.set(index, 0);
+            this.#grid.set(index, TileState.EMPTY);
             let neighbours = this.#grid.getNeighbours(index, strength);
 
             this.destroyBlocks(neighbours, directions.UP);
@@ -164,9 +165,9 @@ class GameManager {
 
             while(!hasHitDeadEnd && index < neighbours[direction].length){
                 neighbourIndex = neighbours[direction][index];
-                hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === 1;
-                if(!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === 2){
-                    this.#grid.set(neighbourIndex, 0);
+                hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === TileState.INDESTRUCTIBLE;
+                if(!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === TileState.DESTRUCTABLE){
+                    this.#grid.set(neighbourIndex, TileState.EMPTY);
                 }
                 index++;
             }
@@ -213,7 +214,7 @@ class GameManager {
         const potentialPosition = Vector.add(position, offset);
         let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
         let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === 0 || grid.getGrid()[index] === 4);
+        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === TileState.EMPTY || grid.getGrid()[index] === TileState.BOMB);
     }
 
 

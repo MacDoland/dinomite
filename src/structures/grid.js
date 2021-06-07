@@ -51,9 +51,6 @@ class Grid {
         return this.#grid[index];
     }
 
-    static convertIndexToCoordinate(index, numberOfColumns, numberOfRows) {
-        return new Vector(index % numberOfColumns, Math.floor(index / numberOfRows));
-    }
 
     getIndex(x, y) {
         return (y * this.#numberOfColumns) + x;
@@ -76,38 +73,7 @@ class Grid {
     }
 
     getNeighbours(index, depth) {
-        let neighbours = {}, offset;
-        let coordinate = Grid.convertIndexToCoordinate(index, this.#numberOfColumns, this.#numberOfRows);
-
-        neighbours[directions.UP] = [];
-        neighbours[directions.DOWN] = [];
-        neighbours[directions.LEFT] = [];
-        neighbours[directions.RIGHT] = [];
-
-        /* FIX BUG WITH BLASTING THROUGH SOLID MATTER */
-        for (let i = 0; i < depth; i++) {
-            offset = Vector.add(coordinate, new Vector(0, -(i + 1)))
-            if (offset.y > 0) {
-                neighbours[directions.UP].push(this.getIndex(offset.x, offset.y));
-            }
-
-            offset = Vector.add(coordinate, new Vector(0, (i + 1)))
-            if (offset.y < this.#numberOfRows - 1) {
-                neighbours[directions.UP].push(this.getIndex(offset.x, offset.y));
-            }
-
-            offset = Vector.add(coordinate, new Vector(-(i + 1), 0))
-            if (offset.x > 0) {
-                neighbours[directions.LEFT].push(this.getIndex(offset.x, offset.y));
-            }
-
-            offset = Vector.add(coordinate, new Vector((i + 1), 0))
-            if (offset.x < this.#numberOfColumns - 1) {
-                neighbours[directions.RIGHT].push(this.getIndex(offset.x, offset.y));
-            }
-        }
-
-        return neighbours;
+        return Grid.getNeighbours(index, depth, this.#numberOfColumns, this.#numberOfRows);
     }
 
     fillGrid(indices, value) {
@@ -124,6 +90,49 @@ class Grid {
             this.#grid[index] = value;
         }
     }
+
+
+    static convertIndexToCoordinate(index, numberOfColumns, numberOfRows) {
+        return new Vector(index % numberOfColumns, Math.floor(index / numberOfRows));
+    }
+
+    static convertCoordinateToIndex(x, y, numberOfColumns) {
+        return (y * numberOfColumns) + x;
+    }
+
+    static getNeighbours(index, depth, columnCount, rowCount) {
+    let neighbours = {}, offset;
+    let coordinate = Grid.convertIndexToCoordinate(index, columnCount, rowCount);
+
+    neighbours[directions.UP] = [];
+    neighbours[directions.DOWN] = [];
+    neighbours[directions.LEFT] = [];
+    neighbours[directions.RIGHT] = [];
+
+    for (let i = 0; i < depth; i++) {
+        offset = Vector.add(coordinate, new Vector(0, -(i + 1)))
+        if (offset.y > 0) {
+            neighbours[directions.UP].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(0, (i + 1)))
+        if (offset.y < rowCount - 1) {
+            neighbours[directions.DOWN].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), 0))
+        if (offset.x > 0) {
+            neighbours[directions.LEFT].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), 0))
+        if (offset.x < columnCount - 1) {
+            neighbours[directions.RIGHT].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+    }
+
+    return neighbours;
+}
 }
 
 export default Grid;

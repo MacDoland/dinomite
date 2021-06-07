@@ -16,10 +16,12 @@ class CanvasRenderer {
     #currentTime;
     #deltaTime;
     #drawQueue;
+    #columnCount;
+    #rowCount;
 
 
 
-    constructor(canvas, cellSize = 50, columnCount = 11, rowCount = 11) {
+    constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
         this.#borderWidth = 100;
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
@@ -27,7 +29,8 @@ class CanvasRenderer {
         this.#spriteSheet = new SpriteSheet('./images/sprite-sheet-0.png', spritesheetConfig, 1000 / 24);
         this.#previousTime = 0;
         this.#drawQueue = [];
-
+        this.#columnCount = columnCount;
+        this.#rowCount = rowCount;
         this.#canvas.height = this.#cellSize * columnCount + (this.#borderWidth * 2);
         this.#canvas.width = this.#cellSize * rowCount + (this.#borderWidth * 2);
     }
@@ -63,7 +66,8 @@ class CanvasRenderer {
         //this.#drawQueue.push(new Drawable('rect', drawParams, 0, fillStyle, '#000'));
     }
 
-    drawBasicSolidBlock(coordinate) {
+    drawBasicSolidBlock(grid, index, coordinate) {
+        let color = '#666';
         let drawParams = [
             coordinate.x * this.#cellSize + this.#borderWidth,
             coordinate.y * this.#cellSize + this.#borderWidth,
@@ -71,7 +75,15 @@ class CanvasRenderer {
             this.#cellSize
         ]
 
-        this.#drawQueue.push(new Drawable('rect', drawParams, 20, '#666', '#000'));
+        let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+
+        let solidNeighbourCount = Object.keys(neighbours).map(key => neighbours[key]).map(neighbourIndex => grid[neighbourIndex]).filter(value => value === 1).length;
+
+        if(solidNeighbourCount > 0){
+            color = '#518bc9';
+        }
+
+        this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
     }
 
     drawBasicBlock(coordinate) {
@@ -112,14 +124,14 @@ class CanvasRenderer {
         let coordinate;
 
         grid.forEach((element, index) => {
-            coordinate = Grid.convertIndexToCoordinate(index, 11, 11);
+            coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
             if (element === 0) {
                 this.drawBasicTile(coordinate);
             }
             else if (element === 1) {
-                this.drawBasicSolidBlock(coordinate);
+                this.drawBasicSolidBlock(grid, index, coordinate);
             }
             else if (element === 2) {
                 this.drawBasicBlock(coordinate);
