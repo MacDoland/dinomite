@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>json-array</string>
         <key>textureFileName</key>
-        <filename>../images/sprite-sheet.png</filename>
+        <filename>../images/sprite-sheet-{n}.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -132,11 +132,11 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../src/config/sprite-sheet.json</filename>
+                <filename>../src/config/sprite-sheet-{n}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
-        <false/>
+        <true/>
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
@@ -177,7 +177,7 @@
             <key>defaultPivotPoint</key>
             <point_f>0.5,0.5</point_f>
             <key>writePivotPoints</key>
-            <false/>
+            <true/>
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
@@ -207,6 +207,45 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-31.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-32.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-33.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-34.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-35.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-36.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-37.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-38.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-39.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-40.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-41.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-42.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-43.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-44.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-45.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-46.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-47.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-48.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-49.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-50.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-51.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-52.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-53.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-54.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-55.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-56.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-57.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-58.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-59.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-60.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-61.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-62.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-63.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-64.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-65.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-66.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-67.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-68.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-crack/egg-teal-crack-69.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-11.png</key>
@@ -231,14 +270,6 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-29.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-3.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-30.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-31.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-32.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-33.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-34.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-35.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-36.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-37.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-38.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-4.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-5.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/egg-teal-wobble/egg-teal-wobble-6.png</key>
@@ -256,6 +287,21 @@
                 <rect>150,150,300,300</rect>
                 <key>scale9Paddings</key>
                 <rect>150,150,300,300</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/tile-grass/tile-grass.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>0.25</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,200,400,400</rect>
+                <key>scale9Paddings</key>
+                <rect>200,200,400,400</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

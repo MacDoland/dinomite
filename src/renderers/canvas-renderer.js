@@ -3,7 +3,7 @@ import Animation from "../helpers/animation";
 import Drawable from "../helpers/drawable";
 import SpriteSheet from "../helpers/spritesheet";
 import Grid from "../structures/grid";
-import spritesheetConfig from "../config/sprite-sheet.json";
+import spritesheetConfig from "../config/sprite-sheet-0.json";
 import { PlayerState } from '../player';
 
 class CanvasRenderer {
@@ -24,7 +24,7 @@ class CanvasRenderer {
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
-        this.#spriteSheet = new SpriteSheet('./images/sprite-sheet.png', spritesheetConfig, 1000 / 24);
+        this.#spriteSheet = new SpriteSheet('./images/sprite-sheet-0.png', spritesheetConfig, 1000 / 24);
         this.#previousTime = 0;
         this.#drawQueue = [];
 

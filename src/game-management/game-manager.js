@@ -59,7 +59,7 @@ class GameManager {
         this.#timer.clearHandlers();;
         this.#timer.onElapsed(this.#update.bind(this));
         let input;
-        const speed = 500;
+        const speed = 400;
         let prev = 0;
         let deltaTime = 0;
         let now;
@@ -157,12 +157,24 @@ class GameManager {
     }
 
     destroyBlocks(neighbours, direction) {
+        let hasHitDeadEnd = false;
+        let index = 0;
+        let neighbourIndex;
         if (neighbours && Array.isArray(neighbours[direction])) {
-            neighbours[direction].forEach(neighbour => {
-                if (this.#grid.getElementAt(neighbour) === 2) {
-                    this.#grid.set(neighbour, 0);
+
+            while(!hasHitDeadEnd && index < neighbours[direction].length){
+                neighbourIndex = neighbours[direction][index];
+                hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === 1;
+                if(!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === 2){
+                    this.#grid.set(neighbourIndex, 0);
                 }
-            });
+                index++;
+            }
+            // neighbours[direction].forEach(neighbour => {
+            //     if (this.#grid.getElementAt(neighbour) === 2) {
+            //         this.#grid.set(neighbour, 0);
+            //     }
+            // });
         }
     }
 
