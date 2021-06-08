@@ -82,9 +82,9 @@
         <key>atfFormats</key>
         <string></string>
         <key>textureFormat</key>
-        <enum type="SettingsBase::TextureFormat">png8</enum>
+        <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>1</uint>
+        <uint>0</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -102,7 +102,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Grid</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -169,7 +169,7 @@
             <key>trimMargin</key>
             <uint>5</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>tracerTolerance</key>
             <int>200</int>
             <key>heuristicMask</key>
@@ -182,11 +182,20 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock/rock-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom/bottom-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/corner-bottom-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-right/corner-bottom-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left/left-edge_.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right/right-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-top/top-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-edge/bottom-edge-2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-grass/grass-2_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass/grass_1_1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>spriteScale</key>
-                <double>0.6</double>
+                <double>1</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
@@ -197,41 +206,12 @@
                 <false/>
             </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/rock-rubble/rock-2.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>0.8</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>200,200,400,400</rect>
-                <key>scale9Paddings</key>
-                <rect>200,200,400,400</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/scorched-terrain/scorched_terrain-1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>spriteScale</key>
-                <double>0.5</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>200,200,400,400</rect>
-                <key>scale9Paddings</key>
-                <rect>200,200,400,400</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass/tile-grass.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
+                <double>0.8</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>

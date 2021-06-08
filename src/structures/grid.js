@@ -108,6 +108,11 @@ class Grid {
     neighbours[directions.DOWN] = [];
     neighbours[directions.LEFT] = [];
     neighbours[directions.RIGHT] = [];
+    
+    neighbours[directions.LEFTDOWN] = [];
+    neighbours[directions.LEFTUP] = [];
+    neighbours[directions.RIGHTDOWN] = [];
+    neighbours[directions.RIGHTUP] = [];
 
     for (let i = 0; i < depth; i++) {
         offset = Vector.add(coordinate, new Vector(0, -(i + 1)))
@@ -129,6 +134,29 @@ class Grid {
         if (offset.x < columnCount - 1) {
             neighbours[directions.RIGHT].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
         }
+
+
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), (i + 1)))
+        if (offset.y > 0) {
+            neighbours[directions.LEFTDOWN].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), -(i + 1)))
+        if (offset.y < rowCount - 1) {
+            neighbours[directions.RIGHTUP].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), -(i + 1)))
+        if (offset.x > 0) {
+            neighbours[directions.LEFTUP].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), (i + 1)))
+        if (offset.x < columnCount - 1) {
+            neighbours[directions.RIGHTDOWN].push(Grid.convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
     }
 
     return neighbours;

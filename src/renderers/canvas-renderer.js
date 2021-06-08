@@ -56,21 +56,10 @@ class CanvasRenderer {
             sprite.frame.h,
             coordinate.x * this.#cellSize + this.#borderWidth,
             coordinate.y * this.#cellSize + this.#borderWidth,
-            sprite.frame.w,
-            sprite.frame.h];
+            this.#cellSize,
+            this.#cellSize];
 
         this.#drawQueue.push(new Drawable('image', drawParams, 0));
-
-        // let drawParams = [
-        //     coordinate.x * this.#cellSize + this.#borderWidth,
-        //     coordinate.y * this.#cellSize + this.#borderWidth,
-        //     this.#cellSize,
-        //     this.#cellSize
-        // ]
-
-        //let fillStyle = (coordinate.y % 2) === (coordinate.x % 2) ? "#eee" : "#ced7dd";
-
-        //this.#drawQueue.push(new Drawable('rect', drawParams, 0, fillStyle, '#000'));
     }
 
     drawBasicSolidBlock(grid, index, coordinate) {
@@ -91,10 +80,120 @@ class CanvasRenderer {
         }
 
         this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
+    }
+
+    drawOcean(grid, index, coordinate) {
+        let color = '#518bc9';
+        let drawParams = [
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize
+        ]
+
+        let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+
+        if (neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-bottom').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
+
+        if (neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-top').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
+
+        if (neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-left').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
+
+        if (neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-right').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
+
+        if (neighbours[directions.UP].length > 0
+            && neighbours[directions.RIGHT].length > 0
+            && grid[neighbours[directions.UP][0]] === TileState.OCEAN
+            && grid[neighbours[directions.RIGHT][0]] === TileState.OCEAN
+            && grid[neighbours[directions.RIGHTUP][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-bottom-left').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
+
+        if (neighbours[directions.UP].length > 0
+            && neighbours[directions.LEFT].length > 0
+            && grid[neighbours[directions.UP][0]] === TileState.OCEAN
+            && grid[neighbours[directions.LEFT][0]] === TileState.OCEAN
+            && grid[neighbours[directions.LEFTUP][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-bottom-right').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        }
 
 
 
-
+        this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
     }
 
     drawBasicBlock(coordinate) {
@@ -121,7 +220,7 @@ class CanvasRenderer {
 
     drawBomb(coordinate) {
         let sprite = this.#spriteSheetItems.getAnimation('egg-teal-wobble').getCurrentFrame();
-        let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2) ;
+        let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2);
         let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
 
         let bombDrawParams = [
@@ -183,6 +282,9 @@ class CanvasRenderer {
             }
             else if (element === TileState.INDESTRUCTIBLE) {
                 this.drawBasicSolidBlock(grid, index, coordinate);
+            }
+            else if (element === TileState.OCEAN) {
+                this.drawOcean(grid, index, coordinate);
             }
             else if (element === TileState.DESTRUCTABLE) {
                 this.drawBasicTile(coordinate);
@@ -251,7 +353,7 @@ class CanvasRenderer {
 
             this.#context.fill();
             let x = player.getPosition().x + this.#borderWidth - sprite.frame.w / 2;
-            let y = player.getPosition().y + this.#borderWidth - sprite.frame.h  + 48;
+            let y = player.getPosition().y + this.#borderWidth - sprite.frame.h + 48;
             let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
             sprite.frame.x,
             sprite.frame.y,

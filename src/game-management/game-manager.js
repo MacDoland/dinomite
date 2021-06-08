@@ -235,6 +235,7 @@ class GameManager {
         || grid.getGrid()[index] === TileState.BOMB_RUBBLE_SCORCH
         || grid.getGrid()[index] === TileState.BOMB_SCORCH
         || grid.getGrid()[index] === TileState.BOMB_RUBBLE
+        || grid.getGrid()[index] === TileState.RUBBLE_SCORCH
         );
     }
 
