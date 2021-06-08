@@ -1,8 +1,10 @@
 import Bomb from "../items/bomb";
 import EventDispatcher from '../helpers/event-dispatcher';
+import Blast from "../items/blast";
 
 class BombShop {
     #bombs;
+    #blasts;
     #strength;
     #fuseDuration;
     #eventDispatcher;
@@ -10,24 +12,34 @@ class BombShop {
 
     constructor() {
         this.#bombs = [];
+        this.#blasts = [];
         this.#strength = 4;
         this.#fuseDuration = 3000;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             PLANT: 'PLANT',
-            EXPLODE: 'EXPLODE'
+            EXPIRE: 'EXPIRE',
+            EXPLOSION: 'EXPLOSION'
         }
     }
 
-    getActiveBombs(){
+    getActiveBombs() {
         return this.#bombs.filter(bomb => bomb.getIsActive()).length;
+    }
+
+    getActiveBlasts() {
+        return this.#blasts.filter(blast => blast.getIsActive()).length;
+    }
+
+    getInactiveBlasts() {
+        return this.#blasts.filter(blast => !blast.getIsActive()).length;
     }
 
     plant(index) {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
         const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
 
-        if (bombCanBePlacedOnIndex  && this.getActiveBombs() < 3) {
+        if (bombCanBePlacedOnIndex && this.getActiveBombs() < 3) {
             let bomb;
             let inactiveBombs = this.#bombs.filter(bomb => bomb.getIsActive() === false);
 
@@ -45,7 +57,7 @@ class BombShop {
 
             bomb.clearHandlers();
             bomb.onExplode(({ index, strength }) => {
-                this.#eventDispatcher.dispatch(this.#events.EXPLODE, {
+                this.#eventDispatcher.dispatch(this.#events.EXPIRE, {
                     index,
                     strength
                 });
@@ -55,12 +67,34 @@ class BombShop {
         }
     }
 
-    onExplode(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.EXPLODE, handler);
+    createExplosion(index, blastTargets, rateOfFire, duration) {
+        // if (this.getInactiveBlasts().length === 0) {
+            let blast = new Blast(index, blastTargets, rateOfFire, duration);
+
+            blast.onExplode((targets) => {
+                this.#eventDispatcher.dispatch(this.#events.EXPLOSION, blastTargets);
+            });
+
+            this.#blasts.push(blast);
+
+            blast.detonate(index);
+        // }
     }
 
-    removeOnExplode(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.EXPLODE, handler);
+    onBombExpired(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.EXPIRE, handler);
+    }
+
+    removeOnBombExpired(handler) {
+        this.#eventDispatcher.deregisterHandler(this.#events.EXPIRE, handler);
+    }
+
+    onExplosion(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.EXPLOSION, handler);
+    }
+
+    removeOnExplosion(handler) {
+        this.#eventDispatcher.deregisterHandler(this.#events.EXPLOSION, handler);
     }
 
     onPlant(handler) {

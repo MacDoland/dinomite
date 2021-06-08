@@ -149,17 +149,21 @@ class GameManager {
             this.#grid.set(index, TileState.BOMB);
         });
 
-        this.#bombShop.onExplode(({ index, strength }) => {
-            console.log('EXPLODE FIRED', index)
+        this.#bombShop.onBombExpired(({ index, strength }) => {
+            console.log('BOMB EXPIRED FIRED', index)
             this.#grid.set(index, TileState.SCORCH);
             let neighbours = this.#grid.getNeighbours(index, strength);
 
-            this.destroyBlocks(neighbours, directions.UP);
-            this.destroyBlocks(neighbours, directions.DOWN);
-            this.destroyBlocks(neighbours, directions.LEFT);
-            this.destroyBlocks(neighbours, directions.RIGHT);
+            this.#bombShop.createExplosion(index, neighbours, 333, 1000);
         });
 
+        this.#bombShop.onExplosion((targets) => {
+            console.log('BOMB EXPLOSION FIRED', targets)
+            this.destroyBlocks(targets, directions.UP);
+            this.destroyBlocks(targets, directions.DOWN);
+            this.destroyBlocks(targets, directions.LEFT);
+            this.destroyBlocks(targets, directions.RIGHT);
+        });
 
         requestAnimationFrame(loop);
     }

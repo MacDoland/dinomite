@@ -206,6 +206,7 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-right/dino-rex-idle-right-11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-up/walking-up-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-down/walking-down-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-left/dino-rex-walking-left-01.png</key>
@@ -231,6 +232,7 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-right/dino-rex-walking-right-11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-up/walking-up-1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -242,23 +244,6 @@
                 <rect>270,270,540,540</rect>
                 <key>scale9Paddings</key>
                 <rect>270,270,540,540</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-up/idle-left.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-up/walking-left_1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-walking-up/walking-left_2.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>50,50,100,100</rect>
-                <key>scale9Paddings</key>
-                <rect>50,50,100,100</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

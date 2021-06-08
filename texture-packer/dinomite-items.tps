@@ -220,7 +220,16 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-67.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-68.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-69.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-11.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-12.png</key>
@@ -231,7 +240,6 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-17.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-18.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-19.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-2.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-20.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-21.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-22.png</key>
@@ -242,14 +250,6 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-27.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-28.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-29.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-3.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-30.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-4.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-5.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-6.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-7.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-8.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-wobble/egg-teal-wobble-9.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
