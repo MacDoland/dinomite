@@ -37,12 +37,13 @@ class Bomb {
         this.#timer.start(this.#timeToExplode);
 
         this.#timer.onElapsed(() => {
+            this.#isActive = false;
+
             this.#eventDispatcher.dispatch(this.#events.EXPLODE, {
                 index: this.#index,
                 strength: this.#strength
             });
 
-            this.#isActive = false;
         });
     }
 
@@ -51,8 +52,7 @@ class Bomb {
     }
 
     reset(){
-        this.#index = -1;
-        this.#isActive = false;
+        // this.#index = -1;
     }
 
     clearHandlers() {

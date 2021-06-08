@@ -19,17 +19,23 @@ class BombShop {
         }
     }
 
+    getActiveBombs(){
+        return this.#bombs.filter(bomb => bomb.getIsActive()).length;
+    }
+
     plant(index) {
-        if (this.#bombs.filter(bomb => bomb.getIndex() === index).length === 0) {
+        const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
+        const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
+
+        if (bombCanBePlacedOnIndex  && this.getActiveBombs() < 3) {
             let bomb;
-            let inactiveBombs = this.#bombs.filter(bomb => !bomb.getIsActive());
+            let inactiveBombs = this.#bombs.filter(bomb => bomb.getIsActive() === false);
 
             if (inactiveBombs.length > 0) {
                 bomb = inactiveBombs[0];
-                bomb.reset();
+                //bomb.reset();
                 bomb.move(index);
                 bomb.lightFuse();
-                this.#bombs.push(bomb);
             }
             else {
                 bomb = new Bomb(index, this.#strength, this.#fuseDuration);

@@ -3,7 +3,7 @@ import EventDispatcher from "../helpers/event-dispatcher";
 import Grid from "../structures/grid";
 import Timer from "../helpers/timer";
 import Vector from "../structures/vector";
-import InputManager from "./input-manager";
+import InputManager, { InputKeys } from "./input-manager";
 import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
@@ -20,6 +20,7 @@ class GameManager {
     #events;
     #bombShop;
     #player;
+    #currentGridIndex;
 
     constructor(grid) {
         this.#grid = grid;
@@ -48,7 +49,7 @@ class GameManager {
             PAUSE: 'PAUSE',
             RESET: 'RESET',
             UPDATE: 'UPDATE',
-            TICK: 'TICK'
+            TICK: 'TICK',
         }
         Object.freeze(this.#events);
     }
@@ -78,6 +79,7 @@ class GameManager {
 
             let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
             let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
+            this.#currentGridIndex = gridIndex;
 
             offset = new Vector(0, 0);
 
@@ -97,9 +99,7 @@ class GameManager {
                 offset.add(new Vector(-speed * deltaTime, 0))
             }
 
-            if (input.SPACE) {
-                this.#bombShop.plant(gridIndex);
-            }
+
 
             const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
             const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
@@ -130,12 +130,19 @@ class GameManager {
                 player: this.#player,
                 direction: this.#player.getDirection(),
                 playerState: this.#player.getState(),
-                gridIndex
+                gridIndex,
+                bombCount: this.#bombShop.getActiveBombs()
             });
 
             requestAnimationFrame(loop);
 
         }
+
+        this.#inputManager.onKeyDown(key => {
+            if (key === InputKeys.KEY_SPACE.toString()) {
+                this.#bombShop.plant(this.#currentGridIndex);
+            }
+        })
 
         this.#bombShop.onPlant(({ index }) => {
             console.log('PLANT FIRED', index)
@@ -163,10 +170,10 @@ class GameManager {
         let neighbourIndex;
         if (neighbours && Array.isArray(neighbours[direction])) {
 
-            while(!hasHitDeadEnd && index < neighbours[direction].length){
+            while (!hasHitDeadEnd && index < neighbours[direction].length) {
                 neighbourIndex = neighbours[direction][index];
                 hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === TileState.INDESTRUCTIBLE;
-                if(!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === TileState.DESTRUCTABLE){
+                if (!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === TileState.DESTRUCTABLE) {
                     this.#grid.set(neighbourIndex, TileState.RUBBLE);
                 }
                 index++;

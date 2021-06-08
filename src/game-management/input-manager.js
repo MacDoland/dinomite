@@ -4,34 +4,26 @@ class InputManager {
     #eventDispatcher;
     #events;
     #keyState;
+    #previousKeyState;
     #keys;
 
     constructor() {
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
-            UP: 'UP',
-            RIGHT: 'RIGHT',
-            DOWN: 'DOWN',
-            LEFT: 'LEFT',
-            E: 'E',
-            SPACE: 'SPACE',
-            ANY: 'ANY'
+            UP_HELD: 'UP',
+            RIGHT_HELD: 'RIGHT',
+            DOWN_HELD: 'DOWN',
+            LEFT_HELD: 'LEFT',
+            E_HELD: 'E',
+            SPACE_HELD: 'SPACE',
+            ANY_HELD: 'ANY',
+            ONKEYUP: 'ONKEYUP',
+            ONKEYDOWN: 'ONKEYDOWN'
         }
 
         this.#keyState = [];
+        this.#previousKeyState = [];
 
-        this.#keys = {
-            KEY_UP: 38,
-            KEY_DOWN: 40,
-            KEY_LEFT: 37,
-            KEY_RIGHT: 39,
-            KEY_W: 87,
-            KEY_A: 65,
-            KEY_S: 83,
-            KEY_D: 68,
-            KEY_SPACE: 32
-
-        }
 
         const keyEventLogger = (e) => {
             this.#keyState[e.keyCode] = e.type == 'keydown';
@@ -42,74 +34,57 @@ class InputManager {
     }
 
     update() {
-        if (this.#keyState[this.#keys.KEY_LEFT]) {
-            this.#eventDispatcher.dispatch(this.#events.LEFT)
-        }
 
-        if (this.#keyState[this.#keys.KEY_UP]) {
-            this.#eventDispatcher.dispatch(this.#events.UP)
-        }
+        Object.keys(this.#keyState).forEach(key => {
+            if (!this.#keyState[key] && this.#previousKeyState[key]) {
+                this.#eventDispatcher.dispatch(this.#events.ONKEYUP, key);
+            }
 
-        if (this.#keyState[this.#keys.KEY_RIGHT]) {
-            this.#eventDispatcher.dispatch(this.#events.RIGHT)
-        }
+            if (this.#keyState[key] && !this.#previousKeyState[key]) {
+                this.#eventDispatcher.dispatch(this.#events.ONKEYDOWN, key);
+            }
+        });
 
-        if (this.#keyState[this.#keys.KEY_DOWN]) {
-            this.#eventDispatcher.dispatch(this.#events.DOWN)
-        }
-
-        if (this.#keyState[this.#keys.KEY_SPACE]) {
-            this.#eventDispatcher.dispatch(this.#events.SPACE)
-        }
+        this.#previousKeyState = [...this.#keyState];
 
         return {
-            UP: this.#keyState[this.#keys.KEY_UP] || this.#keyState[this.#keys.KEY_W],
-            RIGHT: this.#keyState[this.#keys.KEY_RIGHT] || this.#keyState[this.#keys.KEY_D],
-            DOWN: this.#keyState[this.#keys.KEY_DOWN] || this.#keyState[this.#keys.KEY_S],
-            LEFT: this.#keyState[this.#keys.KEY_LEFT] || this.#keyState[this.#keys.KEY_A],
-            SPACE: this.#keyState[this.#keys.KEY_SPACE]
+            UP: this.#keyState[InputKeys.KEY_UP] || this.#keyState[InputKeys.KEY_W],
+            RIGHT: this.#keyState[InputKeys.KEY_RIGHT] || this.#keyState[InputKeys.KEY_D],
+            DOWN: this.#keyState[InputKeys.KEY_DOWN] || this.#keyState[InputKeys.KEY_S],
+            LEFT: this.#keyState[InputKeys.KEY_LEFT] || this.#keyState[InputKeys.KEY_A],
+            SPACE: this.#keyState[InputKeys.KEY_SPACE]
         }
+
     }
 
-    onUp(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.UP, handler);
+    onKeyUp(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYUP, handler);
     }
 
-    removeOnUp(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.UP, handler);
+    removeOnKeyUp(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYUP, handler);
     }
 
-    onRight(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.RIGHT, handler);
+    onKeyDown(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYDOWN, handler);
     }
 
-    removeOnRight(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.RIGHT, handler);
+    removeOnKeyDown(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYDOWN, handler);
     }
 
-    onDown(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.DOWN, handler);
-    }
-
-    removeOnDown(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.DOWN, handler);
-    }
-
-    onLeft(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.LEFT, handler);
-    }
-
-    removeOnLeft(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.LEFT, handler);
-    }
-
-    onAnyKey(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.ANY, handler);
-    }
-
-    removeOnAnyKey(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.ANY, handler);
-    }
 }
 
 export default InputManager;
+
+export const InputKeys = {
+    KEY_UP: 38,
+    KEY_DOWN: 40,
+    KEY_LEFT: 37,
+    KEY_RIGHT: 39,
+    KEY_W: 87,
+    KEY_A: 65,
+    KEY_S: 83,
+    KEY_D: 68,
+    KEY_SPACE: 32
+}

@@ -31,6 +31,7 @@ let gridPosition = '';
 let direction = '';
 let gridIndex = '';
 let state = '';
+let bombCount = '';
 
 var app = new Vue({
     el: '#debug-window',
@@ -39,16 +40,18 @@ var app = new Vue({
         gridPosition,
         direction,
         gridIndex,
-        state
+        state,
+        bombCount
     },
     mounted() {
-        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex }) => {
+        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex, bombCount }) => {
             let coordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15);
             this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
-            this.position = `position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
+            this.position = `grid position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
             this.direction = `direction: ${direction}`;
             this.gridIndex = `gridIndex: ${gridIndex}`;
             this.state = `state: ${playerState}`;
+            this.bombCount = `bombCount: ${bombCount}`;
         });
     }
   })
