@@ -46,7 +46,7 @@ class BombShop {
 
             if (inactiveBombs.length > 0) {
                 bomb = inactiveBombs[0];
-                //bomb.reset();
+                bomb.reset();
                 bomb.move(index);
                 bomb.lightFuse();
             }
@@ -62,6 +62,8 @@ class BombShop {
                     index,
                     strength
                 });
+
+                 bomb.reset();
             });
 
             this.#eventDispatcher.dispatch(this.#events.PLANT, { index });

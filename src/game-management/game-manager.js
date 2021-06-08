@@ -7,8 +7,9 @@ import InputManager, { InputKeys } from "./input-manager";
 import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
-import { TileState } from "../state/tile-state";
+import { indexToTileState, TileState } from "../state/tile-state";
 import SinglyLinkedList from "../structures/linked-list";
+import stateManager, { StateEvents } from "./state-manager";
 
 class GameManager {
     #grid;
@@ -134,9 +135,7 @@ class GameManager {
                 gridIndex,
                 bombCount: this.#bombShop.getActiveBombs()
             });
-
             requestAnimationFrame(loop);
-
         }
 
         this.#inputManager.onKeyDown(key => {
@@ -146,13 +145,16 @@ class GameManager {
         })
 
         this.#bombShop.onPlant(({ index }) => {
-            console.log('PLANT FIRED', index)
-            this.#grid.set(index, TileState.BOMB);
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
+            this.#grid.set(index, newState);
         });
 
         this.#bombShop.onBombExpired(({ index, strength }) => {
-            console.log('BOMB EXPIRED FIRED', index)
-            this.#grid.set(index, TileState.SCORCH);
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
+            this.#grid.set(index, newState);
+
             let neighbours = this.#grid.getNeighbours(index, strength);
             let targets = [];
 
@@ -160,13 +162,13 @@ class GameManager {
                 targets.push(this.#getExplosionTargets(tiles));
             });
 
-            this.#bombShop.createExplosion(index, targets, 50, 1000);
+            this.#bombShop.createExplosion(index, targets, 200, 1000);
         });
 
-        this.#bombShop.onExplosion((target) => {
-            if (this.#grid.getElementAt(target) === TileState.DESTRUCTABLE) {
-                this.#grid.set(target, TileState.RUBBLE);
-            }
+        this.#bombShop.onExplosion((index) => {
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
+            this.#grid.set(index, newState);
         });
 
         requestAnimationFrame(loop);
@@ -225,7 +227,15 @@ class GameManager {
         const potentialPosition = Vector.add(position, offset);
         let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
         let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-        return index > 0 && index < grid.getGrid().length && (grid.getGrid()[index] === TileState.EMPTY || grid.getGrid()[index] === TileState.BOMB || grid.getGrid()[index] === TileState.RUBBLE || grid.getGrid()[index] === TileState.SCORCH);
+        return index > 0 && index < grid.getGrid().length 
+        && (grid.getGrid()[index] === TileState.EMPTY 
+        || grid.getGrid()[index] === TileState.BOMB 
+        || grid.getGrid()[index] === TileState.RUBBLE 
+        || grid.getGrid()[index] === TileState.SCORCH
+        || grid.getGrid()[index] === TileState.BOMB_RUBBLE_SCORCH
+        || grid.getGrid()[index] === TileState.BOMB_SCORCH
+        || grid.getGrid()[index] === TileState.BOMB_RUBBLE
+        );
     }
 
 

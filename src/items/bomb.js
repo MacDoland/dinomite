@@ -52,7 +52,7 @@ class Bomb {
     }
 
     reset(){
-        // this.#index = -1;
+         this.#index = -1;
     }
 
     clearHandlers() {

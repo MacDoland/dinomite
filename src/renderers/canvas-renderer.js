@@ -7,6 +7,7 @@ import spriteSheetGeneralConfig from "../config/sprite-sheet-general-0.json";
 import spriteSheetEnvironmentConfig from "../config/sprite-sheet-env-0.json";
 import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
+import { TileState } from "../state/tile-state";
 
 class CanvasRenderer {
     #canvas;
@@ -97,8 +98,6 @@ class CanvasRenderer {
     }
 
     drawBasicBlock(coordinate) {
-
-        this.drawBasicTile(coordinate);
         let sprite = this.#spriteSheetEnvironment.getAnimation('destructable-rock').getCurrentFrame();
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
         sprite.frame.x,
@@ -123,9 +122,7 @@ class CanvasRenderer {
     drawBomb(coordinate) {
         let sprite = this.#spriteSheetItems.getAnimation('egg-teal-wobble').getCurrentFrame();
         let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2) ;
-        let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
-
-        this.drawBasicTile(coordinate);
+        let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
 
         let bombDrawParams = [
             this.#spriteSheetItems.getImage(),
@@ -139,11 +136,10 @@ class CanvasRenderer {
             sprite.frame.h
         ];
 
-        this.#drawQueue.push(new Drawable('image', bombDrawParams, 100 + y));
+        this.#drawQueue.push(new Drawable('image', bombDrawParams, 80 + y));
     }
 
     drawRubble(coordinate) {
-        this.drawBasicTile(coordinate);
         let sprite = this.#spriteSheetEnvironment.getAnimation('rock-rubble').getCurrentFrame();
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
         sprite.frame.x,
@@ -160,7 +156,6 @@ class CanvasRenderer {
 
 
     drawScorch(coordinate) {
-        this.drawBasicTile(coordinate);
         let sprite = this.#spriteSheetEnvironment.getAnimation('scorched-terrain').getCurrentFrame();
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
         sprite.frame.x,
@@ -183,23 +178,48 @@ class CanvasRenderer {
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
-            if (element === 0) {
+            if (element === TileState.EMPTY) {
                 this.drawBasicTile(coordinate);
             }
-            else if (element === 1) {
+            else if (element === TileState.INDESTRUCTIBLE) {
                 this.drawBasicSolidBlock(grid, index, coordinate);
             }
-            else if (element === 2) {
+            else if (element === TileState.DESTRUCTABLE) {
+                this.drawBasicTile(coordinate);
                 this.drawBasicBlock(coordinate);
             }
-            else if (element === 4) {
+            else if (element === TileState.BOMB) {
+                this.drawBasicTile(coordinate);
                 this.drawBomb(coordinate);
             }
-            else if (element === 5) {
+            else if (element === TileState.RUBBLE) {
+                this.drawBasicTile(coordinate);
                 this.drawRubble(coordinate);
             }
-            else if (element === 6) {
+            else if (element === TileState.SCORCH) {
+                this.drawBasicTile(coordinate);
                 this.drawScorch(coordinate);
+            }
+            else if (element === TileState.BOMB_RUBBLE) {
+                this.drawBasicTile(coordinate);
+                this.drawRubble(coordinate);
+                this.drawBomb(coordinate);
+            }
+            else if (element === TileState.BOMB_SCORCH) {
+                this.drawBasicTile(coordinate);
+                this.drawScorch(coordinate);
+                this.drawBomb(coordinate);
+            }
+            else if (element === TileState.RUBBLE_SCORCH) {
+                this.drawBasicTile(coordinate);
+                this.drawRubble(coordinate);
+                this.drawScorch(coordinate);
+            }
+            else if (element === TileState.BOMB_RUBBLE_SCORCH) {
+                this.drawBasicTile(coordinate);
+                this.drawRubble(coordinate);
+                this.drawScorch(coordinate);
+                this.drawBomb(coordinate);
             }
         });
     }
