@@ -1,6 +1,7 @@
 import Bomb from "../items/bomb";
 import EventDispatcher from '../helpers/event-dispatcher';
 import Blast from "../items/blast";
+import SinglyLinkedList from "../structures/linked-list";
 
 class BombShop {
     #bombs;
@@ -13,7 +14,7 @@ class BombShop {
     constructor() {
         this.#bombs = [];
         this.#blasts = [];
-        this.#strength = 4;
+        this.#strength = 3;
         this.#fuseDuration = 3000;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
@@ -69,15 +70,35 @@ class BombShop {
 
     createExplosion(index, blastTargets, rateOfFire, duration) {
         // if (this.getInactiveBlasts().length === 0) {
-            let blast = new Blast(index, blastTargets, rateOfFire, duration);
+        let blast = new Blast(index, blastTargets, rateOfFire, duration);
+        const getItemsLeftToProcess = () => { return blastTargets.map(list => list.length).reduce((a, b) => a + b) };
+        let i = 0;
+        blast.onExplode((targets) => {
+            console.log('BIG EXPLODY');
+            let itemsLeftToProcess = getItemsLeftToProcess();
 
-            blast.onExplode((targets) => {
-                this.#eventDispatcher.dispatch(this.#events.EXPLOSION, blastTargets);
-            });
+            while (itemsLeftToProcess > 0) {
+                console.log('itemsLeftToProcess', itemsLeftToProcess);
 
-            this.#blasts.push(blast);
+                blastTargets.forEach(element => {
+                    let node = element.shift();
+                    if (node) {
+                        console.log('DESTROYING index:', node.value());
+                        setTimeout(() => {
+                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION,node.value());
+                        }, i * rateOfFire);
+                    }
+                });
 
-            blast.detonate(index);
+                itemsLeftToProcess = getItemsLeftToProcess();
+              
+                i++;
+            };
+        });
+
+        this.#blasts.push(blast);
+
+        blast.detonate(index);
         // }
     }
 

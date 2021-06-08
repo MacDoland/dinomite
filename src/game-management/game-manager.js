@@ -8,6 +8,7 @@ import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
 import { TileState } from "../state/tile-state";
+import SinglyLinkedList from "../structures/linked-list";
 
 class GameManager {
     #grid;
@@ -153,44 +154,43 @@ class GameManager {
             console.log('BOMB EXPIRED FIRED', index)
             this.#grid.set(index, TileState.SCORCH);
             let neighbours = this.#grid.getNeighbours(index, strength);
+            let targets = [];
 
-            this.#bombShop.createExplosion(index, neighbours, 333, 1000);
+            Object.keys(neighbours).map(key => neighbours[key]).map(tiles => {
+                targets.push(this.#getExplosionTargets(tiles));
+            });
+
+            this.#bombShop.createExplosion(index, targets, 50, 1000);
         });
 
-        this.#bombShop.onExplosion((targets) => {
-            console.log('BOMB EXPLOSION FIRED', targets)
-            this.destroyBlocks(targets, directions.UP);
-            this.destroyBlocks(targets, directions.DOWN);
-            this.destroyBlocks(targets, directions.LEFT);
-            this.destroyBlocks(targets, directions.RIGHT);
+        this.#bombShop.onExplosion((target) => {
+            if (this.#grid.getElementAt(target) === TileState.DESTRUCTABLE) {
+                this.#grid.set(target, TileState.RUBBLE);
+            }
         });
 
         requestAnimationFrame(loop);
     }
 
-    destroyBlocks(neighbours, direction) {
+    #getExplosionTargets(tiles) {
+        let targets = new SinglyLinkedList();
         let hasHitDeadEnd = false;
         let index = 0;
-        let neighbourIndex;
-        if (neighbours && Array.isArray(neighbours[direction])) {
+        let targetIndex;
+        if (tiles && Array.isArray(tiles)) {
 
-            while (!hasHitDeadEnd && index < neighbours[direction].length) {
-                neighbourIndex = neighbours[direction][index];
-                hasHitDeadEnd = this.#grid.getElementAt(neighbourIndex) === TileState.INDESTRUCTIBLE;
-                if (!hasHitDeadEnd && this.#grid.getElementAt(neighbourIndex) === TileState.DESTRUCTABLE) {
-                    this.#grid.set(neighbourIndex, TileState.RUBBLE);
+            while (!hasHitDeadEnd && index < tiles.length) {
+                targetIndex = tiles[index];
+                hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE;
+                if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
+                    targets.push(targetIndex);
                 }
                 index++;
             }
-            // neighbours[direction].forEach(neighbour => {
-            //     if (this.#grid.getElementAt(neighbour) === 2) {
-            //         this.#grid.set(neighbour, 0);
-            //     }
-            // });
         }
+
+        return targets;
     }
-
-
 
     start() {
         this.#gameInProgess = true;
