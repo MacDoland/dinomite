@@ -100,7 +100,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
         if (neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.OCEAN) {
@@ -115,7 +115,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
         if (neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.OCEAN) {
@@ -130,7 +130,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
         if (neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.OCEAN) {
@@ -145,7 +145,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
         if (neighbours[directions.UP].length > 0
@@ -164,7 +164,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
         if (neighbours[directions.UP].length > 0
@@ -183,7 +183,7 @@ class CanvasRenderer {
             this.#cellSize,
             this.#cellSize];
 
-            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
 
@@ -280,6 +280,30 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 5));
     }
 
+    drawShadow(coordinate){
+        // let color = 'rgba(0,0,0,0.2)';
+        // let drawParams = [
+        //     coordinate.x * this.#cellSize + this.#borderWidth + 5,
+        //     coordinate.y * this.#cellSize + this.#borderWidth - 20,
+        //     this.#cellSize,
+        //     this.#cellSize
+        // ]
+
+        // this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth - 100, color));
+        let sprite = this.#spriteSheetEnvironment.getAnimation('shadow-indestructable').getCurrentFrame();
+        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
+        sprite.frame.x,
+        sprite.frame.y,
+        sprite.frame.w,
+        sprite.frame.h,
+        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2) + 10,
+        coordinate.y * this.#cellSize + this.#borderWidth + this.#cellSize - sprite.frame.h - 10,
+        sprite.frame.w,
+        sprite.frame.h];
+
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 100));
+    }
+
     drawGrid(grid, config) {
 
         let coordinate;
@@ -293,6 +317,8 @@ class CanvasRenderer {
             }
             else if (element === TileState.INDESTRUCTIBLE) {
                 this.drawBasicTile(coordinate, index);
+                this.drawShadow(coordinate);
+
                 this.drawBasicSolidBlock(coordinate);
             }
             else if (element === TileState.OCEAN) {

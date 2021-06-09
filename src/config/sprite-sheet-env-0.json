@@ -2,7 +2,7 @@
 
 {
 	"filename": "destructable-rock/rock-1",
-	"frame": {"x":320,"y":540,"w":96,"h":96},
+	"frame": {"x":416,"y":542,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "explosion/fire-1",
-	"frame": {"x":320,"y":320,"w":100,"h":100},
+	"frame": {"x":416,"y":442,"w":100,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
@@ -74,7 +74,7 @@
 },
 {
 	"filename": "indestructable-terrain/indestructible-block-1",
-	"frame": {"x":320,"y":420,"w":96,"h":120},
+	"frame": {"x":320,"y":442,"w":96,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":120},
@@ -97,6 +97,15 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "shadow-indestructable/shadow-indestructable",
+	"frame": {"x":320,"y":320,"w":107,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":122},
+	"sourceSize": {"w":107,"h":122},
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
@@ -151,6 +160,6 @@
 	"format": "RGBA8888",
 	"size": {"w":640,"h":640},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:884364204ca5ab63d2666651c0ec7086:cb635c6d3b544851c134ae09aeb65d80:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:fb29dc3de92afb6ad7fc561ffb0c0066:19156aae785a9944872f61741bbf5f92:3c22793cef27942958a25079515fd615$"
 }
 }

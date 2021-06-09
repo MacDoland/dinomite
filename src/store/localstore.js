@@ -6,7 +6,7 @@ class LocalStore {
 
         const dataString = window.localStorage.getItem(this.#key);
 
-        if (typeof (this.#data) === 'string') {
+        if (typeof (dataString) === 'string') {
             this.#data = JSON.parse(dataString);
         }
     }
