@@ -197,7 +197,7 @@ class GameManager {
 
             while (!hasHitDeadEnd && index < tiles.length) {
                 targetIndex = tiles[index];
-                hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE;
+                hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE || this.#grid.getElementAt(targetIndex) === TileState.OCEAN;
                 if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
                     targets.push(targetIndex);
                 }

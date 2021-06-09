@@ -17,6 +17,10 @@ emptyTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION;
 const explosionTileEvents = {};
 explosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.EMPTY;
 
+
+//Ocean
+const oceanTileEvents = {};
+
 //Rubble Explosion Tile
 const rubbleExplosionTileEvents = {};
 rubbleExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
@@ -75,6 +79,8 @@ destructableTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
 
 let states = {};
 states[Tiles.EMPTY] = { on: emptyTileEvents };
+states[Tiles.OCEAN] = { on: oceanTileEvents };
+
 states[Tiles.DESTRUCTABLE] = { on: destructableTileEvents };
 states[Tiles.RUBBLE] = { on: rubbleTileEvents };
 states[Tiles.BOMB_RUBBLE] = { on: bombRubbleTileEvents };

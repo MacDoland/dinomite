@@ -13,7 +13,8 @@ const TileState = {
     EXPLOSION: 11,
     EXPLOSION_RUBBLE: 12,
     EXPLOSION_SCORCH: 13,
-    EXPLOSION_RUBBLE_SCORCH: 14
+    EXPLOSION_RUBBLE_SCORCH: 14,
+    EXPLOSION_OCEAN: 15
 }
 
 Object.freeze(TileState);
