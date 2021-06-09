@@ -33,6 +33,7 @@ bombScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
 
 //Rubble Scorch Tile
 const rubbleScorchTileEvents = {};
+rubbleScorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE_SCORCH;
 rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.RUBBLE_SCORCH;
 
 //Bomb Rubble Scorch Tile

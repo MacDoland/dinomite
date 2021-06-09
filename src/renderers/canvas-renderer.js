@@ -46,8 +46,8 @@ class CanvasRenderer {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawBasicTile(coordinate) {
-        let sprite = this.#spriteSheetEnvironment.getAnimation(`tile-grass`).getCurrentFrame();
+    drawBasicTile(coordinate, index) {
+        let sprite = this.#spriteSheetEnvironment.getRandomFrame(`tile-grass-random`, index);
         let drawParams = [
             this.#spriteSheetEnvironment.getImage(),
             sprite.frame.x,
@@ -278,7 +278,7 @@ class CanvasRenderer {
             this.#context.beginPath();
 
             if (element === TileState.EMPTY) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
             }
             else if (element === TileState.INDESTRUCTIBLE) {
                 this.drawBasicSolidBlock(grid, index, coordinate);

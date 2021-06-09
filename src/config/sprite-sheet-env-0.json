@@ -100,8 +100,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "tile-grass/grass_1_1",
+	"filename": "tile-grass-random/grass-2_1",
 	"frame": {"x":480,"y":320,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "tile-grass-random/grass_1_1",
+	"frame": {"x":0,"y":480,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "tile-grass-random/grassy",
+	"frame": {"x":160,"y":480,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -115,6 +133,6 @@
 	"format": "RGBA8888",
 	"size": {"w":640,"h":640},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:bc3f6d88aac91cfd675d661cc19a32af:a128feaab97f1ac5e4231173c303cf44:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f6db71d91e2403cfade41f009e365837:2450a14eb5d786fbd40b0fe9ba05b51a:3c22793cef27942958a25079515fd615$"
 }
 }

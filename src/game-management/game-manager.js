@@ -158,7 +158,9 @@ class GameManager {
             let neighbours = this.#grid.getNeighbours(index, strength);
             let targets = [];
 
-            Object.keys(neighbours).map(key => neighbours[key]).map(tiles => {
+            Object.keys(neighbours)
+            .filter(key => [directions.UP, directions.RIGHT, directions.DOWN, directions.LEFT].includes(key))
+            .map(key => neighbours[key]).map(tiles => {
                 targets.push(this.#getExplosionTargets(tiles));
             });
 
@@ -227,16 +229,16 @@ class GameManager {
         const potentialPosition = Vector.add(position, offset);
         let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
         let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-        return index > 0 && index < grid.getGrid().length 
-        && (grid.getGrid()[index] === TileState.EMPTY 
-        || grid.getGrid()[index] === TileState.BOMB 
-        || grid.getGrid()[index] === TileState.RUBBLE 
-        || grid.getGrid()[index] === TileState.SCORCH
-        || grid.getGrid()[index] === TileState.BOMB_RUBBLE_SCORCH
-        || grid.getGrid()[index] === TileState.BOMB_SCORCH
-        || grid.getGrid()[index] === TileState.BOMB_RUBBLE
-        || grid.getGrid()[index] === TileState.RUBBLE_SCORCH
-        );
+        return index > 0 && index < grid.getGrid().length
+            && (grid.getGrid()[index] === TileState.EMPTY
+                || grid.getGrid()[index] === TileState.BOMB
+                || grid.getGrid()[index] === TileState.RUBBLE
+                || grid.getGrid()[index] === TileState.SCORCH
+                || grid.getGrid()[index] === TileState.BOMB_RUBBLE_SCORCH
+                || grid.getGrid()[index] === TileState.BOMB_SCORCH
+                || grid.getGrid()[index] === TileState.BOMB_RUBBLE
+                || grid.getGrid()[index] === TileState.RUBBLE_SCORCH
+            );
     }
 
 
