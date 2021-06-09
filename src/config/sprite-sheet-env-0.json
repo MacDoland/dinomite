@@ -2,7 +2,7 @@
 
 {
 	"filename": "destructable-rock/rock-1",
-	"frame": {"x":0,"y":0,"w":96,"h":96},
+	"frame": {"x":320,"y":540,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "explosion/fire-1",
-	"frame": {"x":160,"y":0,"w":100,"h":100},
+	"frame": {"x":320,"y":320,"w":100,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
@@ -20,7 +20,7 @@
 },
 {
 	"filename": "grass-edge-bottom/bottom-edge-1",
-	"frame": {"x":320,"y":0,"w":160,"h":160},
+	"frame": {"x":0,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -29,15 +29,6 @@
 },
 {
 	"filename": "grass-edge-corner-bottom-left/corner-bottom-left",
-	"frame": {"x":480,"y":0,"w":160,"h":160},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
-	"sourceSize": {"w":160,"h":160},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "grass-edge-corner-bottom-right/corner-bottom-right",
 	"frame": {"x":0,"y":160,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -46,8 +37,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "grass-edge-corner-bottom-right/corner-bottom-right",
+	"frame": {"x":0,"y":320,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "grass-edge-left/left-edge_",
-	"frame": {"x":160,"y":160,"w":160,"h":160},
+	"frame": {"x":0,"y":480,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -56,7 +56,7 @@
 },
 {
 	"filename": "grass-edge-right/right-edge-1",
-	"frame": {"x":320,"y":160,"w":160,"h":160},
+	"frame": {"x":160,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -65,7 +65,7 @@
 },
 {
 	"filename": "grass-edge-top/top-edge-1",
-	"frame": {"x":480,"y":160,"w":160,"h":160},
+	"frame": {"x":320,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -73,8 +73,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "indestructable-terrain/indestructible-block-1",
+	"frame": {"x":320,"y":420,"w":96,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":120},
+	"sourceSize": {"w":96,"h":120},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "rock-rubble/rock-2",
-	"frame": {"x":0,"y":320,"w":128,"h":128},
+	"frame": {"x":480,"y":160,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -83,7 +92,7 @@
 },
 {
 	"filename": "scorched-terrain/scorched_terrain-1",
-	"frame": {"x":160,"y":320,"w":128,"h":128},
+	"frame": {"x":480,"y":288,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -92,7 +101,7 @@
 },
 {
 	"filename": "temp-edge/bottom-edge-2",
-	"frame": {"x":320,"y":320,"w":160,"h":160},
+	"frame": {"x":480,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -101,7 +110,7 @@
 },
 {
 	"filename": "temp-grass/grass-2_1",
-	"frame": {"x":480,"y":320,"w":160,"h":160},
+	"frame": {"x":160,"y":160,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -110,7 +119,7 @@
 },
 {
 	"filename": "tile-grass-random/grass-2_1",
-	"frame": {"x":0,"y":480,"w":160,"h":160},
+	"frame": {"x":160,"y":320,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -128,7 +137,7 @@
 },
 {
 	"filename": "tile-grass-random/grassy",
-	"frame": {"x":320,"y":480,"w":160,"h":160},
+	"frame": {"x":320,"y":160,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -142,6 +151,6 @@
 	"format": "RGBA8888",
 	"size": {"w":640,"h":640},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:160ab9c5eeae22cea4ff9535adfe502e:c82f8f305906bd9e8fca6a44f324d35e:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:884364204ca5ab63d2666651c0ec7086:cb635c6d3b544851c134ae09aeb65d80:3c22793cef27942958a25079515fd615$"
 }
 }

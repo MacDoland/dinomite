@@ -62,24 +62,19 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', drawParams, 0));
     }
 
-    drawBasicSolidBlock(grid, index, coordinate) {
-        let color = '#666';
-        let drawParams = [
-            coordinate.x * this.#cellSize + this.#borderWidth,
-            coordinate.y * this.#cellSize + this.#borderWidth,
-            this.#cellSize,
-            this.#cellSize
-        ]
+    drawBasicSolidBlock(coordinate) {
+        let sprite = this.#spriteSheetEnvironment.getAnimation('indestructable-terrain').getCurrentFrame();
+        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
+        sprite.frame.x,
+        sprite.frame.y,
+        sprite.frame.w,
+        sprite.frame.h,
+        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + this.#borderWidth + this.#cellSize - sprite.frame.h,
+        sprite.frame.w,
+        sprite.frame.h];
 
-        let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
-
-        let solidNeighbourCount = Object.keys(neighbours).map(key => neighbours[key]).map(neighbourIndex => grid[neighbourIndex]).filter(value => value === 1).length;
-
-        if (solidNeighbourCount > 0) {
-            color = '#518bc9';
-        }
-
-        this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
     }
 
     drawOcean(grid, index, coordinate) {
@@ -285,7 +280,7 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 5));
     }
 
-    drawGrid(grid) {
+    drawGrid(grid, config) {
 
         let coordinate;
 
@@ -297,7 +292,8 @@ class CanvasRenderer {
                 this.drawBasicTile(coordinate, index);
             }
             else if (element === TileState.INDESTRUCTIBLE) {
-                this.drawBasicSolidBlock(grid, index, coordinate);
+                this.drawBasicTile(coordinate, index);
+                this.drawBasicSolidBlock(coordinate);
             }
             else if (element === TileState.OCEAN) {
                 this.drawOcean(grid, index, coordinate);
@@ -358,6 +354,16 @@ class CanvasRenderer {
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
                 this.drawExplosion(coordinate);
+            }
+
+            if (config.showGrid) {
+                let drawParams = [
+                    coordinate.x * this.#cellSize + this.#borderWidth,
+                    coordinate.y * this.#cellSize + this.#borderWidth,
+                    this.#cellSize,
+                    this.#cellSize
+                ]
+                this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 100, false, '#000'));
             }
         });
     }
@@ -424,7 +430,7 @@ class CanvasRenderer {
             return 0;
         }).forEach(drawable => drawable.draw(this.#context));
 
-        let numDrawCalls =  this.#drawQueue.length;
+        let numDrawCalls = this.#drawQueue.length;
         this.#drawQueue = [];
 
         return numDrawCalls;

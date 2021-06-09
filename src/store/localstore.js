@@ -1,17 +1,13 @@
 class LocalStore {
-    #data;
     #key;
+    #data;
     constructor(key) {
         this.#key = key;
-        this.#data = [];
-        let dataString = window.localStorage.getItem(key);
 
-        if (typeof (dataString) === 'string') {
-            let data = JSON.parse(dataString);
+        const dataString = window.localStorage.getItem(this.#key);
 
-            if (Array.isArray(data)) {
-                this.#data = [...data];
-            }
+        if (typeof (this.#data) === 'string') {
+            this.#data = JSON.parse(dataString);
         }
     }
 
@@ -20,8 +16,8 @@ class LocalStore {
     }
 
     set(entry) {
-        this.#data.push(entry);
-        window.localStorage.setItem(this.#key, JSON.stringify(this.#data));
+        this.#data = entry;
+        window.localStorage.setItem(this.#key, JSON.stringify(entry));
     }
 }
 

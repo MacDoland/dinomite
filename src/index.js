@@ -4,12 +4,17 @@ import AudioManager from './game-management/audio-manager';
 import Vue from 'vue';
 import Grid from './structures/grid';
 import { defaultLevel } from './levels/levels';
+import OptionsManager from './game-management/options-manager';
+import InputManager, { InputKeys } from './game-management/input-manager';
 
 const grid = new Grid(15, 15, defaultLevel);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
 const gameManager = new GameManager(grid);
 const audioManager = new AudioManager();
+const optionsManager = new OptionsManager();
+const inputManager = new InputManager();
+let config =  {};
 //audioManager.load('menu-bg', './audio/Komiku_-_12_-_Bicycle.mp3', 0.5, true);
 
 //const ui = new UI(introScreen, gameScreen, highScoreScreen, reviewScreen);
@@ -26,6 +31,18 @@ const audioManager = new AudioManager();
 // ui.onStartGame(() => {
 //     gameManager.start();
 // });
+
+inputManager.onKeyUp((key) => {
+    console.log('key', key);
+
+    if ( key === InputKeys.KEY_G.toString()){
+        config = optionsManager.get() || {};
+        config.showGrid = !config.showGrid;
+
+        optionsManager.updateConfig(config);
+    }
+});
+
 let position = '';
 let gridPosition = '';
 let direction = '';
@@ -57,8 +74,9 @@ var app = new Vue({
   })
 
 const updateGame = ({ grid, player, playerState, direction, gridIndex  }) => {
+    inputManager.update();
     renderer.clear();
-    renderer.drawGrid(grid.getGrid())
+    renderer.drawGrid(grid.getGrid(), config)
     renderer.drawPlayer(player, playerState, direction, gridIndex);
 
     // let before = performance.now();
