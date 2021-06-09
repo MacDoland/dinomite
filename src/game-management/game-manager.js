@@ -174,6 +174,15 @@ class GameManager {
 
         this.#bombShop.onExplosion((index) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
+
+            if (currentState === TileState.BOMB
+                || currentState === TileState.BOMB_RUBBLE
+                || currentState === TileState.BOMB_RUBBLE_SCORCH
+                || currentState === TileState.BOMB_SCORCH) {
+                    //theres a bomb on this tile - detonate it
+                    this.#bombShop.detonateBombAt(index);
+            }
+
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
             this.#grid.set(index, newState);
         });
@@ -192,7 +201,7 @@ class GameManager {
         let hasHitDeadEnd = false;
         let index = 0;
         let targetIndex;
-        
+
         if (tiles && Array.isArray(tiles)) {
 
             while (!hasHitDeadEnd && index < tiles.length) {
@@ -202,7 +211,7 @@ class GameManager {
                     targets.push(targetIndex);
                 }
 
-                if(this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
+                if (this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
                     index++;
                 }
                 else {

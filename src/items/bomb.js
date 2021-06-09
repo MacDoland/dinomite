@@ -47,6 +47,15 @@ class Bomb {
         });
     }
 
+    detonate() {
+        this.#isActive = false;
+
+        this.#eventDispatcher.dispatch(this.#events.EXPLODE, {
+            index: this.#index,
+            strength: this.#strength
+        });
+    }
+
     move(index) {
         this.#index = index;
     }

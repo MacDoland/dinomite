@@ -73,6 +73,14 @@ class BombShop {
         }
     }
 
+    detonateBombAt(index) {
+        const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
+
+        if(bombOnIndex.length > 0 && bombOnIndex[0].getIsActive()){
+            this.#bombs[bombOnIndex].detonate();
+        }
+    }
+
     createExplosion(index, blastTargets, rateOfFire, duration) {
         // if (this.getInactiveBlasts().length === 0) {
         let blast = new Blast(index, blastTargets, rateOfFire, duration);
