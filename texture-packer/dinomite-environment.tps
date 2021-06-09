@@ -182,6 +182,20 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock/rock-1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>0.6</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,200,400,400</rect>
+                <key>scale9Paddings</key>
+                <rect>200,200,400,400</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom/bottom-edge-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/corner-bottom-left.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-right/corner-bottom-right.png</key>
@@ -190,7 +204,9 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-top/top-edge-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-edge/bottom-edge-2.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-grass/grass-2_1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass/grass_1_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass-random/grass-2_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass-random/grass_1_1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass-random/grassy.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

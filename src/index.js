@@ -60,7 +60,14 @@ const updateGame = ({ grid, player, playerState, direction, gridIndex  }) => {
     renderer.clear();
     renderer.drawGrid(grid.getGrid())
     renderer.drawPlayer(player, playerState, direction, gridIndex);
+
+    // let before = performance.now();
+    // let numDrawCalls =  renderer.draw();
+    // let after = performance.now() - before;
+    // console.log('draw calls: ', numDrawCalls, after);
+
     renderer.draw();
+    
 }
 
 gameManager.onInit(updateGame);

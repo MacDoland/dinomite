@@ -4,16 +4,25 @@ import { TileStateStrings as Tiles } from "../state/tile-state";
 const StateEvents = {
     PLANT_BOMB: 'PLANT_BOMB',
     BOMB_DETONATE: 'BOMB_DETONATE',
-    EXPLOSION: 'EXPLOSION'
+    EXPLOSION: 'EXPLOSION',
+    EXPLOSION_END: 'EXPLOSION_END'
 }
 
 //Empty Tile
 const emptyTileEvents = {};
 emptyTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB;
 
-//Bomb Tile
-const bombTileEvents = {};
-bombTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
+//Explosion Tile
+const explosionTileEvents = {};
+explosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.EMPTY;
+
+//Rubble Explosion Tile
+const rubbleExplosionTileEvents = {};
+rubbleExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
+
+//Rubble Scorch Explosion Tile
+const rubbleScorchExplosionTileEvents = {};
+rubbleScorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 
 //Scorch Tile
 const scorchTileEvents = {};
@@ -23,22 +32,37 @@ scorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_SCORCH;
 const rubbleTileEvents = {};
 rubbleTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE;
 
-//Bomb Rubble Tile
-const bombRubbleTileEvents = {};
-bombRubbleTileEvents[StateEvents.BOMB_DETONATE] = Tiles.RUBBLE_SCORCH;
-
-//Bomb Scorch Tile
-const bombScorchTileEvents = {};
-bombScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
-
 //Rubble Scorch Tile
 const rubbleScorchTileEvents = {};
 rubbleScorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE_SCORCH;
 rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.RUBBLE_SCORCH;
 
+//Bomb Tile
+const bombTileEvents = {};
+bombTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
+bombTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
+bombTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+
+//Bomb Rubble Tile
+const bombRubbleTileEvents = {};
+bombRubbleTileEvents[StateEvents.BOMB_DETONATE] = Tiles.RUBBLE_SCORCH;
+bombRubbleTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
+bombRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+//Bomb Scorch Tile
+const bombScorchTileEvents = {};
+bombScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
+bombScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
+bombScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+
 //Bomb Rubble Scorch Tile
 const bombRubbleScorchTileEvents = {};
 bombRubbleScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.RUBBLE_SCORCH;
+bombRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORCH;
+bombRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+
+
 
 //Destructable Tile
 const destructableTileEvents = {};

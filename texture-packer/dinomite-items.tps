@@ -181,6 +181,21 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-fire/fire-1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9Paddings</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-31.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-32.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/egg-teal-crack/egg-teal-crack-33.png</key>

@@ -388,7 +388,10 @@ class CanvasRenderer {
             return 0;
         }).forEach(drawable => drawable.draw(this.#context));
 
+        let numDrawCalls =  this.#drawQueue.length;
         this.#drawQueue = [];
+
+        return numDrawCalls;
     }
     takeScreenshot() {
         return this.#canvas.toDataURL('png');
