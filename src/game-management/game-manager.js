@@ -192,6 +192,7 @@ class GameManager {
         let hasHitDeadEnd = false;
         let index = 0;
         let targetIndex;
+        
         if (tiles && Array.isArray(tiles)) {
 
             while (!hasHitDeadEnd && index < tiles.length) {
@@ -200,7 +201,13 @@ class GameManager {
                 if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
                     targets.push(targetIndex);
                 }
-                index++;
+
+                if(this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
+                    index++;
+                }
+                else {
+                    hasHitDeadEnd = true;
+                }
             }
         }
 
