@@ -269,6 +269,22 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
     }
 
+    drawExplosion(coordinate) {
+        let sprite = this.#spriteSheetEnvironment.getAnimation('explosion').getCurrentFrame();
+        let drawParams = [
+            this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+        this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 5));
+    }
+
     drawGrid(grid) {
 
         let coordinate;
@@ -322,6 +338,26 @@ class CanvasRenderer {
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
                 this.drawBomb(coordinate);
+            }
+            else if (element === TileState.EXPLOSION) {
+                this.drawBasicTile(coordinate);
+                this.drawExplosion(coordinate);
+            }
+            else if (element === TileState.EXPLOSION_RUBBLE) {
+                this.drawBasicTile(coordinate);
+                this.drawRubble(coordinate);
+                this.drawExplosion(coordinate);
+            }
+            else if (element === TileState.EXPLOSION_SCORCH) {
+                this.drawBasicTile(coordinate);
+                this.drawScorch(coordinate);
+                this.drawExplosion(coordinate);
+            }
+            else if (element === TileState.EXPLOSION_RUBBLE_SCORCH) {
+                this.drawBasicTile(coordinate);
+                this.drawRubble(coordinate);
+                this.drawScorch(coordinate);
+                this.drawExplosion(coordinate);
             }
         });
     }

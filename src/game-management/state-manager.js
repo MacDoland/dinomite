@@ -11,6 +11,7 @@ const StateEvents = {
 //Empty Tile
 const emptyTileEvents = {};
 emptyTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB;
+emptyTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION;
 
 //Explosion Tile
 const explosionTileEvents = {};
@@ -20,22 +21,28 @@ explosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.EMPTY;
 const rubbleExplosionTileEvents = {};
 rubbleExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
 
-//Rubble Scorch Explosion Tile
-const rubbleScorchExplosionTileEvents = {};
-rubbleScorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
-
 //Scorch Tile
 const scorchTileEvents = {};
 scorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_SCORCH;
+scorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
+
+//Scorch Explosion Tile
+const scorchExplosionTileEvents = {};
+scorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
 
 //Rubble Tile
 const rubbleTileEvents = {};
 rubbleTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE;
+rubbleTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
 
 //Rubble Scorch Tile
 const rubbleScorchTileEvents = {};
 rubbleScorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE_SCORCH;
-rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.RUBBLE_SCORCH;
+rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORCH;
+
+//Rubble Scorch Explosion Tile
+const rubbleScorchExplosionTileEvents = {};
+rubbleScorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 
 //Bomb Tile
 const bombTileEvents = {};
@@ -62,11 +69,9 @@ bombRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORC
 bombRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 
 
-
-
 //Destructable Tile
 const destructableTileEvents = {};
-destructableTileEvents[StateEvents.EXPLOSION] = Tiles.RUBBLE;
+destructableTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
 
 let states = {};
 states[Tiles.EMPTY] = { on: emptyTileEvents };
@@ -78,6 +83,11 @@ states[Tiles.SCORCH] = { on: scorchTileEvents };
 states[Tiles.BOMB_RUBBLE_SCORCH] = { on: bombRubbleScorchTileEvents };
 states[Tiles.BOMB_SCORCH] = { on: bombScorchTileEvents };
 states[Tiles.RUBBLE_SCORCH] = { on: rubbleScorchTileEvents };
+
+states[Tiles.EXPLOSION] = { on: explosionTileEvents };
+states[Tiles.EXPLOSION_RUBBLE] = { on: rubbleExplosionTileEvents };
+states[Tiles.EXPLOSION_SCORCH] = { on: scorchExplosionTileEvents };
+states[Tiles.EXPLOSION_RUBBLE_SCORCH] = { on: rubbleScorchExplosionTileEvents };
 
 const stateMachine = createMachine({
     id: 'tiles',

@@ -8,6 +8,7 @@ class BombShop {
     #blasts;
     #strength;
     #fuseDuration;
+    #explosionDuration;
     #eventDispatcher;
     #events;
 
@@ -16,11 +17,13 @@ class BombShop {
         this.#blasts = [];
         this.#strength = 3;
         this.#fuseDuration = 3000;
+        this.#explosionDuration = 500;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             PLANT: 'PLANT',
             EXPIRE: 'EXPIRE',
-            EXPLOSION: 'EXPLOSION'
+            EXPLOSION: 'EXPLOSION',
+            EXPLOSION_END: 'EXPLOSION_END'
         }
     }
 
@@ -63,7 +66,7 @@ class BombShop {
                     strength
                 });
 
-                 bomb.reset();
+                bomb.reset();
             });
 
             this.#eventDispatcher.dispatch(this.#events.PLANT, { index });
@@ -87,13 +90,17 @@ class BombShop {
                     if (node) {
                         console.log('DESTROYING index:', node.value());
                         setTimeout(() => {
-                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION,node.value());
+                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION, node.value());
                         }, i * rateOfFire);
+
+                        setTimeout(() => {
+                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION_END, node.value());
+                        }, this.#strength * rateOfFire + this.#explosionDuration);
                     }
                 });
 
                 itemsLeftToProcess = getItemsLeftToProcess();
-              
+
                 i++;
             };
         });
@@ -118,6 +125,14 @@ class BombShop {
 
     removeOnExplosion(handler) {
         this.#eventDispatcher.deregisterHandler(this.#events.EXPLOSION, handler);
+    }
+
+    onExplosionEnd(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.EXPLOSION_END, handler);
+    }
+
+    removeOnExplosionEnd(handler) {
+        this.#eventDispatcher.deregisterHandler(this.#events.EXPLOSION_END, handler);
     }
 
     onPlant(handler) {

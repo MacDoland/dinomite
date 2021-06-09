@@ -159,10 +159,15 @@ class GameManager {
             let targets = [];
 
             Object.keys(neighbours)
-            .filter(key => [directions.UP, directions.RIGHT, directions.DOWN, directions.LEFT].includes(key))
-            .map(key => neighbours[key]).map(tiles => {
-                targets.push(this.#getExplosionTargets(tiles));
-            });
+                .filter(key => [directions.UP, directions.RIGHT, directions.DOWN, directions.LEFT].includes(key))
+                .map(key => neighbours[key]).map(tiles => {
+                    targets.push(this.#getExplosionTargets(tiles));
+                });
+
+            let bombTileTarget = new SinglyLinkedList();
+            bombTileTarget.push(index);
+
+            targets.unshift(bombTileTarget);
 
             this.#bombShop.createExplosion(index, targets, 200, 1000);
         });
@@ -170,6 +175,12 @@ class GameManager {
         this.#bombShop.onExplosion((index) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
+            this.#grid.set(index, newState);
+        });
+
+        this.#bombShop.onExplosionEnd((index) => {
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
             this.#grid.set(index, newState);
         });
 
@@ -238,9 +249,12 @@ class GameManager {
                 || grid.getGrid()[index] === TileState.BOMB_SCORCH
                 || grid.getGrid()[index] === TileState.BOMB_RUBBLE
                 || grid.getGrid()[index] === TileState.RUBBLE_SCORCH
+                || grid.getGrid()[index] === TileState.EXPLOSION
+                || grid.getGrid()[index] === TileState.EXPLOSION_RUBBLE
+                || grid.getGrid()[index] === TileState.EXPLOSION_SCORCH
+                || grid.getGrid()[index] === TileState.EXPLOSION_RUBBLE_SCORCH
             );
     }
-
 
     /* Events */
     onUpdate(handler) {
