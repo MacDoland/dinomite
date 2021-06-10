@@ -17,7 +17,7 @@ class BombShop {
         this.#blasts = [];
         this.#strength = 3;
         this.#fuseDuration = 3000;
-        this.#explosionDuration = 500;
+        this.#explosionDuration = 800;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             PLANT: 'PLANT',
@@ -51,7 +51,7 @@ class BombShop {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
         const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
 
-        if (bombCanBePlacedOnIndex && this.getActiveBombsCount() < 3) {
+        if (bombCanBePlacedOnIndex && this.getActiveBombsCount() < 4) {
             let bomb;
             let inactiveBombs = this.#bombs.filter(bomb => bomb.getIsActive() === false);
 

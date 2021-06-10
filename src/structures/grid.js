@@ -72,7 +72,7 @@ class Grid {
         return Grid.convertIndexToCoordinate(randomIndex, this.#numberOfColumns, this.#numberOfRows);
     }
 
-    getNeighbours(index, depth) {
+    getNeighbours(index, depth = 1) {
         return Grid.getNeighbours(index, depth, this.#numberOfColumns, this.#numberOfRows);
     }
 

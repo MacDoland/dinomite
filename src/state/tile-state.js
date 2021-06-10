@@ -1,4 +1,5 @@
 const TileState = {
+    NULL: -1,
     EMPTY: 0,
     INDESTRUCTIBLE: 1,
     DESTRUCTABLE: 2,

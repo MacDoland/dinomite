@@ -27,7 +27,7 @@ class CanvasRenderer {
 
 
     constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
-        this.#borderWidth = 100;
+        this.#borderWidth = 0;
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
@@ -38,8 +38,8 @@ class CanvasRenderer {
         this.#drawQueue = [];
         this.#columnCount = columnCount;
         this.#rowCount = rowCount;
-        this.#canvas.height = this.#cellSize * columnCount + (this.#borderWidth * 2);
-        this.#canvas.width = this.#cellSize * rowCount + (this.#borderWidth * 2);
+        this.#canvas.height = this.#cellSize * columnCount;
+        this.#canvas.width = this.#cellSize * rowCount;
     }
 
     clear() {
@@ -69,12 +69,12 @@ class CanvasRenderer {
         sprite.frame.y,
         sprite.frame.w,
         sprite.frame.h,
-        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
-        coordinate.y * this.#cellSize + this.#borderWidth + this.#cellSize - sprite.frame.h,
+        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + this.#cellSize - sprite.frame.h,
         sprite.frame.w,
         sprite.frame.h];
 
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize));
     }
 
     drawOcean(grid, index, coordinate) {
@@ -263,8 +263,8 @@ class CanvasRenderer {
                 : this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
 
             if (sprite) {
-                let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2);
-                let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
+                let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
+                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
 
                 let bombDrawParams = [
                     this.#spriteSheetItems.getImage(),
@@ -290,12 +290,12 @@ class CanvasRenderer {
         sprite.frame.y,
         sprite.frame.w,
         sprite.frame.h,
-        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
-        coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2),
+        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2),
         sprite.frame.w,
         sprite.frame.h];
 
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize  + 1));
     }
 
 
@@ -306,12 +306,12 @@ class CanvasRenderer {
         sprite.frame.y,
         sprite.frame.w,
         sprite.frame.h,
-        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2),
-        coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2),
+        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2),
+        coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2),
         sprite.frame.w,
         sprite.frame.h];
 
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + 1));
     }
 
     drawExplosion(coordinate, blast) {
@@ -328,12 +328,12 @@ class CanvasRenderer {
                     sprite.frame.y,
                     sprite.frame.w,
                     sprite.frame.h,
-                    coordinate.x * this.#cellSize + this.#borderWidth,
-                    coordinate.y * this.#cellSize + this.#borderWidth,
+                    coordinate.x * this.#cellSize,
+                    coordinate.y * this.#cellSize,
                     this.#cellSize,
                     this.#cellSize];
 
-                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 200));
+                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + 200));
             }
         }
     }
@@ -354,17 +354,17 @@ class CanvasRenderer {
         sprite.frame.y,
         sprite.frame.w,
         sprite.frame.h,
-        coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2) + 10,
-        coordinate.y * this.#cellSize + this.#borderWidth + this.#cellSize - sprite.frame.h - 10,
+        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2) + 10,
+        coordinate.y * this.#cellSize + this.#cellSize - sprite.frame.h - 10,
         sprite.frame.w,
         sprite.frame.h];
 
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 100));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize - 100));
     }
 
     drawGrid(grid, config, bombs, blasts) {
 
-        if(blasts > 0){
+        if (blasts > 0) {
             console.log('#blasts', blasts.length);
         }
 
@@ -453,12 +453,12 @@ class CanvasRenderer {
 
             if (config.showGrid) {
                 let drawParams = [
-                    coordinate.x * this.#cellSize + this.#borderWidth,
-                    coordinate.y * this.#cellSize + this.#borderWidth,
+                    coordinate.x * this.#cellSize,
+                    coordinate.y * this.#cellSize,
                     this.#cellSize,
                     this.#cellSize
                 ]
-                this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 100, false, '#000'));
+                this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize, false, '#000'));
             }
         });
     }
@@ -468,6 +468,7 @@ class CanvasRenderer {
         this.#currentTime = performance.now();
         this.#deltaTime = this.#currentTime - this.#previousTime;
         this.#previousTime = this.#currentTime;
+        let coordinate = Grid.convertIndexToCoordinate(gridIndex);
 
         if (player && direction) {
 
@@ -489,8 +490,8 @@ class CanvasRenderer {
             }
 
             this.#context.fill();
-            let x = player.getPosition().x + this.#borderWidth - sprite.frame.w / 2;
-            let y = player.getPosition().y + this.#borderWidth - sprite.frame.h + 48;
+            let x = player.getPosition().x - sprite.frame.w / 2;
+            let y = player.getPosition().y - sprite.frame.h + 48;
             let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
             sprite.frame.x,
             sprite.frame.y,
@@ -501,17 +502,30 @@ class CanvasRenderer {
             sprite.frame.w,
             sprite.frame.h];
 
-            this.#drawQueue.push(new Drawable('image', playerSpriteParams, 99 + player.getPosition().y));
+            this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y ));
 
             // let drawParams = [
-            //     player.getPosition().x + this.#borderWidth - player.getBoundingBox().halfWidth,
-            //     player.getPosition().y + this.#borderWidth - player.getBoundingBox().halfWidth,
-            //     player.getBoundingBox().width,
-            //     player.getBoundingBox().height
+            //     coordinate.x * 100,
+            //     coordinate.y * 100,
+            //     100,
+            //     100
             // ]
 
-            // this.#drawQueue.push(new Drawable('rect', drawParams, 20, 'red'));
+            // this.#drawQueue.push(new Drawable('rect', drawParams, 2000, 'yellow'));
         }
+    }
+
+    drawDebug(colliders) {
+        colliders.forEach(collider => {
+            let drawParams = [
+                collider.getLeft(),
+                collider.getTop(),
+                collider.width,
+                collider.height
+            ]
+
+            this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
+        });
     }
 
     draw() {

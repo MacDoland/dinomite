@@ -10,6 +10,8 @@ import BombShop from "./bomb-shop";
 import { indexToTileState, TileState } from "../state/tile-state";
 import SinglyLinkedList from "../structures/linked-list";
 import stateManager, { StateEvents } from "./state-manager";
+import Rectangle from "../structures/rectangle";
+import { resolveCollisions } from "../helpers/collisions";
 
 class GameManager {
     #grid;
@@ -23,6 +25,8 @@ class GameManager {
     #bombShop;
     #player;
     #currentGridIndex;
+    #colliders;
+
 
     constructor(grid) {
         this.#grid = grid;
@@ -54,6 +58,8 @@ class GameManager {
             TICK: 'TICK',
         }
         Object.freeze(this.#events);
+
+        this.#colliders = [];
     }
 
     /* Public methods */
@@ -102,6 +108,77 @@ class GameManager {
             }
 
 
+            // let offsetRight, offsetLeft, offsetUp, offsetDown;
+            // let collider = this.#player.getGlobalBoundingBox().clone();
+            // let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
+            // let neighbours = this.#grid.getNeighbours(gridIndex);
+
+
+            // offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
+            // const isCollidingRight = offsetRight > 0;
+
+            // offsetLeft = collider.getLeft() - playerTileCoordinate.x;
+            // const isCollidingLeft = offsetLeft < 0;
+
+            // offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
+            // const isCollidingDown = offsetDown > 0;
+
+            // offsetUp = collider.getTop() - playerTileCoordinate.y;
+            // const isCollidingUp = offsetUp < 0;
+
+
+            // if(isCollidingRight && isCollidingUp){
+            //     if(offsetRight < offsetUp){
+            //         offset.add(new Vector(-offsetRight, 0));
+            //     }
+            //     else{
+            //         offset.add(new Vector(0, -offsetUp));
+            //     }
+            // }
+            // else if (isCollidingRight){
+            //     offset.add(new Vector(-offsetRight, 0));
+            // }
+            // else{
+            //     offset.add(new Vector(0, -offsetUp));
+            // }
+
+            // if(isCollidingRight && isCollidingDown){
+            //     if(offsetRight < offsetDown){
+            //         offset.add(new Vector(-offsetRight, 0));
+            //     }
+            //     else{
+            //         offset.add(new Vector(0, -offsetDown));
+            //     }
+            // }
+            // else if (isCollidingRight){
+            //     offset.add(new Vector(-offsetRight, 0));
+            // }
+            // else{
+            //     offset.add(new Vector(0, -offsetDown));
+            // }
+
+
+            // if (isCollidingDown || isCollidingLeft || isCollidingRight || isCollidingUp) {
+            //     console.log('overlap', `up: ${isCollidingUp} right: ${isCollidingRight} down: ${isCollidingDown} left: ${isCollidingLeft} `);
+            // }
+
+
+           
+            // let colliders = Object.keys(neighbours)
+            //     .map(key => neighbours[key])
+            //     .flat()
+            //     .map((index) => {
+            //         return new Rectangle(Grid.convertIndexToCoordinate(index, 15, 15).multiplyScalar(100).add(new Vector(50, 50)), 100, 100);
+            //     });
+
+            // this.#colliders = [collider.clone(), ...colliders];
+
+            //   let newOffSet = resolveCollisions(collider, colliders);
+
+            // if (newOffSet.x != 0 || newOffSet.y != 0) {
+            //     console.log('newOffSet', newOffSet);
+            // }
+
             const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
             const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
             const canMoveTopLeftX = this.#canMove(offset.getXOnly(), this.#player.getTopLeft(), this.#grid);
@@ -120,9 +197,8 @@ class GameManager {
                 this.#player.move(offset.getYOnly());
             }
 
-            // if(this.#canMove(offset.getYOnly(), this.#player.getPosition(), this.#grid)){
-            //     this.#player.move(offset.getYOnly());
-            // }
+            // this.#player.move(offset);
+
 
             prev = now;
 
@@ -133,7 +209,8 @@ class GameManager {
                 playerState: this.#player.getState(),
                 gridIndex,
                 bombs: this.#bombShop.getActiveBombs() || [],
-                blasts: this.#bombShop.getActiveBlasts() || []
+                blasts: this.#bombShop.getActiveBlasts() || [],
+                colliders: this.#colliders
             });
             requestAnimationFrame(loop);
         }
@@ -195,8 +272,11 @@ class GameManager {
 
             if (!this.#bombShop.hasActiveBlastAt(index)) {
                 const currentState = indexToTileState(this.#grid.getElementAt(index));
-                const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
-                this.#grid.set(index, newState);
+
+                if (currentState >= 0) {
+                    const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                    this.#grid.set(index, newState);
+                }
             }
         });
 

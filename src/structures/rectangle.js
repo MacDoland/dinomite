@@ -44,6 +44,19 @@ class Rectangle {
     getTop() {
         return this.center.y - this.halfWidth;
     }
+
+    move(offset) {
+        this.center = Vector.add(this.center, offset);
+    }
+    clone(){
+        return new Rectangle(this.center, this.width, this.height);
+    }
+
+    static move(rectangleA, offset) {
+        let rect = new Rectangle(rectangleA.center, rectangleA.width, rectangleA.height);
+        rect.move( offset);
+        return rect;
+    }
 }
 
 export default Rectangle;

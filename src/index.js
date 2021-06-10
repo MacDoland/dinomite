@@ -33,9 +33,9 @@ let config = optionsManager.get() || {};
 // });
 
 inputManager.onKeyUp((key) => {
-    console.log('key', key);
+    // console.log('key', key);
 
-    if ( key === InputKeys.KEY_G.toString()){
+    if (key === InputKeys.KEY_G.toString()) {
         config = optionsManager.get() || {};
         config.showGrid = !config.showGrid;
 
@@ -61,7 +61,7 @@ var app = new Vue({
         bombCount
     },
     mounted() {
-        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex, bombs }) => {
+        gameManager.onUpdate(({ grid, player, playerState, direction, gridIndex, bombs }) => {
             let coordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15);
             this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
             this.position = `grid position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
@@ -71,13 +71,17 @@ var app = new Vue({
             this.bombCount = `bombCount: ${bombs.length}`;
         });
     }
-  })
+})
 
-const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, blasts  }) => {
+const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, blasts, colliders }) => {
     inputManager.update();
     renderer.clear();
     renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
     renderer.drawPlayer(player, playerState, direction, gridIndex);
+
+    if (config.showGrid) {
+        renderer.drawDebug(colliders);
+    }
 
     // let before = performance.now();
     // let numDrawCalls =  renderer.draw();
@@ -85,7 +89,7 @@ const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, bl
     // console.log('draw calls: ', numDrawCalls, after);
 
     renderer.draw();
-    
+
 }
 
 gameManager.onInit(updateGame);

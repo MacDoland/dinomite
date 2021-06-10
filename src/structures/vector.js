@@ -7,6 +7,7 @@ class Vector {
     add(vector) {
         this.x += vector.x;
         this.y += vector.y;
+        return this;
     }
 
     multiplyScalar(value) {

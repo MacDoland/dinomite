@@ -57,6 +57,10 @@ class Player {
         this.#position = Vector.add(this.#position, offset);
     }
 
+    setPosition(newPosition){
+        this.#position = newPosition;
+    }
+
     getDirection() {
         return this.#direction;
     }
@@ -66,6 +70,9 @@ class Player {
     }
     getBoundingBox() {
         return this.#boundingBox;
+    }
+    getGlobalBoundingBox() {
+        return Rectangle.move(this.#boundingBox, this.#position);
     }
     getState() {
         return this.#state;
