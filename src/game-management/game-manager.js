@@ -190,9 +190,12 @@ class GameManager {
 
         this.#bombShop.onExplosionEnd((index) => {
             console.log('onExplosionEnd');
-            const currentState = indexToTileState(this.#grid.getElementAt(index));
-            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
-            this.#grid.set(index, newState);
+
+            if (!this.#bombShop.hasActiveBlastAt(index)) {
+                const currentState = indexToTileState(this.#grid.getElementAt(index));
+                const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                this.#grid.set(index, newState);
+            }
         });
 
         requestAnimationFrame(loop);

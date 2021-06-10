@@ -43,6 +43,10 @@ class BombShop {
         return this.#blasts.filter(blast => !blast.getIsActive()).length;
     }
 
+    hasActiveBlastAt(index){
+        return this.#blasts.filter((blast) => blast.getIndex() === index && blast.getIsActive()).length > 0;
+    }
+
     plant(index) {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
         const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
