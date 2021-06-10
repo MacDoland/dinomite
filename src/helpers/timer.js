@@ -42,6 +42,10 @@ class Timer {
         return this.#elaspsed;
     }
 
+    getRemainingTime(){
+        return this.#target - this.#current;
+    }
+
     tick() {
         if (this.#isActive) {
             this.#deltaTime = (performance.now() - this.#previousTick) / 1000;

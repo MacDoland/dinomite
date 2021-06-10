@@ -132,8 +132,7 @@ class GameManager {
                 direction: this.#player.getDirection(),
                 playerState: this.#player.getState(),
                 gridIndex,
-                bombCount: this.#bombShop.getActiveBombsCount(),
-                bombs: this.#bombShop.getActiveBombs()
+                bombs: this.#bombShop.getActiveBombs() || []
             });
             requestAnimationFrame(loop);
         }
@@ -244,12 +243,12 @@ class GameManager {
     #update() {
         this.#inputManager.update();
 
-        if (this.#gameInProgess) {
-            this.#eventDispatcher.dispatch(this.#events.UPDATE, {
-                grid: this.#grid,
-                player: this.#player
-            });
-        }
+        // if (this.#gameInProgess) {
+        //     this.#eventDispatcher.dispatch(this.#events.UPDATE, {
+        //         grid: this.#grid,
+        //         player: this.#player
+        //     });
+        // }
     }
 
     #canMove(offset, position, grid) {

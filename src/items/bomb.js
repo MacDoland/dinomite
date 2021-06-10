@@ -31,6 +31,14 @@ class Bomb {
         return this.#isActive;
     }
 
+    getTimerDuration() {
+        return this.#timeToExplode;
+    }
+
+    getTimeToDetonation() {
+        return this.#timer.getRemainingTime();
+    }
+
     lightFuse() {
         this.#isActive = true;
         this.#timer.clearHandlers();

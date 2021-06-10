@@ -61,22 +61,22 @@ var app = new Vue({
         bombCount
     },
     mounted() {
-        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex, bombCount }) => {
+        gameManager.onUpdate(({ grid, player, playerState, direction,  gridIndex, bombs }) => {
             let coordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15);
             this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
             this.position = `grid position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
             this.direction = `direction: ${direction}`;
             this.gridIndex = `gridIndex: ${gridIndex}`;
             this.state = `state: ${playerState}`;
-            this.bombCount = `bombCount: ${bombCount}`;
+            this.bombCount = `bombCount: ${bombs.length}`;
         });
     }
   })
 
-const updateGame = ({ grid, player, playerState, direction, gridIndex  }) => {
+const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs  }) => {
     inputManager.update();
     renderer.clear();
-    renderer.drawGrid(grid.getGrid(), config)
+    renderer.drawGrid(grid.getGrid(), config, bombs);
     renderer.drawPlayer(player, playerState, direction, gridIndex);
 
     // let before = performance.now();

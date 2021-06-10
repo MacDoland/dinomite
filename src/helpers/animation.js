@@ -35,6 +35,12 @@ class Animation {
         return this.frames[this.currentIndex];
     }
 
+    getFrameAt(milliseconds, targetDuration) {
+        let timeStep = targetDuration / this.frames.length;
+        let frameIndex = Math.floor(milliseconds / timeStep);
+        return this.frames[frameIndex];
+    }
+
     stop() {
         this.currentStepTime = 0;
     }
