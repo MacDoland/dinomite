@@ -1,8 +1,17 @@
 {"frames": [
 
 {
-	"filename": "destructable-rock/rock-1",
-	"frame": {"x":416,"y":542,"w":96,"h":96},
+	"filename": "destructable-rock-random/rock-1",
+	"frame": {"x":320,"y":608,"w":96,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
+	"sourceSize": {"w":96,"h":96},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "destructable-rock-random/rock-2",
+	"frame": {"x":416,"y":608,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -11,7 +20,7 @@
 },
 {
 	"filename": "explosion/fire-1",
-	"frame": {"x":416,"y":442,"w":100,"h":100},
+	"frame": {"x":576,"y":442,"w":100,"h":100},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
@@ -46,7 +55,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "grass-edge-left/left-edge_",
+	"filename": "grass-edge-corner-top-left/top-left_corner-1",
 	"frame": {"x":0,"y":480,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -55,7 +64,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "grass-edge-right/right-edge-1",
+	"filename": "grass-edge-corner-top-right/top-right-corner-1",
 	"frame": {"x":160,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -64,7 +73,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "grass-edge-top/top-edge-1",
+	"filename": "grass-edge-left/left-edge_",
 	"frame": {"x":320,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -73,43 +82,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "indestructable-terrain/indestructible-block-1",
-	"frame": {"x":320,"y":442,"w":96,"h":120},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":120},
-	"sourceSize": {"w":96,"h":120},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "rock-rubble/rock-2",
-	"frame": {"x":480,"y":160,"w":128,"h":128},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
-	"sourceSize": {"w":128,"h":128},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "scorched-terrain/scorched_terrain-1",
-	"frame": {"x":480,"y":288,"w":128,"h":128},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
-	"sourceSize": {"w":128,"h":128},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "shadow-indestructable/shadow-indestructable",
-	"frame": {"x":320,"y":320,"w":107,"h":122},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":122},
-	"sourceSize": {"w":107,"h":122},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "temp-edge/bottom-edge-2",
+	"filename": "grass-edge-right/right-edge-1",
 	"frame": {"x":480,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -118,7 +91,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "temp-grass/grass-2_1",
+	"filename": "grass-edge-top/top-edge-1",
 	"frame": {"x":160,"y":160,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -127,7 +100,43 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "tile-grass-random/grass-2_1",
+	"filename": "indestructable-terrain/indestructible-block-1",
+	"frame": {"x":480,"y":320,"w":96,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":120},
+	"sourceSize": {"w":96,"h":120},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "rock-rubble/rock-2",
+	"frame": {"x":320,"y":480,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "scorched-terrain/scorched_terrain-1",
+	"frame": {"x":448,"y":480,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "shadow-indestructable/shadow-indestructable",
+	"frame": {"x":576,"y":320,"w":107,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":122},
+	"sourceSize": {"w":107,"h":122},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "temp-edge/bottom-edge-2",
 	"frame": {"x":160,"y":320,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -136,7 +145,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "tile-grass-random/grass_1_1",
+	"filename": "temp-grass/grass-2_1",
 	"frame": {"x":160,"y":480,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -145,8 +154,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "tile-grass-random/grassy",
+	"filename": "tile-grass-random/grass-2_1",
 	"frame": {"x":320,"y":160,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "tile-grass-random/grass_1_1",
+	"frame": {"x":480,"y":160,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "tile-grass-random/grassy",
+	"frame": {"x":320,"y":320,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -158,8 +185,8 @@
 	"version": "1.0",
 	"image": "sprite-sheet-env-0.png",
 	"format": "RGBA8888",
-	"size": {"w":640,"h":640},
+	"size": {"w":704,"h":704},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:fb29dc3de92afb6ad7fc561ffb0c0066:19156aae785a9944872f61741bbf5f92:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:be500668d77def0f55b1ad1253f1f0b2:f9fa8ebdf0d68f5123da4014b6a5569c:3c22793cef27942958a25079515fd615$"
 }
 }

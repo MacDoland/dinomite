@@ -78,7 +78,7 @@ class CanvasRenderer {
     }
 
     drawOcean(grid, index, coordinate) {
-        let color = '#518bc9';
+        let color = '#6ebcd2';
         let drawParams = [
             coordinate.x * this.#cellSize + this.#borderWidth,
             coordinate.y * this.#cellSize + this.#borderWidth,
@@ -186,13 +186,52 @@ class CanvasRenderer {
             this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
         }
 
+        if (neighbours[directions.DOWN].length > 0
+            && neighbours[directions.RIGHT].length > 0
+            && grid[neighbours[directions.DOWN][0]] === TileState.OCEAN
+            && grid[neighbours[directions.RIGHT][0]] === TileState.OCEAN
+            && grid[neighbours[directions.RIGHTDOWN][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-top-left').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
+        }
+
+        if (neighbours[directions.DOWN].length > 0
+            && neighbours[directions.LEFT].length > 0
+            && grid[neighbours[directions.DOWN][0]] === TileState.OCEAN
+            && grid[neighbours[directions.LEFT][0]] === TileState.OCEAN
+            && grid[neighbours[directions.LEFTDOWN][0]] !== TileState.OCEAN) {
+            let sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-top-right').getCurrentFrame();
+            let spriteParams = [this.#spriteSheetEnvironment.getImage(),
+            sprite.frame.x,
+            sprite.frame.y,
+            sprite.frame.w,
+            sprite.frame.h,
+            coordinate.x * this.#cellSize + this.#borderWidth,
+            coordinate.y * this.#cellSize + this.#borderWidth,
+            this.#cellSize,
+            this.#cellSize];
+
+            this.#drawQueue.push(new Drawable('image', spriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 150));
+        }
+
+
 
 
         this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
     }
 
-    drawBasicBlock(coordinate) {
-        let sprite = this.#spriteSheetEnvironment.getAnimation('destructable-rock').getCurrentFrame();
+    drawBasicBlock(coordinate, index) {
+        let sprite = this.#spriteSheetEnvironment.getRandomFrame('destructable-rock-random', index);
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
         sprite.frame.x,
         sprite.frame.y,
@@ -326,7 +365,7 @@ class CanvasRenderer {
             }
             else if (element === TileState.DESTRUCTABLE) {
                 this.drawBasicTile(coordinate);
-                this.drawBasicBlock(coordinate);
+                this.drawBasicBlock(coordinate, index);
             }
             else if (element === TileState.BOMB) {
                 this.drawBasicTile(coordinate);

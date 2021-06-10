@@ -181,7 +181,8 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock/rock-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock-random/rock-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/destructable-rock-random/rock-2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
