@@ -2,7 +2,7 @@
 
 {
 	"filename": "destructable-rock-random/rock-1",
-	"frame": {"x":320,"y":608,"w":96,"h":96},
+	"frame": {"x":576,"y":442,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -11,20 +11,11 @@
 },
 {
 	"filename": "destructable-rock-random/rock-2",
-	"frame": {"x":416,"y":608,"w":96,"h":96},
+	"frame": {"x":576,"y":538,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
 	"sourceSize": {"w":96,"h":96},
-	"pivot": {"x":0.5,"y":0.5}
-},
-{
-	"filename": "explosion/fire-1",
-	"frame": {"x":576,"y":442,"w":100,"h":100},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
-	"sourceSize": {"w":100,"h":100},
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
@@ -185,8 +176,8 @@
 	"version": "1.0",
 	"image": "sprite-sheet-env-0.png",
 	"format": "RGBA8888",
-	"size": {"w":704,"h":704},
+	"size": {"w":683,"h":683},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:be500668d77def0f55b1ad1253f1f0b2:f9fa8ebdf0d68f5123da4014b6a5569c:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:9eb2867edc6861fe3fb03e354f8c5ee6:aedd0b8abe446e36c40d225b92e512f3:3c22793cef27942958a25079515fd615$"
 }
 }

@@ -12,10 +12,10 @@ class Blast {
     #events;
     #durationTimer;
 
-    constructor(index, blastTargets, rateOfFire, duration = 1000) {
+    constructor(index, rateOfFire, duration = 1000) {
         this.#index = index;
         this.#isActive = false;
-        this.#blastTargets = blastTargets;
+        // this.#blastTargets = blastTargets;
         this.#blastAreas = [];
         this.#rateOfFire = rateOfFire;
         this.#duration = duration;
@@ -29,12 +29,26 @@ class Blast {
         Object.freeze(this.#events);
 
         this.#durationTimer.onElapsed(() => {
-           this.#eventDispatcher.dispatch(this.#events.END);
+            this.#isActive = false;
+            this.#eventDispatcher.dispatch(this.#events.END, this.#index);
         });
     }
 
-    getIsActive(){
+
+    getIndex() {
+        return this.#index;
+    }
+
+    getIsActive() {
         return this.#isActive;
+    }
+
+    getTimerDuration() {
+        return this.#duration;
+    }
+
+    getRemainingTime() {
+        return this.#durationTimer.getRemainingTime();
     }
 
     detonate(index) {
@@ -42,8 +56,9 @@ class Blast {
         this.#blastAreas.push(index);
         this.#index = index;
 
-        if(!this.#isActive) {
+        if (!this.#isActive) {
             this.#isActive = true;
+            this.#durationTimer.reset();
             this.#durationTimer.start(this.#duration);
 
             console.log("BOMB about to explode");
@@ -57,6 +72,14 @@ class Blast {
 
     removeOnExplode(handler) {
         this.#eventDispatcher.deregisterHandler(this.#events.EXPLODE, handler);
+    }
+
+    onEnd(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.END, handler);
+    }
+
+    removeOnEnd(handler) {
+        this.#eventDispatcher.deregisterHandler(this.#events.END, handler);
     }
 
     onTick(handler) {

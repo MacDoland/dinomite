@@ -132,7 +132,8 @@ class GameManager {
                 direction: this.#player.getDirection(),
                 playerState: this.#player.getState(),
                 gridIndex,
-                bombs: this.#bombShop.getActiveBombs() || []
+                bombs: this.#bombShop.getActiveBombs() || [],
+                blasts: this.#bombShop.getActiveBlasts() || []
             });
             requestAnimationFrame(loop);
         }
@@ -160,26 +161,27 @@ class GameManager {
             Object.keys(neighbours)
                 .filter(key => [directions.UP, directions.RIGHT, directions.DOWN, directions.LEFT].includes(key))
                 .map(key => neighbours[key]).map(tiles => {
-                    targets.push(this.#getExplosionTargets(tiles));
+                    targets = targets.concat(this.#getExplosionTargets(tiles));
                 });
 
-            let bombTileTarget = new SinglyLinkedList();
-            bombTileTarget.push(index);
+            this.#bombShop.createExplosion(index, 30, 500);
 
-            targets.unshift(bombTileTarget);
+            targets.forEach((target) => {
+                this.#bombShop.createExplosion(target, 30, 500);
+            });
 
-            this.#bombShop.createExplosion(index, targets, 30, 1000);
         });
 
         this.#bombShop.onExplosion((index) => {
+            console.log('onExplosion');
             const currentState = indexToTileState(this.#grid.getElementAt(index));
 
             if (currentState === TileState.BOMB
                 || currentState === TileState.BOMB_RUBBLE
                 || currentState === TileState.BOMB_RUBBLE_SCORCH
                 || currentState === TileState.BOMB_SCORCH) {
-                    //theres a bomb on this tile - detonate it
-                    this.#bombShop.detonateBombAt(index);
+                //theres a bomb on this tile - detonate it
+                this.#bombShop.detonateBombAt(index);
             }
 
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
@@ -187,6 +189,7 @@ class GameManager {
         });
 
         this.#bombShop.onExplosionEnd((index) => {
+            console.log('onExplosionEnd');
             const currentState = indexToTileState(this.#grid.getElementAt(index));
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
             this.#grid.set(index, newState);
@@ -195,8 +198,35 @@ class GameManager {
         requestAnimationFrame(loop);
     }
 
+    // #getExplosionTargets(tiles) {
+    //     let targets = new SinglyLinkedList();
+    //     let hasHitDeadEnd = false;
+    //     let index = 0;
+    //     let targetIndex;
+
+    //     if (tiles && Array.isArray(tiles)) {
+
+    //         while (!hasHitDeadEnd && index < tiles.length) {
+    //             targetIndex = tiles[index];
+    //             hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE || this.#grid.getElementAt(targetIndex) === TileState.OCEAN;
+    //             if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
+    //                 targets.push(targetIndex);
+    //             }
+
+    //             if (this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
+    //                 index++;
+    //             }
+    //             else {
+    //                 hasHitDeadEnd = true;
+    //             }
+    //         }
+    //     }
+
+    //     return targets;
+    // }
+
     #getExplosionTargets(tiles) {
-        let targets = new SinglyLinkedList();
+        let targets = [];
         let hasHitDeadEnd = false;
         let index = 0;
         let targetIndex;

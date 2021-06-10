@@ -253,31 +253,34 @@ class CanvasRenderer {
     }
 
     drawBomb(coordinate, bomb) {
-        let duration = bomb.getTimerDuration();
-        let timeLeft = bomb.getTimeToDetonation();
-        let isUnderHalfTimeLeft = timeLeft < (duration / 2);
+        if (bomb) {
+            let duration = bomb.getTimerDuration();
+            let timeLeft = bomb.getTimeToDetonation();
+            let isUnderHalfTimeLeft = timeLeft < (duration / 2);
 
+            let sprite = isUnderHalfTimeLeft
+                ? this.#spriteSheetItems.getAnimation('egg-teal-crack').getFrameAt(duration - timeLeft, duration)
+                : this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
 
-        let sprite = isUnderHalfTimeLeft 
-        ? this.#spriteSheetItems.getAnimation('egg-teal-crack').getFrameAt(duration - timeLeft, duration)
-        : this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
+            if (sprite) {
+                let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2);
+                let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
 
-        let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2);
-        let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
+                let bombDrawParams = [
+                    this.#spriteSheetItems.getImage(),
+                    sprite.frame.x,
+                    sprite.frame.y,
+                    sprite.frame.w,
+                    sprite.frame.h,
+                    x,
+                    y,
+                    sprite.frame.w,
+                    sprite.frame.h
+                ];
 
-        let bombDrawParams = [
-            this.#spriteSheetItems.getImage(),
-            sprite.frame.x,
-            sprite.frame.y,
-            sprite.frame.w,
-            sprite.frame.h,
-            x,
-            y,
-            sprite.frame.w,
-            sprite.frame.h
-        ];
-
-        this.#drawQueue.push(new Drawable('image', bombDrawParams, 80 + y));
+                this.#drawQueue.push(new Drawable('image', bombDrawParams, 80 + y));
+            }
+        }
     }
 
     drawRubble(coordinate) {
@@ -311,20 +314,28 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
     }
 
-    drawExplosion(coordinate) {
-        let sprite = this.#spriteSheetItems.getAnimation('explosion-center-loop').getCurrentFrame();
-        let drawParams = [
-            this.#spriteSheetItems.getImage(),
-            sprite.frame.x,
-            sprite.frame.y,
-            sprite.frame.w,
-            sprite.frame.h,
-            coordinate.x * this.#cellSize + this.#borderWidth,
-            coordinate.y * this.#cellSize + this.#borderWidth,
-            this.#cellSize,
-            this.#cellSize];
+    drawExplosion(coordinate, blast) {
+        if (blast) {
+            let duration = blast.getTimerDuration();
+            let timeLeft = blast.getRemainingTime();
+            // console.log(`progress: ${duration - timeLeft}, duration: ${duration}`);
+            let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAt(duration - timeLeft, duration)
 
-        this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 5));
+            if (sprite) {
+                let drawParams = [
+                    this.#spriteSheetItems.getImage(),
+                    sprite.frame.x,
+                    sprite.frame.y,
+                    sprite.frame.w,
+                    sprite.frame.h,
+                    coordinate.x * this.#cellSize + this.#borderWidth,
+                    coordinate.y * this.#cellSize + this.#borderWidth,
+                    this.#cellSize,
+                    this.#cellSize];
+
+                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + this.#borderWidth + 200));
+            }
+        }
     }
 
     drawShadow(coordinate) {
@@ -351,17 +362,24 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth - 100));
     }
 
-    drawGrid(grid, config, bombs) {
+    drawGrid(grid, config, bombs, blasts) {
 
-        let coordinate, bomb, bombsByIndex;
+        if(blasts > 0){
+            console.log('#blasts', blasts.length);
+        }
+
+        let coordinate, bomb, bombsByIndex, blast, blastsByIndex;
 
         grid.forEach((element, index) => {
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
             bombsByIndex = bombs.filter((bomb) => bomb.getIndex() === index);
-
             bomb = bombsByIndex.length > 0 ? bombsByIndex[0] : null;
+
+            blastsByIndex = blasts.filter((blast) => blast.getIndex() === index);
+            blast = blastsByIndex.length > 0 ? blastsByIndex[0] : null;
+
 
             if (element === TileState.EMPTY) {
                 this.drawBasicTile(coordinate, index);
@@ -414,23 +432,23 @@ class CanvasRenderer {
             }
             else if (element === TileState.EXPLOSION) {
                 this.drawBasicTile(coordinate);
-                this.drawExplosion(coordinate);
+                this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_RUBBLE) {
                 this.drawBasicTile(coordinate);
                 this.drawRubble(coordinate);
-                this.drawExplosion(coordinate);
+                this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_SCORCH) {
                 this.drawBasicTile(coordinate);
                 this.drawScorch(coordinate);
-                this.drawExplosion(coordinate);
+                this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_RUBBLE_SCORCH) {
                 this.drawBasicTile(coordinate);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
-                this.drawExplosion(coordinate);
+                this.drawExplosion(coordinate, blast);
             }
 
             if (config.showGrid) {

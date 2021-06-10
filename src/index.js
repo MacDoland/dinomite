@@ -73,10 +73,10 @@ var app = new Vue({
     }
   })
 
-const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs  }) => {
+const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, blasts  }) => {
     inputManager.update();
     renderer.clear();
-    renderer.drawGrid(grid.getGrid(), config, bombs);
+    renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
     renderer.drawPlayer(player, playerState, direction, gridIndex);
 
     // let before = performance.now();

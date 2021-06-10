@@ -36,7 +36,7 @@ class BombShop {
     }
 
     getActiveBlasts() {
-        return this.#blasts.filter(blast => blast.getIsActive()).length;
+        return this.#blasts.filter(blast => blast.getIsActive());
     }
 
     getInactiveBlasts() {
@@ -80,48 +80,70 @@ class BombShop {
     detonateBombAt(index) {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
 
-        if(bombOnIndex.length > 0 && bombOnIndex[0].getIsActive()){
+        if (bombOnIndex.length > 0 && bombOnIndex[0].getIsActive()) {
             this.#bombs[bombOnIndex].detonate();
         }
     }
 
-    createExplosion(index, blastTargets, rateOfFire, duration) {
-        // if (this.getInactiveBlasts().length === 0) {
-        let blast = new Blast(index, blastTargets, rateOfFire, duration);
-        const getItemsLeftToProcess = () => { return blastTargets.map(list => list.length).reduce((a, b) => a + b) };
-        let i = 0;
-        blast.onExplode((targets) => {
+    createExplosion(index, rateOfFire, duration) {
+        let blast = new Blast(index, rateOfFire, duration);
+
+        blast.onEnd((index) => {
+            this.#eventDispatcher.dispatch(this.#events.EXPLOSION_END, index);
+        });
+        
+        blast.onExplode(() => {
             console.log('BIG EXPLODY');
-            let itemsLeftToProcess = getItemsLeftToProcess();
-
-            while (itemsLeftToProcess > 0) {
-                console.log('itemsLeftToProcess', itemsLeftToProcess);
-
-                blastTargets.forEach(element => {
-                    let node = element.shift();
-                    if (node) {
-                        console.log('DESTROYING index:', node.value());
-                        setTimeout(() => {
-                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION, node.value());
-                        }, i * rateOfFire);
-
-                        setTimeout(() => {
-                            this.#eventDispatcher.dispatch(this.#events.EXPLOSION_END, node.value());
-                        }, this.#strength * rateOfFire + this.#explosionDuration);
-                    }
-                });
-
-                itemsLeftToProcess = getItemsLeftToProcess();
-
-                i++;
-            };
+            this.#eventDispatcher.dispatch(this.#events.EXPLOSION, index);
         });
 
         this.#blasts.push(blast);
 
         blast.detonate(index);
-        // }
     }
+
+    // createExplosion(index, blastTargets, rateOfFire, duration) {
+    //     // if (this.getInactiveBlasts().length === 0) {
+    //     let blast = new Blast(index, blastTargets, rateOfFire, duration);
+    //     const getItemsLeftToProcess = () => { return blastTargets.map(list => list.length).reduce((a, b) => a + b) };
+    //     let i = 0;
+
+    //     blast.onEnd((index) => {
+    //         this.#eventDispatcher.dispatch(this.#events.EXPLOSION_END, index);
+    //     });
+
+    //     blast.onExplode((targets) => {
+    //         console.log('BIG EXPLODY');
+    //         let itemsLeftToProcess = getItemsLeftToProcess();
+
+    //         while (itemsLeftToProcess > 0) {
+    //             console.log('itemsLeftToProcess', itemsLeftToProcess);
+
+    //             blastTargets.forEach(element => {
+    //                 let node = element.shift();
+    //                 if (node) {
+    //                     console.log('DESTROYING index:', node.value());
+    //                     setTimeout(() => {
+    //                         this.#eventDispatcher.dispatch(this.#events.EXPLOSION, node.value());
+    //                     }, i * rateOfFire);
+
+    //                     // setTimeout(() => {
+    //                     //     this.#eventDispatcher.dispatch(this.#events.EXPLOSION_END, node.value());
+    //                     // }, this.#strength * rateOfFire + this.#explosionDuration);
+    //                 }
+    //             });
+
+    //             itemsLeftToProcess = getItemsLeftToProcess();
+
+    //             i++;
+    //         };
+    //     });
+
+    //     this.#blasts.push(blast);
+
+    //     blast.detonate(index);
+    //     // }
+    // }
 
     onBombExpired(handler) {
         this.#eventDispatcher.registerHandler(this.#events.EXPIRE, handler);
