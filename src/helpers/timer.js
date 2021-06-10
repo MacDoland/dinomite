@@ -38,6 +38,10 @@ class Timer {
         this.#isActive = false;
     }
 
+    finish(){
+        this.#current = this.#target;
+    }
+
     hasElapsed() {
         return this.#elaspsed;
     }
@@ -45,6 +49,8 @@ class Timer {
     getRemainingTime(){
         return this.#target - this.#current;
     }
+
+
 
     tick() {
         if (this.#isActive) {

@@ -56,8 +56,7 @@ class Bomb {
     }
 
     detonate() {
-        this.#isActive = false;
-
+        this.#timer.finish();
         this.#eventDispatcher.dispatch(this.#events.EXPLODE, {
             index: this.#index,
             strength: this.#strength

@@ -181,7 +181,9 @@ class GameManager {
                 || currentState === TileState.BOMB_RUBBLE_SCORCH
                 || currentState === TileState.BOMB_SCORCH) {
                 //theres a bomb on this tile - detonate it
-                this.#bombShop.detonateBombAt(index);
+                setTimeout(() => {
+                    this.#bombShop.detonateBombAt(index);
+                }, 100);
             }
 
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);

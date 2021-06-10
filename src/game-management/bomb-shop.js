@@ -85,7 +85,7 @@ class BombShop {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
 
         if (bombOnIndex.length > 0 && bombOnIndex[0].getIsActive()) {
-            this.#bombs[bombOnIndex].detonate();
+            bombOnIndex[0].detonate();
         }
     }
 
