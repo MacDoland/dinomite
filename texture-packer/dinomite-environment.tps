@@ -215,6 +215,8 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom/bottom-edge-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/corner-bottom-left.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-right/corner-bottom-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-left/top-left_corner-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-right/top-right-corner-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left/left-edge_.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right/right-edge-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-top/top-edge-1.png</key>

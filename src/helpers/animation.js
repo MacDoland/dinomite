@@ -7,41 +7,43 @@ class Animation {
     timer;
     currentIndex;
     currentStepTime;
-    constructor (name, frames, speed) {
+    shouldLoop;
+    constructor(name, frames, speed, shouldLoop) {
         this.frames = frames;
         this.name = name;
         this.speed = speed;
         this.timer = new Timer();
         this.currentIndex = 0;
         this.currentStepTime = 0;
+        this.shouldLoop = shouldLoop;
     }
 
     play() {
         this.currentStepTime = 0;
     }
 
-    update (deltaTime){
+    update(deltaTime) {
         this.currentStepTime += deltaTime;
 
-        if(this.currentStepTime > this.speed) {
+        if (this.currentStepTime > this.speed) {
             this.currentStepTime = 0;
             this.incrementIndex();
         }
     }
 
-    getCurrentFrame(){
+    getCurrentFrame() {
         return this.frames[this.currentIndex];
     }
 
-    stop () {
+    stop() {
         this.currentStepTime = 0;
     }
 
-    incrementIndex(){
-        this.currentIndex+=1;
+    incrementIndex() {
+        this.currentIndex += 1;
 
-        if(this.currentIndex >= this.frames.length){
-            this.currentIndex = 0;
+        if (this.currentIndex >= this.frames.length) {
+            this.currentIndex = this.shouldLoop ? 0 : this.frames.length - 1;
         }
     }
 

@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-00",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-00",
 	"frame": {"x":1567,"y":1480,"w":113,"h":182},
 	"rotated": false,
 	"trimmed": true,
@@ -10,7 +10,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-01",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-01",
 	"frame": {"x":1454,"y":1481,"w":113,"h":182},
 	"rotated": false,
 	"trimmed": true,
@@ -19,7 +19,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-02",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-02",
 	"frame": {"x":1567,"y":1296,"w":113,"h":184},
 	"rotated": false,
 	"trimmed": true,
@@ -28,7 +28,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-03",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-03",
 	"frame": {"x":1341,"y":1296,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
@@ -37,7 +37,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-04",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-04",
 	"frame": {"x":1341,"y":1481,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
@@ -46,7 +46,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-05",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-05",
 	"frame": {"x":1264,"y":940,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -55,7 +55,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-06",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-06",
 	"frame": {"x":1133,"y":1,"w":113,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -64,7 +64,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-07",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-07",
 	"frame": {"x":696,"y":1387,"w":113,"h":190},
 	"rotated": false,
 	"trimmed": true,
@@ -73,7 +73,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-08",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-08",
 	"frame": {"x":1567,"y":550,"w":113,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -82,7 +82,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-09",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-09",
 	"frame": {"x":1376,"y":738,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -91,7 +91,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-10",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-10",
 	"frame": {"x":1228,"y":1327,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -100,7 +100,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-down/dino-rex-idle-down-11",
+	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-11",
 	"frame": {"x":1454,"y":1296,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
@@ -109,7 +109,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-00",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-00",
 	"frame": {"x":1489,"y":924,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
@@ -118,7 +118,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-01",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-01",
 	"frame": {"x":1377,"y":1110,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
@@ -127,7 +127,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-02",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-02",
 	"frame": {"x":1516,"y":1110,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
@@ -136,7 +136,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-03",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-03",
 	"frame": {"x":948,"y":1354,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -145,7 +145,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-04",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-04",
 	"frame": {"x":1260,"y":189,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -154,7 +154,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-05",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-05",
 	"frame": {"x":1260,"y":377,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -163,7 +163,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-06",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-06",
 	"frame": {"x":925,"y":585,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -172,7 +172,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-07",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-07",
 	"frame": {"x":927,"y":387,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -181,7 +181,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-08",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-08",
 	"frame": {"x":982,"y":192,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -190,7 +190,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-09",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-09",
 	"frame": {"x":809,"y":1369,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -199,7 +199,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-10",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-10",
 	"frame": {"x":873,"y":1166,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -208,7 +208,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-left/dino-rex-idle-left-11",
+	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-11",
 	"frame": {"x":1152,"y":1140,"w":139,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -217,7 +217,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-00",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-00",
 	"frame": {"x":1489,"y":738,"w":140,"h":186},
 	"rotated": false,
 	"trimmed": true,
@@ -226,7 +226,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-01",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-01",
 	"frame": {"x":1012,"y":1151,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -235,7 +235,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-02",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-02",
 	"frame": {"x":1124,"y":953,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -244,7 +244,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-03",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-03",
 	"frame": {"x":1236,"y":753,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -253,7 +253,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-04",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-04",
 	"frame": {"x":985,"y":963,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -262,7 +262,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-05",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-05",
 	"frame": {"x":994,"y":1,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -271,7 +271,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-06",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-06",
 	"frame": {"x":982,"y":774,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -280,7 +280,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-07",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-07",
 	"frame": {"x":1064,"y":576,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -289,7 +289,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-08",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-08",
 	"frame": {"x":1066,"y":381,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -298,7 +298,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-09",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-09",
 	"frame": {"x":1121,"y":190,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -307,7 +307,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-10",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-10",
 	"frame": {"x":1205,"y":565,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -316,7 +316,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-right/dino-rex-idle-right-11",
+	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-11",
 	"frame": {"x":1088,"y":1338,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
@@ -325,7 +325,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-00",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-00",
 	"frame": {"x":1,"y":1437,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -334,7 +334,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-01",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-01",
 	"frame": {"x":1,"y":1236,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
@@ -343,7 +343,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-02",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-02",
 	"frame": {"x":116,"y":1034,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
@@ -352,7 +352,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-03",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-03",
 	"frame": {"x":354,"y":203,"w":119,"h":200},
 	"rotated": false,
 	"trimmed": true,
@@ -361,7 +361,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-04",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-04",
 	"frame": {"x":239,"y":1230,"w":119,"h":197},
 	"rotated": false,
 	"trimmed": true,
@@ -370,7 +370,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-05",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-05",
 	"frame": {"x":587,"y":1,"w":119,"h":198},
 	"rotated": false,
 	"trimmed": true,
@@ -379,7 +379,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-06",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-06",
 	"frame": {"x":120,"y":1235,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -388,7 +388,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-07",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-07",
 	"frame": {"x":235,"y":1031,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -397,7 +397,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-08",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-08",
 	"frame": {"x":354,"y":1018,"w":119,"h":197},
 	"rotated": false,
 	"trimmed": true,
@@ -406,7 +406,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-09",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-09",
 	"frame": {"x":468,"y":1,"w":119,"h":200},
 	"rotated": false,
 	"trimmed": true,
@@ -415,7 +415,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-10",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-10",
 	"frame": {"x":119,"y":830,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
@@ -424,7 +424,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-idle-up/trex-idle-up-11",
+	"filename": "dino-rex-idle-up-loop/trex-idle-up-11",
 	"frame": {"x":234,"y":618,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
@@ -433,7 +433,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-00",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-00",
 	"frame": {"x":1121,"y":765,"w":115,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -442,7 +442,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-01",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-01",
 	"frame": {"x":810,"y":585,"w":115,"h":190},
 	"rotated": false,
 	"trimmed": true,
@@ -451,7 +451,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-02",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-02",
 	"frame": {"x":639,"y":399,"w":115,"h":196},
 	"rotated": false,
 	"trimmed": true,
@@ -460,7 +460,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-03",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-03",
 	"frame": {"x":1,"y":1034,"w":115,"h":202},
 	"rotated": false,
 	"trimmed": true,
@@ -469,7 +469,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-04",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-04",
 	"frame": {"x":1,"y":627,"w":115,"h":204},
 	"rotated": false,
 	"trimmed": true,
@@ -478,7 +478,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-05",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-05",
 	"frame": {"x":117,"y":1,"w":116,"h":210},
 	"rotated": false,
 	"trimmed": true,
@@ -487,7 +487,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-06",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-06",
 	"frame": {"x":1,"y":1,"w":116,"h":211},
 	"rotated": false,
 	"trimmed": true,
@@ -496,7 +496,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-07",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-07",
 	"frame": {"x":1,"y":212,"w":117,"h":210},
 	"rotated": false,
 	"trimmed": true,
@@ -505,7 +505,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-08",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-08",
 	"frame": {"x":233,"y":1,"w":117,"h":204},
 	"rotated": false,
 	"trimmed": true,
@@ -514,7 +514,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-09",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-09",
 	"frame": {"x":350,"y":1,"w":118,"h":202},
 	"rotated": false,
 	"trimmed": true,
@@ -523,7 +523,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-10",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-10",
 	"frame": {"x":238,"y":819,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -532,7 +532,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-down/trex-walking-down-11",
+	"filename": "dino-rex-walking-down-loop/trex-walking-down-11",
 	"frame": {"x":523,"y":399,"w":116,"h":196},
 	"rotated": false,
 	"trimmed": true,
@@ -541,7 +541,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-00",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-00",
 	"frame": {"x":816,"y":775,"w":166,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -550,7 +550,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-01",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-01",
 	"frame": {"x":824,"y":1,"w":170,"h":191},
 	"rotated": false,
 	"trimmed": true,
@@ -559,7 +559,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-02",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-02",
 	"frame": {"x":530,"y":1197,"w":172,"h":190},
 	"rotated": false,
 	"trimmed": true,
@@ -568,7 +568,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-03",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-03",
 	"frame": {"x":356,"y":1427,"w":170,"h":194},
 	"rotated": false,
 	"trimmed": true,
@@ -577,7 +577,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-04",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-04",
 	"frame": {"x":754,"y":394,"w":173,"h":191},
 	"rotated": false,
 	"trimmed": true,
@@ -586,7 +586,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-05",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-05",
 	"frame": {"x":1419,"y":1,"w":172,"h":183},
 	"rotated": false,
 	"trimmed": true,
@@ -595,7 +595,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-06",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-06",
 	"frame": {"x":1419,"y":184,"w":169,"h":183},
 	"rotated": false,
 	"trimmed": true,
@@ -604,7 +604,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-07",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-07",
 	"frame": {"x":702,"y":1180,"w":171,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -613,7 +613,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-08",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-08",
 	"frame": {"x":641,"y":199,"w":170,"h":195},
 	"rotated": false,
 	"trimmed": true,
@@ -622,7 +622,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-09",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-09",
 	"frame": {"x":473,"y":201,"w":168,"h":198},
 	"rotated": false,
 	"trimmed": true,
@@ -631,7 +631,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-10",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-10",
 	"frame": {"x":641,"y":595,"w":169,"h":192},
 	"rotated": false,
 	"trimmed": true,
@@ -640,7 +640,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-left/dino-rex-walking-left-11",
+	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-11",
 	"frame": {"x":647,"y":787,"w":169,"h":190},
 	"rotated": false,
 	"trimmed": true,
@@ -649,7 +649,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-00",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-00",
 	"frame": {"x":1400,"y":550,"w":167,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -658,7 +658,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-01",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-01",
 	"frame": {"x":811,"y":196,"w":171,"h":191},
 	"rotated": false,
 	"trimmed": true,
@@ -667,7 +667,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-02",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-02",
 	"frame": {"x":642,"y":990,"w":172,"h":190},
 	"rotated": false,
 	"trimmed": true,
@@ -676,7 +676,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-03",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-03",
 	"frame": {"x":358,"y":1215,"w":172,"h":193},
 	"rotated": false,
 	"trimmed": true,
@@ -685,7 +685,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-04",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-04",
 	"frame": {"x":474,"y":798,"w":173,"h":192},
 	"rotated": false,
 	"trimmed": true,
@@ -694,7 +694,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-05",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-05",
 	"frame": {"x":1246,"y":1,"w":173,"h":188},
 	"rotated": false,
 	"trimmed": true,
@@ -703,7 +703,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-06",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-06",
 	"frame": {"x":1400,"y":367,"w":169,"h":183},
 	"rotated": false,
 	"trimmed": true,
@@ -712,7 +712,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-07",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-07",
 	"frame": {"x":814,"y":977,"w":171,"h":189},
 	"rotated": false,
 	"trimmed": true,
@@ -721,7 +721,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-08",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-08",
 	"frame": {"x":471,"y":602,"w":170,"h":196},
 	"rotated": false,
 	"trimmed": true,
@@ -730,7 +730,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-09",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-09",
 	"frame": {"x":237,"y":408,"w":168,"h":200},
 	"rotated": false,
 	"trimmed": true,
@@ -739,7 +739,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-10",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-10",
 	"frame": {"x":473,"y":1004,"w":169,"h":193},
 	"rotated": false,
 	"trimmed": true,
@@ -748,7 +748,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-right/dino-rex-walking-right-11",
+	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-11",
 	"frame": {"x":526,"y":1408,"w":170,"h":191},
 	"rotated": false,
 	"trimmed": true,
@@ -757,7 +757,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-00",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-00",
 	"frame": {"x":706,"y":1,"w":118,"h":195},
 	"rotated": false,
 	"trimmed": true,
@@ -766,7 +766,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-01",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-01",
 	"frame": {"x":353,"y":608,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -775,7 +775,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-02",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-02",
 	"frame": {"x":1,"y":831,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
@@ -784,7 +784,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-03",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-03",
 	"frame": {"x":1,"y":422,"w":118,"h":205},
 	"rotated": false,
 	"trimmed": true,
@@ -793,7 +793,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-04",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-04",
 	"frame": {"x":116,"y":627,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
@@ -802,7 +802,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-05",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-05",
 	"frame": {"x":356,"y":807,"w":118,"h":197},
 	"rotated": false,
 	"trimmed": true,
@@ -811,7 +811,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-06",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-06",
 	"frame": {"x":120,"y":1434,"w":118,"h":198},
 	"rotated": false,
 	"trimmed": true,
@@ -820,7 +820,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-07",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-07",
 	"frame": {"x":405,"y":403,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
@@ -829,7 +829,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-08",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-08",
 	"frame": {"x":119,"y":415,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
@@ -838,7 +838,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-09",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-09",
 	"frame": {"x":118,"y":211,"w":118,"h":204},
 	"rotated": false,
 	"trimmed": true,
@@ -847,7 +847,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-10",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-10",
 	"frame": {"x":236,"y":205,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
@@ -856,7 +856,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "dino-rex-walking-up/trex-walking-up-11",
+	"filename": "dino-rex-walking-up-loop/trex-walking-up-11",
 	"frame": {"x":238,"y":1434,"w":118,"h":198},
 	"rotated": false,
 	"trimmed": true,
@@ -871,6 +871,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1681,"h":1681},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:eb3197e789db2a2970b7c8f01746c00a:a3ce7c05377b7fa1c08541a499750e9d:596e3f093264869e3290e0ae51b48a1b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5c9c9c8973b2c2654ff7f3f77f5b5d2e:a3ce7c05377b7fa1c08541a499750e9d:596e3f093264869e3290e0ae51b48a1b$"
 }
 }

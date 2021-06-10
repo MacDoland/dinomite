@@ -28,7 +28,7 @@ class SpriteSheet {
                 this.#randomFrames[animationName] = animationFrames;
             }
             else {
-                this.#animations[animationName] = new Animation(animationName, animationFrames, speed);
+                this.#animations[animationName] = new Animation(animationName, animationFrames, speed, animationName.includes('loop'));
             }
         });
     }

@@ -253,7 +253,7 @@ class CanvasRenderer {
     }
 
     drawBomb(coordinate) {
-        let sprite = this.#spriteSheetItems.getAnimation('egg-teal-wobble').getCurrentFrame();
+        let sprite = this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
         let x = coordinate.x * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.w / 2);
         let y = coordinate.y * this.#cellSize + this.#borderWidth + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
 
@@ -443,19 +443,19 @@ class CanvasRenderer {
 
             let sprite;
             if (state === PlayerState.WALKING && direction === directions.LEFT) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left').getCurrentFrame();
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left-loop').getCurrentFrame();
             }
             else if (state === PlayerState.WALKING && direction === directions.DOWN) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down').getCurrentFrame();
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down-loop').getCurrentFrame();
             }
             else if (state === PlayerState.WALKING && direction === directions.RIGHT) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right').getCurrentFrame();
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right-loop').getCurrentFrame();
             }
             else if (state === PlayerState.WALKING && direction === directions.UP) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up').getCurrentFrame();
+                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up-loop').getCurrentFrame();
             }
             else {
-                sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}`).getCurrentFrame()
+                sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
             }
 
             this.#context.fill();

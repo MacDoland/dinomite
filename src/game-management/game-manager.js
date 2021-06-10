@@ -102,7 +102,6 @@ class GameManager {
             }
 
 
-
             const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
             const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
             const canMoveTopLeftX = this.#canMove(offset.getXOnly(), this.#player.getTopLeft(), this.#grid);
@@ -133,7 +132,8 @@ class GameManager {
                 direction: this.#player.getDirection(),
                 playerState: this.#player.getState(),
                 gridIndex,
-                bombCount: this.#bombShop.getActiveBombs()
+                bombCount: this.#bombShop.getActiveBombsCount(),
+                bombs: this.#bombShop.getActiveBombs()
             });
             requestAnimationFrame(loop);
         }
@@ -169,7 +169,7 @@ class GameManager {
 
             targets.unshift(bombTileTarget);
 
-            this.#bombShop.createExplosion(index, targets, 200, 1000);
+            this.#bombShop.createExplosion(index, targets, 30, 1000);
         });
 
         this.#bombShop.onExplosion((index) => {
