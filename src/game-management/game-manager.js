@@ -26,9 +26,11 @@ class GameManager {
     #player;
     #currentGridIndex;
     #colliders;
+    #logger;
 
 
-    constructor(grid) {
+    constructor(grid, logger) {
+        this.#logger = logger;
         this.#grid = grid;
         this.#timer = new Timer();
         this.#gameInProgess = false;
@@ -37,15 +39,9 @@ class GameManager {
         this.#player = new Player();
         this.#player.move(new Vector(355, 355));
         this.#bombShop = new BombShop();
-
         this.#inputManager = new InputManager();
-        // this.#inputManager.onUp(() => this.#snake.changeDirection(directions.UP));
-        // this.#inputManager.onRight(() => this.#snake.changeDirection(directions.RIGHT));
-        // this.#inputManager.onDown(() => this.#snake.changeDirection(directions.DOWN));
-        // this.#inputManager.onLeft(() => this.#snake.changeDirection(directions.LEFT));
-
         this.#audioManager = new AudioManager();
-        this.#audioManager.load('cheering', '../audio/cheering.wav', 0.3, false);
+        this.#audioManager.load('boom', '../audio/boom.wav', 0.3, false);
 
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
@@ -108,24 +104,30 @@ class GameManager {
             }
 
 
-            // let offsetRight, offsetLeft, offsetUp, offsetDown;
-            // let collider = this.#player.getGlobalBoundingBox().clone();
-            // let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
-            // let neighbours = this.#grid.getNeighbours(gridIndex);
+            let offsetRight, offsetLeft, offsetUp, offsetDown;
+            let collider = this.#player.getGlobalBoundingBox().clone();
+            let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
+            let neighbours = this.#grid.getNeighbours(gridIndex);
 
 
-            // offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
-            // const isCollidingRight = offsetRight > 0;
+            offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
+            const isCollidingRight = offsetRight > 0;
 
-            // offsetLeft = collider.getLeft() - playerTileCoordinate.x;
-            // const isCollidingLeft = offsetLeft < 0;
+            offsetLeft = collider.getLeft() - playerTileCoordinate.x;
+            const isCollidingLeft = offsetLeft < 0;
 
-            // offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
-            // const isCollidingDown = offsetDown > 0;
+            offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
+            const isCollidingDown = offsetDown > 0;
 
-            // offsetUp = collider.getTop() - playerTileCoordinate.y;
-            // const isCollidingUp = offsetUp < 0;
+            offsetUp = collider.getTop() - playerTileCoordinate.y;
+            const isCollidingUp = offsetUp < 0;
 
+            this.#logger.log('player collisions', {
+                isCollidingRight,
+                isCollidingLeft,
+                isCollidingDown,
+                isCollidingUp
+            });
 
             // if(isCollidingRight && isCollidingUp){
             //     if(offsetRight < offsetUp){
@@ -251,6 +253,7 @@ class GameManager {
 
         this.#bombShop.onExplosion((index) => {
             console.log('onExplosion');
+            this.#audioManager.play('boom');
             const currentState = indexToTileState(this.#grid.getElementAt(index));
 
             if (currentState === TileState.BOMB

@@ -13,12 +13,20 @@
 
 <body>
     <div id="debug-window" class="debug-window">
-        <div>{{ position }}</div>
-        <div>{{ gridPosition }}</div>
-        <div>{{ direction }}</div>
-        <div>{{ gridIndex }}</div>
-        <div>{{ state }}</div>
-        <div>{{ bombCount }}</div>
+        <div v-if="showDebug">
+            <div>{{ position }}</div>
+            <div>{{ gridPosition }}</div>
+            <div>{{ direction }}</div>
+            <div>{{ gridIndex }}</div>
+            <div>{{ state }}</div>
+            <div>{{ bombCount }}</div>
+
+            <ul id="logs">
+                <li v-for="log in logs" :key="log.name">
+                    {{ log.name }}: {{ log.data }}
+                </li>
+            </ul>
+        </div>
     </div>
 
     <canvas id="canvas" width="600" height="600"></canvas>

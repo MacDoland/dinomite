@@ -6,11 +6,13 @@ import Grid from './structures/grid';
 import { defaultLevel } from './levels/levels';
 import OptionsManager from './game-management/options-manager';
 import InputManager, { InputKeys } from './game-management/input-manager';
+import Logger from './helpers/logger';
 
+let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
-const gameManager = new GameManager(grid);
+const gameManager = new GameManager(grid, logger);
 const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
@@ -49,6 +51,8 @@ let direction = '';
 let gridIndex = '';
 let state = '';
 let bombCount = '';
+let logs = '';
+let showDebug;
 
 var app = new Vue({
     el: '#debug-window',
@@ -58,7 +62,9 @@ var app = new Vue({
         direction,
         gridIndex,
         state,
-        bombCount
+        bombCount,
+        logs,
+        showDebug
     },
     mounted() {
         gameManager.onUpdate(({ grid, player, playerState, direction, gridIndex, bombs }) => {
@@ -69,6 +75,10 @@ var app = new Vue({
             this.gridIndex = `gridIndex: ${gridIndex}`;
             this.state = `state: ${playerState}`;
             this.bombCount = `bombCount: ${bombs.length}`;
+
+            this.logs = logger.retrieveLogs();
+
+            this.showDebug = config.showGrid;
         });
     }
 })

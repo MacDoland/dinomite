@@ -42,12 +42,17 @@ class SpriteSheet {
     }
 
     getRandomFrame(name, index) {
-        if (!this.#tiles[index]) {
-            let randomTiles =  this.#randomFrames[name];
-            this.#tiles[index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
+        if(!this.#tiles[name]) {
+            this.#tiles[name] = {};
         }
 
-        return this.#tiles[index];
+        if (!this.#tiles[name][index]) {
+            let randomTiles =  this.#randomFrames[name];
+            this.#tiles[name][index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
+        }
+
+        let sprite = this.#tiles[name][index];
+        return sprite;
     }
 
     updateAnimations(deltaTime) {

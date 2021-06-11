@@ -47,7 +47,8 @@ class CanvasRenderer {
     }
 
     drawBasicTile(coordinate, index) {
-        let sprite = this.#spriteSheetEnvironment.getRandomFrame(`tile-grass-random`, index);
+        let sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
+
         let drawParams = [
             this.#spriteSheetEnvironment.getImage(),
             sprite.frame.x,
@@ -243,13 +244,6 @@ class CanvasRenderer {
         sprite.frame.h];
 
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
-        //     let drawParams = [
-        //         coordinate.x * this.#cellSize + this.#borderWidth,
-        //         coordinate.y * this.#cellSize + this.#borderWidth,
-        //         this.#cellSize,
-        //         this.#cellSize
-        //     ]
-        //     this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth, '#d17026'));
     }
 
     drawBomb(coordinate, bomb) {
@@ -339,15 +333,6 @@ class CanvasRenderer {
     }
 
     drawShadow(coordinate) {
-        // let color = 'rgba(0,0,0,0.2)';
-        // let drawParams = [
-        //     coordinate.x * this.#cellSize + this.#borderWidth + 5,
-        //     coordinate.y * this.#cellSize + this.#borderWidth - 20,
-        //     this.#cellSize,
-        //     this.#cellSize
-        // ]
-
-        // this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize + this.#borderWidth - 100, color));
         let sprite = this.#spriteSheetEnvironment.getAnimation('shadow-indestructable').getCurrentFrame();
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
         sprite.frame.x,
@@ -387,65 +372,64 @@ class CanvasRenderer {
             else if (element === TileState.INDESTRUCTIBLE) {
                 this.drawBasicTile(coordinate, index);
                 this.drawShadow(coordinate);
-
                 this.drawBasicSolidBlock(coordinate);
             }
             else if (element === TileState.OCEAN) {
                 this.drawOcean(grid, index, coordinate);
             }
             else if (element === TileState.DESTRUCTABLE) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawBasicBlock(coordinate, index);
             }
             else if (element === TileState.BOMB) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawBomb(coordinate, bomb);
             }
             else if (element === TileState.RUBBLE) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
             }
             else if (element === TileState.SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate);
             }
             else if (element === TileState.BOMB_RUBBLE) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawBomb(coordinate, bomb);
             }
             else if (element === TileState.BOMB_SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate);
                 this.drawBomb(coordinate, bomb);
             }
             else if (element === TileState.RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
             }
             else if (element === TileState.BOMB_RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
                 this.drawBomb(coordinate, bomb);
             }
             else if (element === TileState.EXPLOSION) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_RUBBLE) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.EXPLOSION_RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate);
+                this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
                 this.drawExplosion(coordinate, blast);
