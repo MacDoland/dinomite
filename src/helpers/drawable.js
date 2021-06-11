@@ -18,6 +18,11 @@ class Drawable {
                 context.rect(...this.props);
                 break;
             }
+            case 'text': {
+                context.font = "20px Arial";
+                context.fillText(...this.props);
+                break;
+            }
             case 'image': {
                 context.drawImage(...this.props);
                 break;

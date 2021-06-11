@@ -289,7 +289,7 @@ class CanvasRenderer {
         sprite.frame.w,
         sprite.frame.h];
 
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize  + 1));
+        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + 1));
     }
 
 
@@ -442,7 +442,13 @@ class CanvasRenderer {
                     this.#cellSize,
                     this.#cellSize
                 ]
-                this.#drawQueue.push(new Drawable('rect', drawParams, coordinate.y * this.#cellSize, false, '#000'));
+                let textParams = [
+                    index.toString(),
+                    coordinate.x * this.#cellSize + 10,
+                    coordinate.y * this.#cellSize + 20,
+                ]
+                this.#drawQueue.push(new Drawable('text', textParams, 10000, '#000'));
+                this.#drawQueue.push(new Drawable('rect', drawParams, 10000, false, '#000'));
             }
         });
     }
@@ -486,7 +492,7 @@ class CanvasRenderer {
             sprite.frame.w,
             sprite.frame.h];
 
-            this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y ));
+            this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y));
 
             // let drawParams = [
             //     coordinate.x * 100,
@@ -508,7 +514,10 @@ class CanvasRenderer {
                 collider.height
             ]
 
+         
+
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
+
         });
     }
 

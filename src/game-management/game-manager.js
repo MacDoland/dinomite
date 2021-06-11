@@ -14,6 +14,7 @@ import Rectangle from "../structures/rectangle";
 import { resolveCollisions } from "../helpers/collisions";
 
 class GameManager {
+    #gameConfig;
     #grid;
     #timer;
     #moveDelay;
@@ -29,7 +30,8 @@ class GameManager {
     #logger;
 
 
-    constructor(grid, logger) {
+    constructor(gameConfig, grid, logger) {
+        this.#gameConfig = gameConfig;
         this.#logger = logger;
         this.#grid = grid;
         this.#timer = new Timer();
@@ -37,7 +39,11 @@ class GameManager {
         this.#moveDelay = 150;
 
         this.#player = new Player();
-        this.#player.move(new Vector(355, 355));
+        this.#player.setPosition(this.#grid.getCellCenter(gameConfig.start, gameConfig.cellSize));
+        this.#player.onDeath(() => {
+            this.#player.setPosition(this.#grid.getCellCenter(gameConfig.start, gameConfig.cellSize));
+        });
+
         this.#bombShop = new BombShop();
         this.#inputManager = new InputManager();
         this.#audioManager = new AudioManager();
@@ -247,12 +253,16 @@ class GameManager {
 
             targets.forEach((target) => {
                 this.#bombShop.createExplosion(target, 30, 800);
+                let playerGridPosition = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
+                let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+                if(target === playerIndex){
+                    this.#player.die();
+                }
             });
 
         });
 
         this.#bombShop.onExplosion((index) => {
-            console.log('onExplosion');
             this.#audioManager.play('boom');
             const currentState = indexToTileState(this.#grid.getElementAt(index));
 
@@ -285,33 +295,6 @@ class GameManager {
 
         requestAnimationFrame(loop);
     }
-
-    // #getExplosionTargets(tiles) {
-    //     let targets = new SinglyLinkedList();
-    //     let hasHitDeadEnd = false;
-    //     let index = 0;
-    //     let targetIndex;
-
-    //     if (tiles && Array.isArray(tiles)) {
-
-    //         while (!hasHitDeadEnd && index < tiles.length) {
-    //             targetIndex = tiles[index];
-    //             hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE || this.#grid.getElementAt(targetIndex) === TileState.OCEAN;
-    //             if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
-    //                 targets.push(targetIndex);
-    //             }
-
-    //             if (this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
-    //                 index++;
-    //             }
-    //             else {
-    //                 hasHitDeadEnd = true;
-    //             }
-    //         }
-    //     }
-
-    //     return targets;
-    // }
 
     #getExplosionTargets(tiles) {
         let targets = [];

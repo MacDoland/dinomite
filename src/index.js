@@ -9,10 +9,10 @@ import InputManager, { InputKeys } from './game-management/input-manager';
 import Logger from './helpers/logger';
 
 let logger = new Logger();
-const grid = new Grid(15, 15, defaultLevel);
+const grid = new Grid(15, 15, defaultLevel.grid);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
-const gameManager = new GameManager(grid, logger);
+const gameManager = new GameManager(defaultLevel, grid, logger);
 const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();

@@ -25,6 +25,7 @@ class Player {
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             MOVE: 'MOVE',
+            DEATH: 'DEATH'
         }
         Object.freeze(this.#events);
     }
@@ -55,6 +56,11 @@ class Player {
         }
 
         this.#position = Vector.add(this.#position, offset);
+    }
+
+    die(){
+        console.log('deaders');
+        this.#eventDispatcher.dispatch(this.#events.DEATH);
     }
 
     setPosition(newPosition){
@@ -107,6 +113,14 @@ class Player {
 
     removeOnMove(handler) {
         this.#eventDispatcher.deregisterHandler(this.#events.MOVE, handler);
+    }
+
+    onDeath(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.DEATH, handler);
+    }
+
+    removeOnDeath(handler) {
+        this.#eventDispatcher.deregisterHandler(this.#events.DEATH, handler);
     }
 }
 
