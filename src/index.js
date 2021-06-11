@@ -67,14 +67,8 @@ var app = new Vue({
         showDebug
     },
     mounted() {
-        gameManager.onUpdate(({ grid, player, playerState, direction, gridIndex, bombs }) => {
-            let coordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15);
-            this.gridPosition = `position x:${Math.floor(coordinate.x)}, y:${Math.floor(coordinate.y)}`;
-            this.position = `grid position x:${Math.floor(player.getPosition().x)}, y:${Math.floor(player.getPosition().y)}`;
-            this.direction = `direction: ${direction}`;
-            this.gridIndex = `gridIndex: ${gridIndex}`;
-            this.state = `state: ${playerState}`;
-            this.bombCount = `bombCount: ${bombs.length}`;
+        gameManager.onUpdate(({ grid, players, playerState, direction, gridIndex, bombs }) => {
+
 
             this.logs = logger.retrieveLogs();
 
@@ -83,11 +77,11 @@ var app = new Vue({
     }
 })
 
-const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, blasts, colliders }) => {
+const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
     inputManager.update();
     renderer.clear();
     renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
-    renderer.drawPlayer(player, playerState, direction, gridIndex);
+    renderer.drawPlayers(players);
 
     if (config.showGrid) {
         renderer.drawDebug(colliders);
@@ -98,7 +92,7 @@ const updateGame = ({ grid, player, playerState, direction, gridIndex, bombs, bl
     // let after = performance.now() - before;
     // console.log('draw calls: ', numDrawCalls, after);
 
-    renderer.draw();
+    renderer.draw(deltaTime * 1000);
 
 }
 

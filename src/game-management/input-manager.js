@@ -18,7 +18,8 @@ class InputManager {
             SPACE_HELD: 'SPACE',
             ANY_HELD: 'ANY',
             ONKEYUP: 'ONKEYUP',
-            ONKEYDOWN: 'ONKEYDOWN'
+            ONKEYDOWN: 'ONKEYDOWN',
+            ONKEYPRESS: 'ONKEYPRESS'
         }
 
         this.#keyState = [];
@@ -43,7 +44,13 @@ class InputManager {
             if (this.#keyState[key] && !this.#previousKeyState[key]) {
                 this.#eventDispatcher.dispatch(this.#events.ONKEYDOWN, key);
             }
+
+            if (this.#keyState[key] && this.#previousKeyState[key]) {
+                this.#eventDispatcher.dispatch(this.#events.ONKEYPRESS, key);
+            }
         });
+
+
 
         this.#previousKeyState = [...this.#keyState];
 
@@ -55,6 +62,10 @@ class InputManager {
             SPACE: this.#keyState[InputKeys.KEY_SPACE]
         }
 
+    }
+
+    getKeyPressed(key){
+        return this.#keyState[key];
     }
 
     onKeyUp(handler) {
@@ -73,6 +84,14 @@ class InputManager {
         this.#eventDispatcher.registerHandler(this.#events.ONKEYDOWN, handler);
     }
 
+    onKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYPRESS, handler);
+    }
+
+    removeOnKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ONKEYPRESS, handler);
+    }
+
 }
 
 export default InputManager;
@@ -87,5 +106,95 @@ export const InputKeys = {
     KEY_S: 83,
     KEY_D: 68,
     KEY_SPACE: 32,
-    KEY_G: 71
+    KEY_G: 71,
+    KEY_NUM0: 96
 }
+
+class InputSystem {
+    #eventDispatcher;
+    #events;
+    #inputManager;
+    #upKeyCode;
+    #rightKeyCode;
+    #downKeyCode;
+    #leftKeyCode;
+    #actionKeyCode;
+
+    constructor({ upKeyCode, rightKeyCode, downKeyCode, leftKeyCode, actionKeyCode }) {
+        this.#inputManager = new InputManager();
+        this.#eventDispatcher = new EventDispatcher();
+        this.#events = {
+            ON_UP_KEY_PRESS: 'ON_UP_KEY_PRESS',
+            ON_RIGHT_KEY_PRESS: 'ON_RIGHT_KEY_PRESS',
+            ON_DOWN_KEY_PRESS: 'ON_DOWN_KEY_PRESS',
+            ON_LEFT_KEY_PRESS: 'ON_LEFT_KEY_PRESS',
+            ON_ACTION_KEY_UP: 'ON_ACTION_KEY_UP'
+        }
+
+        this.#upKeyCode = upKeyCode;
+        this.#rightKeyCode = rightKeyCode;
+        this.#downKeyCode = downKeyCode;
+        this.#leftKeyCode = leftKeyCode;
+        this.#actionKeyCode = actionKeyCode;
+
+        // this.#inputManager.onKeyDown(this.processKeyPress)
+        // this.#inputManager.onKeyPress(this.processKeyPress);
+    }
+
+    update(){
+        this.#inputManager.update();
+
+        return {
+            UP: this.#inputManager.getKeyPressed(this.#upKeyCode),
+            RIGHT: this.#inputManager.getKeyPressed(this.#rightKeyCode),
+            DOWN: this.#inputManager.getKeyPressed(this.#downKeyCode),
+            LEFT: this.#inputManager.getKeyPressed(this.#leftKeyCode),
+        }
+    }
+
+    processKeyPress(key) {
+        if (key === this.#upKeyCode) {
+            this.#eventDispatcher.dispatch(this.#events.ON_UP_KEY_PRESS);
+        }
+
+        if (key === this.#rightKeyCode) {
+            this.#eventDispatcher.dispatch(this.#events.ON_RIGHT_KEY_PRESS);
+        }
+
+        if (key === this.#leftKeyCode) {
+            this.#eventDispatcher.dispatch(this.#events.ON_LEFT_KEY_PRESS);
+        }
+
+        if (key === this.#downKeyCode) {
+            this.#eventDispatcher.dispatch(this.#events.ON_DOWN_KEY_PRESS);
+        }
+    }
+
+    processKeyUp(key) {
+        if (key === this.#actionKeyCode) {
+            this.#eventDispatcher.dispatch(this.#events.ON_ACTION_KEY_UP);
+        }
+    }
+
+    onUpKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_UP_KEY_PRESS, handler);
+    }
+
+    onRightKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_RIGHT_KEY_PRESS, handler);
+    }
+
+    onDownKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_DOWN_KEY_PRESS, handler);
+    }
+
+    onLeftKeyPress(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_LEFT_KEY_PRESS, handler);
+    }
+
+    onActionKeyUp(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_ACTION_KEY_UP, handler);
+    }
+}
+
+export { InputSystem };

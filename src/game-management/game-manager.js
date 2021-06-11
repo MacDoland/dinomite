@@ -3,7 +3,7 @@ import EventDispatcher from "../helpers/event-dispatcher";
 import Grid from "../structures/grid";
 import Timer from "../helpers/timer";
 import Vector from "../structures/vector";
-import InputManager, { InputKeys } from "./input-manager";
+import InputManager, { InputKeys, InputSystem } from "./input-manager";
 import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
@@ -12,6 +12,7 @@ import SinglyLinkedList from "../structures/linked-list";
 import stateManager, { StateEvents } from "./state-manager";
 import Rectangle from "../structures/rectangle";
 import { resolveCollisions } from "../helpers/collisions";
+import controlConfig from '../config/controls';
 
 class GameManager {
     #gameConfig;
@@ -25,6 +26,7 @@ class GameManager {
     #events;
     #bombShop;
     #player;
+    #playerTwo;
     #currentGridIndex;
     #colliders;
     #logger;
@@ -38,11 +40,21 @@ class GameManager {
         this.#gameInProgess = false;
         this.#moveDelay = 150;
 
-        this.#player = new Player();
-        this.#player.setPosition(this.#grid.getCellCenter(gameConfig.start, gameConfig.cellSize));
-        this.#player.onDeath(() => {
-            this.#player.setPosition(this.#grid.getCellCenter(gameConfig.start, gameConfig.cellSize));
+        const playerOneInputSystem = new InputSystem(controlConfig.playerOne);
+        const playerTwoInputSystem = new InputSystem(controlConfig.playerTwo);
+
+        this.#player = new Player('player one', gameConfig.startPlayerOne, playerOneInputSystem, logger);
+        this.#player.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerOne, gameConfig.cellSize));
+        this.#player.onDeath((player) => {
+            player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
+
+        this.#playerTwo = new Player('player two', gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
+        this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
+        this.#playerTwo.onDeath((player) => {
+            player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
+        });
+
 
         this.#bombShop = new BombShop();
         this.#inputManager = new InputManager();
@@ -71,7 +83,6 @@ class GameManager {
         this.#timer.clearHandlers();;
         this.#timer.onElapsed(this.#update.bind(this));
         let input;
-        const speed = 400;
         let prev = 0;
         let deltaTime = 0;
         let now;
@@ -85,55 +96,56 @@ class GameManager {
             deltaTime = (now - prev) / 1000;
             input = this.#inputManager.update();
 
-            this.#player.update();
+            this.#player.update(deltaTime);
+            this.#playerTwo.update(deltaTime);
 
             let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
             let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
             this.#currentGridIndex = gridIndex;
 
-            offset = new Vector(0, 0);
+            // offset = new Vector(0, 0);
 
-            if (input.DOWN) {
-                offset.add(new Vector(0, speed * deltaTime));
-            }
+            // if (input.DOWN) {
+            //     offset.add(new Vector(0, speed * deltaTime));
+            // }
 
-            if (input.RIGHT) {
-                offset.add(new Vector(speed * deltaTime, 0))
-            }
+            // if (input.RIGHT) {
+            //     offset.add(new Vector(speed * deltaTime, 0))
+            // }
 
-            if (input.UP) {
-                offset.add(new Vector(0, -speed * deltaTime))
-            }
+            // if (input.UP) {
+            //     offset.add(new Vector(0, -speed * deltaTime))
+            // }
 
-            if (input.LEFT) {
-                offset.add(new Vector(-speed * deltaTime, 0))
-            }
-
-
-            let offsetRight, offsetLeft, offsetUp, offsetDown;
-            let collider = this.#player.getGlobalBoundingBox().clone();
-            let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
-            let neighbours = this.#grid.getNeighbours(gridIndex);
+            // if (input.LEFT) {
+            //     offset.add(new Vector(-speed * deltaTime, 0))
+            // }
 
 
-            offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
-            const isCollidingRight = offsetRight > 0;
+            // let offsetRight, offsetLeft, offsetUp, offsetDown;
+            // let collider = this.#player.getGlobalBoundingBox().clone();
+            // let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
+            // let neighbours = this.#grid.getNeighbours(gridIndex);
 
-            offsetLeft = collider.getLeft() - playerTileCoordinate.x;
-            const isCollidingLeft = offsetLeft < 0;
 
-            offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
-            const isCollidingDown = offsetDown > 0;
+            // offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
+            // const isCollidingRight = offsetRight > 0;
 
-            offsetUp = collider.getTop() - playerTileCoordinate.y;
-            const isCollidingUp = offsetUp < 0;
+            // offsetLeft = collider.getLeft() - playerTileCoordinate.x;
+            // const isCollidingLeft = offsetLeft < 0;
 
-            this.#logger.log('player collisions', {
-                isCollidingRight,
-                isCollidingLeft,
-                isCollidingDown,
-                isCollidingUp
-            });
+            // offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
+            // const isCollidingDown = offsetDown > 0;
+
+            // offsetUp = collider.getTop() - playerTileCoordinate.y;
+            // const isCollidingUp = offsetUp < 0;
+
+            // this.#logger.log('player collisions', {
+            //     isCollidingRight,
+            //     isCollidingLeft,
+            //     isCollidingDown,
+            //     isCollidingUp
+            // });
 
             // if(isCollidingRight && isCollidingUp){
             //     if(offsetRight < offsetUp){
@@ -171,7 +183,7 @@ class GameManager {
             // }
 
 
-           
+
             // let colliders = Object.keys(neighbours)
             //     .map(key => neighbours[key])
             //     .flat()
@@ -187,23 +199,23 @@ class GameManager {
             //     console.log('newOffSet', newOffSet);
             // }
 
-            const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
-            const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
-            const canMoveTopLeftX = this.#canMove(offset.getXOnly(), this.#player.getTopLeft(), this.#grid);
-            const canMoveBottomLeftX = this.#canMove(offset.getXOnly(), this.#player.getBottomLeft(), this.#grid);
+            // const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
+            // const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
+            // const canMoveTopLeftX = this.#canMove(offset.getXOnly(), this.#player.getTopLeft(), this.#grid);
+            // const canMoveBottomLeftX = this.#canMove(offset.getXOnly(), this.#player.getBottomLeft(), this.#grid);
 
-            const canMoveTopRightY = this.#canMove(offset.getYOnly(), this.#player.getTopRight(), this.#grid);
-            const canMoveBottomRightY = this.#canMove(offset.getYOnly(), this.#player.getBottomRight(), this.#grid);
-            const canMoveTopLeftY = this.#canMove(offset.getYOnly(), this.#player.getTopLeft(), this.#grid);
-            const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), this.#player.getBottomLeft(), this.#grid);
+            // const canMoveTopRightY = this.#canMove(offset.getYOnly(), this.#player.getTopRight(), this.#grid);
+            // const canMoveBottomRightY = this.#canMove(offset.getYOnly(), this.#player.getBottomRight(), this.#grid);
+            // const canMoveTopLeftY = this.#canMove(offset.getYOnly(), this.#player.getTopLeft(), this.#grid);
+            // const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), this.#player.getBottomLeft(), this.#grid);
 
-            if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
-                this.#player.move(offset.getXOnly());
-            }
+            // if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
+            //     this.#player.move(offset.getXOnly());
+            // }
 
-            if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
-                this.#player.move(offset.getYOnly());
-            }
+            // if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
+            //     this.#player.move(offset.getYOnly());
+            // }
 
             // this.#player.move(offset);
 
@@ -212,16 +224,23 @@ class GameManager {
 
             this.#eventDispatcher.dispatch(this.#events.UPDATE, {
                 grid: this.#grid,
-                player: this.#player,
-                direction: this.#player.getDirection(),
-                playerState: this.#player.getState(),
+                players: [this.#player, this.#playerTwo],
                 gridIndex,
                 bombs: this.#bombShop.getActiveBombs() || [],
                 blasts: this.#bombShop.getActiveBlasts() || [],
-                colliders: this.#colliders
+                colliders: this.#colliders,
+                deltaTime
             });
             requestAnimationFrame(loop);
         }
+
+        this.#player.onMove(({ player, offset }) => {
+            this.#processPlayerMovement(player, offset);
+        });
+
+        this.#playerTwo.onMove(({ player, offset }) => {
+            this.#processPlayerMovement(player, offset);
+        });
 
         this.#inputManager.onKeyDown(key => {
             if (key === InputKeys.KEY_SPACE.toString()) {
@@ -255,7 +274,7 @@ class GameManager {
                 this.#bombShop.createExplosion(target, 30, 800);
                 let playerGridPosition = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
                 let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
-                if(target === playerIndex){
+                if (target === playerIndex) {
                     this.#player.die();
                 }
             });
@@ -294,6 +313,27 @@ class GameManager {
         });
 
         requestAnimationFrame(loop);
+    }
+
+    #processPlayerMovement(player, offset) {
+        const canMoveTopRightX = this.#canMove(offset.getXOnly(), player.getTopRight(), this.#grid);
+        const canMoveBottomRightX = this.#canMove(offset.getXOnly(), player.getBottomRight(), this.#grid);
+        const canMoveTopLeftX = this.#canMove(offset.getXOnly(), player.getTopLeft(), this.#grid);
+        const canMoveBottomLeftX = this.#canMove(offset.getXOnly(), player.getBottomLeft(), this.#grid);
+
+        const canMoveTopRightY = this.#canMove(offset.getYOnly(), player.getTopRight(), this.#grid);
+        const canMoveBottomRightY = this.#canMove(offset.getYOnly(), player.getBottomRight(), this.#grid);
+        const canMoveTopLeftY = this.#canMove(offset.getYOnly(), player.getTopLeft(), this.#grid);
+        const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), player.getBottomLeft(), this.#grid);
+
+        if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
+            player.move(offset.getXOnly());
+        }
+
+        if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
+            player.move(offset.getYOnly());
+        }
+
     }
 
     #getExplosionTargets(tiles) {
@@ -343,13 +383,6 @@ class GameManager {
     /* Private Methods */
     #update() {
         this.#inputManager.update();
-
-        // if (this.#gameInProgess) {
-        //     this.#eventDispatcher.dispatch(this.#events.UPDATE, {
-        //         grid: this.#grid,
-        //         player: this.#player
-        //     });
-        // }
     }
 
     #canMove(offset, position, grid) {

@@ -8,6 +8,7 @@ import spriteSheetEnvironmentConfig from "../config/sprite-sheet-env-0.json";
 import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
 import { TileState } from "../state/tile-state";
+import Vector from "../structures/vector";
 
 class CanvasRenderer {
     #canvas;
@@ -454,55 +455,62 @@ class CanvasRenderer {
     }
 
 
-    drawPlayer(player, state, direction, gridIndex) {
-        this.#currentTime = performance.now();
-        this.#deltaTime = this.#currentTime - this.#previousTime;
-        this.#previousTime = this.#currentTime;
-        let coordinate = Grid.convertIndexToCoordinate(gridIndex);
+    drawPlayers(players) {
+        players.forEach(player => {
+            let coordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+            let gridIndex = Grid.convertCoordinateToIndex(coordinate.x, coordinate.y, this.#columnCount);
+            let state = player.getState();
+            let direction = player.getDirection();
 
-        if (player && direction) {
+            this.#currentTime = performance.now();
+            this.#deltaTime = this.#currentTime - this.#previousTime;
+            this.#previousTime = this.#currentTime;
 
-            let sprite;
-            if (state === PlayerState.WALKING && direction === directions.LEFT) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left-loop').getCurrentFrame();
+            if (player && direction) {
+
+                let sprite;
+                if (state === PlayerState.WALKING && direction === directions.LEFT) {
+                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left-loop').getCurrentFrame();
+                }
+                else if (state === PlayerState.WALKING && direction === directions.DOWN) {
+                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down-loop').getCurrentFrame();
+                }
+                else if (state === PlayerState.WALKING && direction === directions.RIGHT) {
+                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right-loop').getCurrentFrame();
+                }
+                else if (state === PlayerState.WALKING && direction === directions.UP) {
+                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up-loop').getCurrentFrame();
+                }
+                else {
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
+                }
+
+                this.#context.fill();
+                let x = player.getPosition().x - sprite.frame.w / 2;
+                let y = player.getPosition().y - sprite.frame.h + 48;
+                let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
+                sprite.frame.x,
+                sprite.frame.y,
+                sprite.frame.w,
+                sprite.frame.h,
+                    x,
+                    y,
+                sprite.frame.w,
+                sprite.frame.h];
+
+                this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y));
+
+                // let drawParams = [
+                //     coordinate.x * 100,
+                //     coordinate.y * 100,
+                //     100,
+                //     100
+                // ]
+
+                // this.#drawQueue.push(new Drawable('rect', drawParams, 2000, 'yellow'));
             }
-            else if (state === PlayerState.WALKING && direction === directions.DOWN) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down-loop').getCurrentFrame();
-            }
-            else if (state === PlayerState.WALKING && direction === directions.RIGHT) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right-loop').getCurrentFrame();
-            }
-            else if (state === PlayerState.WALKING && direction === directions.UP) {
-                sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up-loop').getCurrentFrame();
-            }
-            else {
-                sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
-            }
+        })
 
-            this.#context.fill();
-            let x = player.getPosition().x - sprite.frame.w / 2;
-            let y = player.getPosition().y - sprite.frame.h + 48;
-            let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
-            sprite.frame.x,
-            sprite.frame.y,
-            sprite.frame.w,
-            sprite.frame.h,
-                x,
-                y,
-            sprite.frame.w,
-            sprite.frame.h];
-
-            this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y));
-
-            // let drawParams = [
-            //     coordinate.x * 100,
-            //     coordinate.y * 100,
-            //     100,
-            //     100
-            // ]
-
-            // this.#drawQueue.push(new Drawable('rect', drawParams, 2000, 'yellow'));
-        }
     }
 
     drawDebug(colliders) {
@@ -514,17 +522,17 @@ class CanvasRenderer {
                 collider.height
             ]
 
-         
+
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
 
         });
     }
 
-    draw() {
-        this.#spriteSheetGeneral.updateAnimations(this.#deltaTime);
-        this.#spriteSheetEnvironment.updateAnimations(this.#deltaTime);
-        this.#spriteSheetItems.updateAnimations(this.#deltaTime);
+    draw(deltaTime) {
+        this.#spriteSheetGeneral.updateAnimations(deltaTime);
+        this.#spriteSheetEnvironment.updateAnimations(deltaTime);
+        this.#spriteSheetItems.updateAnimations(deltaTime);
 
         this.#drawQueue.sort((a, b) => {
             if (a.zIndex > b.zIndex) return 1;

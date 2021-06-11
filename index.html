@@ -22,7 +22,7 @@
             <div>{{ bombCount }}</div>
 
             <ul id="logs">
-                <li v-for="log in logs" :key="log.name">
+                <li v-for="(log, index) in logs" :key="log.name+index">
                     {{ log.name }}: {{ log.data }}
                 </li>
             </ul>

@@ -1,5 +1,6 @@
 export const defaultLevel = {
-    start: 48,
+    startPlayerOne: 48,
+    startPlayerTwo: 192,
     cellSize: 100,
     grid: [
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,

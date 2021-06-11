@@ -11,14 +11,24 @@ class Player {
     #height;
     #state;
     #boundingBox;
+    #inputSystem;
     #eventDispatcher;
     #events;
+    #speed;
+    #logger;
+    #startPosition
+    #name;
 
-    constructor() {
+    constructor(name, startPosition, inputSystem, logger) {
+        this.#name = name;
+        this.#startPosition = startPosition;
+        this.#inputSystem = inputSystem;
+        this.#logger = logger;
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
         this.#height = 50;
         this.#width = 50;
+        this.#speed = 400;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
         this.#boundingBox = new Rectangle(this.#origin, 60, 60);
@@ -30,11 +40,44 @@ class Player {
         Object.freeze(this.#events);
     }
 
-    update() {
-        this.#state = PlayerState.IDLE;
+    update(deltaTime) {
+
+        let input = this.#inputSystem.update();
+
+        this.#logger.log(`${this.#name} player input: `, input);
+
+
+        let offset = new Vector(0, 0);
+
+        if (input.DOWN) {
+            offset.add(new Vector(0, this.#speed * deltaTime));
+        }
+
+        if (input.RIGHT) {
+            offset.add(new Vector(this.#speed * deltaTime, 0))
+        }
+
+        if (input.UP) {
+            offset.add(new Vector(0, -this.#speed * deltaTime))
+        }
+
+        if (input.LEFT) {
+            offset.add(new Vector(-this.#speed * deltaTime, 0))
+        }
+
+        if (offset.y === 0 && offset.x === 0) {
+            this.#state = PlayerState.IDLE;
+        }
+
+
+        this.#eventDispatcher.dispatch(this.#events.MOVE, {
+            player: this,
+            offset
+        });
     }
 
     move(offset) {
+
         if (offset.x < 0) {
             this.#direction = directions.LEFT;
             this.#state = PlayerState.WALKING;
@@ -55,15 +98,18 @@ class Player {
             this.#state = PlayerState.WALKING;
         }
 
+
+        this.#logger.log(`${this.#name} player state: `, this.#state);
+        this.#logger.log(`${this.#name} player direction: `, this.#direction);
         this.#position = Vector.add(this.#position, offset);
     }
 
-    die(){
+    die() {
         console.log('deaders');
-        this.#eventDispatcher.dispatch(this.#events.DEATH);
+        this.#eventDispatcher.dispatch(this.#events.DEATH, this);
     }
 
-    setPosition(newPosition){
+    setPosition(newPosition) {
         this.#position = newPosition;
     }
 
@@ -104,6 +150,10 @@ class Player {
 
     getBottomRight() {
         return Vector.add(this.#position, this.#boundingBox.getBottomRight());
+    }
+
+    getStartPosition() {
+        return this.#startPosition;
     }
 
     /* Events */
