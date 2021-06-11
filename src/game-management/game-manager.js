@@ -241,10 +241,10 @@ class GameManager {
                     targets = targets.concat(this.#getExplosionTargets(tiles));
                 });
 
-            this.#bombShop.createExplosion(index, 30, 500);
+            this.#bombShop.createExplosion(index, 30, 800);
 
             targets.forEach((target) => {
-                this.#bombShop.createExplosion(target, 30, 500);
+                this.#bombShop.createExplosion(target, 30, 800);
             });
 
         });

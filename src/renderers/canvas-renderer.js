@@ -333,7 +333,7 @@ class CanvasRenderer {
                     this.#cellSize,
                     this.#cellSize];
 
-                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + 200));
+                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + 20));
             }
         }
     }

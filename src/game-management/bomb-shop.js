@@ -17,7 +17,7 @@ class BombShop {
         this.#blasts = [];
         this.#strength = 3;
         this.#fuseDuration = 3000;
-        this.#explosionDuration = 800;
+        this.#explosionDuration = 500;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             PLANT: 'PLANT',
