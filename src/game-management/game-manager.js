@@ -51,6 +51,7 @@ class GameManager {
 
         this.#playerTwo = new Player('player two', gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
         this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
+
         this.#playerTwo.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
@@ -272,11 +273,14 @@ class GameManager {
 
             targets.forEach((target) => {
                 this.#bombShop.createExplosion(target, 30, 800);
-                let playerGridPosition = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
-                let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
-                if (target === playerIndex) {
-                    this.#player.die();
-                }
+
+                [this.#player, this.#playerTwo].forEach(player => {
+                    let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+                    let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+                    if (target === playerIndex) {
+                        player.die();
+                    }
+                });
             });
 
         });
