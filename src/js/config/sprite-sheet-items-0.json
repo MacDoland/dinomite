@@ -667,7 +667,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0004",
+	"filename": "explosion-center/explosion-center0003b",
 	"frame": {"x":864,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -676,7 +676,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0005",
+	"filename": "explosion-center/explosion-center0004",
 	"frame": {"x":1080,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -685,7 +685,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0006",
+	"filename": "explosion-center/explosion-center0005",
 	"frame": {"x":1296,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -694,7 +694,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0007",
+	"filename": "explosion-center/explosion-center0006",
 	"frame": {"x":1512,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -703,7 +703,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0008",
+	"filename": "explosion-center/explosion-center0007",
 	"frame": {"x":1728,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -712,7 +712,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0009",
+	"filename": "explosion-center/explosion-center0008",
 	"frame": {"x":1944,"y":1512,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -721,7 +721,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0010",
+	"filename": "explosion-center/explosion-center0009",
 	"frame": {"x":0,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -730,7 +730,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0011",
+	"filename": "explosion-center/explosion-center0010",
 	"frame": {"x":216,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -739,7 +739,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0012",
+	"filename": "explosion-center/explosion-center0011",
 	"frame": {"x":432,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -748,7 +748,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0013",
+	"filename": "explosion-center/explosion-center0012",
 	"frame": {"x":648,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -757,7 +757,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0014",
+	"filename": "explosion-center/explosion-center0013",
 	"frame": {"x":864,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -766,7 +766,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0015",
+	"filename": "explosion-center/explosion-center0014",
 	"frame": {"x":1080,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -775,7 +775,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0016",
+	"filename": "explosion-center/explosion-center0015",
 	"frame": {"x":1296,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -784,7 +784,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0017",
+	"filename": "explosion-center/explosion-center0016",
 	"frame": {"x":1512,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -793,7 +793,7 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0018",
+	"filename": "explosion-center/explosion-center0017",
 	"frame": {"x":1728,"y":1728,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
@@ -802,8 +802,17 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
-	"filename": "explosion-center/explosion-center0019",
+	"filename": "explosion-center/explosion-center0018",
 	"frame": {"x":1944,"y":1728,"w":160,"h":160},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
+	"sourceSize": {"w":160,"h":160},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "explosion-center/explosion-center0019",
+	"frame": {"x":0,"y":1944,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -817,6 +826,6 @@
 	"format": "RGBA8888",
 	"size": {"w":2160,"h":2160},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:9d94b552eaf0c5f106e9deb60e9a5a03:79ef2916b7ea1401597838ef61423df2:98856295597dc51422b9fd463bdaf33e$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e1ed7d4719f4f4f17d9be2ac2f215bbf:6de70f4498e9a3f355c242eeaacd6585:98856295597dc51422b9fd463bdaf33e$"
 }
 }

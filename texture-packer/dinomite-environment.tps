@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../src/config/sprite-sheet-env-{n}.json</filename>
+                <filename>../src/js/config/sprite-sheet-env-{n}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -194,21 +194,6 @@
                 <rect>200,200,400,400</rect>
                 <key>scale9Paddings</key>
                 <rect>200,200,400,400</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/explosion/fire-1.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>125,125,249,249</rect>
-                <key>scale9Paddings</key>
-                <rect>125,125,249,249</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

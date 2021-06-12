@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../src/config/sprite-sheet-items-{n}.json</filename>
+                <filename>../src/js/config/sprite-sheet-items-{n}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -283,6 +283,7 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0001.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0002.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0003.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0003b.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0004.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0005.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/explosion-center/explosion-center0006.png</key>

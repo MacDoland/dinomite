@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../src/config/sprite-sheet-general-{n}.json</filename>
+                <filename>../src/js/config/sprite-sheet-general-{n}.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -181,72 +181,30 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-down-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-down-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right00.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right01.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right02.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right03.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right04.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right05.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right06.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right07.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right08.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right09.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right10.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-down-1.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>0.95</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>270,270,540,540</rect>
-                <key>scale9Paddings</key>
-                <rect>270,270,540,540</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down11.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-02.png</key>
@@ -348,6 +306,70 @@
                 <point_f>0.5,0.5</point_f>
                 <key>spriteScale</key>
                 <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9Paddings</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-left-loop/humphry-idle-left11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-down-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-down-1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>0.95</double>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
