@@ -10,6 +10,12 @@ import { PlayerState } from '../player';
 import { TileState } from "../state/tile-state";
 import Vector from "../structures/vector";
 
+
+let characters = {};
+characters[0] = 'rex';
+characters[1] = 'humphry';
+
+
 class CanvasRenderer {
     #canvas;
     #context;
@@ -24,8 +30,6 @@ class CanvasRenderer {
     #drawQueue;
     #columnCount;
     #rowCount;
-
-
 
     constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
         this.#borderWidth = 0;
@@ -457,32 +461,31 @@ class CanvasRenderer {
 
     drawPlayers(players) {
         players.forEach(player => {
-            let coordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-            let gridIndex = Grid.convertCoordinateToIndex(coordinate.x, coordinate.y, this.#columnCount);
             let state = player.getState();
             let direction = player.getDirection();
 
             this.#currentTime = performance.now();
             this.#deltaTime = this.#currentTime - this.#previousTime;
             this.#previousTime = this.#currentTime;
+            let character = characters[player.getCharacterIndex()];
 
             if (player && direction) {
 
                 let sprite;
                 if (state === PlayerState.WALKING && direction === directions.LEFT) {
-                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-left-loop').getCurrentFrame();
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-walking-left-loop`).getCurrentFrame();
                 }
                 else if (state === PlayerState.WALKING && direction === directions.DOWN) {
-                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-down-loop').getCurrentFrame();
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-walking-down-loop`).getCurrentFrame();
                 }
                 else if (state === PlayerState.WALKING && direction === directions.RIGHT) {
-                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-right-loop').getCurrentFrame();
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-walking-right-loop`).getCurrentFrame();
                 }
                 else if (state === PlayerState.WALKING && direction === directions.UP) {
-                    sprite = this.#spriteSheetGeneral.getAnimation('dino-rex-walking-up-loop').getCurrentFrame();
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-walking-up-loop`).getCurrentFrame();
                 }
                 else {
-                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
                 }
 
                 this.#context.fill();
@@ -521,8 +524,6 @@ class CanvasRenderer {
                 collider.width,
                 collider.height
             ]
-
-
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
 

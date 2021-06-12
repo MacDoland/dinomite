@@ -43,24 +43,23 @@ class GameManager {
         const playerOneInputSystem = new InputSystem(controlConfig.playerOne);
         const playerTwoInputSystem = new InputSystem(controlConfig.playerTwo);
 
-        this.#player = new Player('player one', gameConfig.startPlayerOne, playerOneInputSystem, logger);
+        this.#player = new Player('player one', 0, gameConfig.startPlayerOne, playerOneInputSystem, logger);
         this.#player.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerOne, gameConfig.cellSize));
         this.#player.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
 
-        this.#playerTwo = new Player('player two', gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
+        this.#playerTwo = new Player('player two', 1, gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
         this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
 
         this.#playerTwo.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
 
-
         this.#bombShop = new BombShop();
         this.#inputManager = new InputManager();
         this.#audioManager = new AudioManager();
-        this.#audioManager.load('boom', '../audio/boom.wav', 0.3, false);
+        this.#audioManager.load('boom', '../audio/boom.wav', 0.05, false);
 
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
@@ -104,24 +103,7 @@ class GameManager {
             let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
             this.#currentGridIndex = gridIndex;
 
-            // offset = new Vector(0, 0);
-
-            // if (input.DOWN) {
-            //     offset.add(new Vector(0, speed * deltaTime));
-            // }
-
-            // if (input.RIGHT) {
-            //     offset.add(new Vector(speed * deltaTime, 0))
-            // }
-
-            // if (input.UP) {
-            //     offset.add(new Vector(0, -speed * deltaTime))
-            // }
-
-            // if (input.LEFT) {
-            //     offset.add(new Vector(-speed * deltaTime, 0))
-            // }
-
+         
 
             // let offsetRight, offsetLeft, offsetUp, offsetDown;
             // let collider = this.#player.getGlobalBoundingBox().clone();
@@ -199,26 +181,6 @@ class GameManager {
             // if (newOffSet.x != 0 || newOffSet.y != 0) {
             //     console.log('newOffSet', newOffSet);
             // }
-
-            // const canMoveTopRightX = this.#canMove(offset.getXOnly(), this.#player.getTopRight(), this.#grid);
-            // const canMoveBottomRightX = this.#canMove(offset.getXOnly(), this.#player.getBottomRight(), this.#grid);
-            // const canMoveTopLeftX = this.#canMove(offset.getXOnly(), this.#player.getTopLeft(), this.#grid);
-            // const canMoveBottomLeftX = this.#canMove(offset.getXOnly(), this.#player.getBottomLeft(), this.#grid);
-
-            // const canMoveTopRightY = this.#canMove(offset.getYOnly(), this.#player.getTopRight(), this.#grid);
-            // const canMoveBottomRightY = this.#canMove(offset.getYOnly(), this.#player.getBottomRight(), this.#grid);
-            // const canMoveTopLeftY = this.#canMove(offset.getYOnly(), this.#player.getTopLeft(), this.#grid);
-            // const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), this.#player.getBottomLeft(), this.#grid);
-
-            // if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
-            //     this.#player.move(offset.getXOnly());
-            // }
-
-            // if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
-            //     this.#player.move(offset.getYOnly());
-            // }
-
-            // this.#player.move(offset);
 
 
             prev = now;

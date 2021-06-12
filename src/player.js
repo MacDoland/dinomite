@@ -18,9 +18,11 @@ class Player {
     #logger;
     #startPosition
     #name;
+    #characterIndex;
 
-    constructor(name, startPosition, inputSystem, logger) {
+    constructor(name, characterIndex, startPosition, inputSystem, logger) {
         this.#name = name;
+        this.#characterIndex = characterIndex;
         this.#startPosition = startPosition;
         this.#inputSystem = inputSystem;
         this.#logger = logger;
@@ -111,6 +113,10 @@ class Player {
 
     setPosition(newPosition) {
         this.#position = newPosition;
+    }
+
+    getCharacterIndex() {
+        return this.#characterIndex;
     }
 
     getDirection() {

@@ -1,8 +1,476 @@
 {"frames": [
 
 {
+	"filename": "dino-humphry-idle-down-loop/humphry-down-1",
+	"frame": {"x":170,"y":804,"w":98,"h":172},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":15,"w":98,"h":172},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left00",
+	"frame": {"x":1007,"y":191,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left01",
+	"frame": {"x":1360,"y":1696,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left02",
+	"frame": {"x":1458,"y":1128,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left03",
+	"frame": {"x":1463,"y":1316,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left04",
+	"frame": {"x":337,"y":392,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left05",
+	"frame": {"x":399,"y":976,"w":107,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":8,"w":107,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left06",
+	"frame": {"x":538,"y":1369,"w":107,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":8,"w":107,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left07",
+	"frame": {"x":511,"y":193,"w":107,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":8,"w":107,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left08",
+	"frame": {"x":427,"y":1740,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left09",
+	"frame": {"x":618,"y":192,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left10",
+	"frame": {"x":1464,"y":1504,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":9,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-left-loop/humphry-idle-left11",
+	"frame": {"x":1468,"y":1692,"w":108,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":9,"w":108,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right00",
+	"frame": {"x":937,"y":379,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right01",
+	"frame": {"x":772,"y":1551,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right02",
+	"frame": {"x":778,"y":1740,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right03",
+	"frame": {"x":1046,"y":379,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right04",
+	"frame": {"x":1433,"y":379,"w":109,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":109,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right05",
+	"frame": {"x":1532,"y":190,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right06",
+	"frame": {"x":1779,"y":184,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right07",
+	"frame": {"x":1542,"y":379,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right08",
+	"frame": {"x":1789,"y":373,"w":107,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":8,"w":107,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right09",
+	"frame": {"x":1351,"y":1129,"w":107,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":8,"w":107,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right10",
+	"frame": {"x":1355,"y":1318,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-right-loop/humphry-idle-right11",
+	"frame": {"x":1356,"y":1507,"w":108,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":8,"w":108,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-idle-up-loop/humphry-down-1",
+	"frame": {"x":268,"y":804,"w":98,"h":172},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":15,"w":98,"h":172},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-down-loop/humphry-down-1",
+	"frame": {"x":571,"y":582,"w":98,"h":172},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":15,"w":98,"h":172},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left00",
+	"frame": {"x":170,"y":1558,"w":126,"h":183},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":14,"w":126,"h":183},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left01",
+	"frame": {"x":1762,"y":562,"w":126,"h":184},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":13,"w":126,"h":184},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left02",
+	"frame": {"x":648,"y":1553,"w":124,"h":187},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":10,"w":124,"h":187},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left03",
+	"frame": {"x":536,"y":1740,"w":122,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":8,"w":122,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left04",
+	"frame": {"x":308,"y":1741,"w":119,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":41,"y":9,"w":119,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left05",
+	"frame": {"x":1255,"y":943,"w":118,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":11,"w":118,"h":186},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left06",
+	"frame": {"x":1766,"y":746,"w":117,"h":184},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":13,"w":117,"h":184},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left07",
+	"frame": {"x":366,"y":791,"w":118,"h":185},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":42,"y":12,"w":118,"h":185},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left08",
+	"frame": {"x":1571,"y":1316,"w":119,"h":187},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":41,"y":10,"w":119,"h":187},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left09",
+	"frame": {"x":645,"y":1364,"w":120,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":8,"w":120,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left10",
+	"frame": {"x":416,"y":1370,"w":122,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":9,"w":122,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-left-loop/humphry-walk-left11",
+	"frame": {"x":1498,"y":942,"w":124,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":11,"w":124,"h":186},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right00",
+	"frame": {"x":290,"y":1376,"w":126,"h":182},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":14,"w":126,"h":182},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right01",
+	"frame": {"x":296,"y":1558,"w":126,"h":183},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":13,"w":126,"h":183},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right02",
+	"frame": {"x":1373,"y":942,"w":125,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":10,"w":125,"h":186},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right03",
+	"frame": {"x":878,"y":1359,"w":122,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":8,"w":122,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right04",
+	"frame": {"x":881,"y":1547,"w":119,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":9,"w":119,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right05",
+	"frame": {"x":1691,"y":1690,"w":118,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":11,"w":118,"h":186},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right06",
+	"frame": {"x":1803,"y":1494,"w":117,"h":184},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":13,"w":117,"h":184},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right07",
+	"frame": {"x":1648,"y":754,"w":118,"h":185},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":12,"w":118,"h":185},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right08",
+	"frame": {"x":1572,"y":1503,"w":118,"h":187},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":10,"w":118,"h":187},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right09",
+	"frame": {"x":658,"y":1740,"w":120,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":8,"w":120,"h":189},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right10",
+	"frame": {"x":1566,"y":1128,"w":122,"h":188},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":9,"w":122,"h":188},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-right-loop/humphry-walk-right11",
+	"frame": {"x":1638,"y":568,"w":124,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":11,"w":124,"h":186},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "dino-humphry-walking-up-loop/humphry-down-1",
+	"frame": {"x":669,"y":582,"w":98,"h":172},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":15,"w":98,"h":172},
+	"sourceSize": {"w":205,"h":205},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-00",
-	"frame": {"x":1567,"y":1480,"w":113,"h":182},
+	"frame": {"x":422,"y":1558,"w":113,"h":182},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":24,"w":113,"h":182},
@@ -11,7 +479,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-01",
-	"frame": {"x":1454,"y":1481,"w":113,"h":182},
+	"frame": {"x":535,"y":1558,"w":113,"h":182},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":24,"w":113,"h":182},
@@ -20,7 +488,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-02",
-	"frame": {"x":1567,"y":1296,"w":113,"h":184},
+	"frame": {"x":1809,"y":1678,"w":113,"h":184},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":22,"w":113,"h":184},
@@ -29,7 +497,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-03",
-	"frame": {"x":1341,"y":1296,"w":113,"h":185},
+	"frame": {"x":1735,"y":939,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":21,"w":113,"h":185},
@@ -38,7 +506,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-04",
-	"frame": {"x":1341,"y":1481,"w":113,"h":185},
+	"frame": {"x":1801,"y":1124,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":21,"w":113,"h":185},
@@ -47,7 +515,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-05",
-	"frame": {"x":1264,"y":940,"w":113,"h":187},
+	"frame": {"x":1622,"y":941,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":19,"w":113,"h":187},
@@ -56,7 +524,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-06",
-	"frame": {"x":1133,"y":1,"w":113,"h":189},
+	"frame": {"x":765,"y":1362,"w":113,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":17,"w":113,"h":189},
@@ -65,7 +533,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-07",
-	"frame": {"x":696,"y":1387,"w":113,"h":190},
+	"frame": {"x":171,"y":976,"w":113,"h":190},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":16,"w":113,"h":190},
@@ -74,7 +542,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-08",
-	"frame": {"x":1567,"y":550,"w":113,"h":188},
+	"frame": {"x":1688,"y":1128,"w":113,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":18,"w":113,"h":188},
@@ -83,7 +551,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-09",
-	"frame": {"x":1376,"y":738,"w":113,"h":187},
+	"frame": {"x":1690,"y":1316,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":19,"w":113,"h":187},
@@ -92,7 +560,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-10",
-	"frame": {"x":1228,"y":1327,"w":113,"h":187},
+	"frame": {"x":1690,"y":1503,"w":113,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":19,"w":113,"h":187},
@@ -101,7 +569,7 @@
 },
 {
 	"filename": "dino-rex-idle-down-loop/dino-rex-idle-down-11",
-	"frame": {"x":1454,"y":1296,"w":113,"h":185},
+	"frame": {"x":1803,"y":1309,"w":113,"h":185},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":53,"y":21,"w":113,"h":185},
@@ -110,7 +578,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-00",
-	"frame": {"x":1489,"y":924,"w":139,"h":186},
+	"frame": {"x":1509,"y":755,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":23,"w":139,"h":186},
@@ -119,7 +587,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-01",
-	"frame": {"x":1377,"y":1110,"w":139,"h":186},
+	"frame": {"x":977,"y":943,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":23,"w":139,"h":186},
@@ -128,7 +596,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-02",
-	"frame": {"x":1516,"y":1110,"w":139,"h":186},
+	"frame": {"x":1116,"y":943,"w":139,"h":186},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":23,"w":139,"h":186},
@@ -137,7 +605,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-03",
-	"frame": {"x":948,"y":1354,"w":140,"h":187},
+	"frame": {"x":938,"y":568,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":48,"y":22,"w":140,"h":187},
@@ -146,7 +614,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-04",
-	"frame": {"x":1260,"y":189,"w":140,"h":188},
+	"frame": {"x":168,"y":1741,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":48,"y":21,"w":140,"h":188},
@@ -155,7 +623,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-05",
-	"frame": {"x":1260,"y":377,"w":140,"h":188},
+	"frame": {"x":727,"y":191,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":48,"y":21,"w":140,"h":188},
@@ -164,7 +632,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-06",
-	"frame": {"x":925,"y":585,"w":139,"h":189},
+	"frame": {"x":798,"y":379,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":20,"w":139,"h":189},
@@ -173,7 +641,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-07",
-	"frame": {"x":927,"y":387,"w":139,"h":189},
+	"frame": {"x":1115,"y":190,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":20,"w":139,"h":189},
@@ -182,7 +650,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-08",
-	"frame": {"x":982,"y":192,"w":139,"h":189},
+	"frame": {"x":1254,"y":190,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":20,"w":139,"h":189},
@@ -191,7 +659,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-09",
-	"frame": {"x":809,"y":1369,"w":139,"h":188},
+	"frame": {"x":953,"y":755,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":21,"w":139,"h":188},
@@ -200,7 +668,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-10",
-	"frame": {"x":873,"y":1166,"w":139,"h":188},
+	"frame": {"x":1092,"y":755,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":21,"w":139,"h":188},
@@ -209,7 +677,7 @@
 },
 {
 	"filename": "dino-rex-idle-left-loop/dino-rex-idle-left-11",
-	"frame": {"x":1152,"y":1140,"w":139,"h":187},
+	"frame": {"x":1370,"y":755,"w":139,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":22,"w":139,"h":187},
@@ -218,7 +686,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-00",
-	"frame": {"x":1489,"y":738,"w":140,"h":186},
+	"frame": {"x":798,"y":568,"w":140,"h":186},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":23,"w":140,"h":186},
@@ -227,7 +695,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-01",
-	"frame": {"x":1012,"y":1151,"w":140,"h":187},
+	"frame": {"x":1078,"y":568,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":22,"w":140,"h":187},
@@ -236,7 +704,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-02",
-	"frame": {"x":1124,"y":953,"w":140,"h":187},
+	"frame": {"x":1218,"y":568,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":22,"w":140,"h":187},
@@ -245,7 +713,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-03",
-	"frame": {"x":1236,"y":753,"w":140,"h":187},
+	"frame": {"x":1358,"y":568,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":22,"w":140,"h":187},
@@ -254,7 +722,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-04",
-	"frame": {"x":985,"y":963,"w":139,"h":188},
+	"frame": {"x":1231,"y":755,"w":139,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":21,"w":139,"h":188},
@@ -263,7 +731,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-05",
-	"frame": {"x":994,"y":1,"w":139,"h":189},
+	"frame": {"x":1155,"y":379,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":20,"w":139,"h":189},
@@ -272,7 +740,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-06",
-	"frame": {"x":982,"y":774,"w":139,"h":189},
+	"frame": {"x":1393,"y":190,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":20,"w":139,"h":189},
@@ -281,7 +749,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-07",
-	"frame": {"x":1064,"y":576,"w":139,"h":189},
+	"frame": {"x":1294,"y":379,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":20,"w":139,"h":189},
@@ -290,7 +758,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-08",
-	"frame": {"x":1066,"y":381,"w":139,"h":189},
+	"frame": {"x":1640,"y":184,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":20,"w":139,"h":189},
@@ -299,7 +767,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-09",
-	"frame": {"x":1121,"y":190,"w":139,"h":189},
+	"frame": {"x":1650,"y":373,"w":139,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":28,"y":20,"w":139,"h":189},
@@ -308,7 +776,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-10",
-	"frame": {"x":1205,"y":565,"w":140,"h":188},
+	"frame": {"x":867,"y":191,"w":140,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":21,"w":140,"h":188},
@@ -317,7 +785,7 @@
 },
 {
 	"filename": "dino-rex-idle-right-loop/dino-rex-idle-right-11",
-	"frame": {"x":1088,"y":1338,"w":140,"h":187},
+	"frame": {"x":1498,"y":568,"w":140,"h":187},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":27,"y":22,"w":140,"h":187},
@@ -326,7 +794,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-00",
-	"frame": {"x":1,"y":1437,"w":119,"h":199},
+	"frame": {"x":1232,"y":1129,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":17,"w":119,"h":199},
@@ -335,7 +803,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-01",
-	"frame": {"x":1,"y":1236,"w":119,"h":201},
+	"frame": {"x":679,"y":381,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":15,"w":119,"h":201},
@@ -344,7 +812,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-02",
-	"frame": {"x":116,"y":1034,"w":119,"h":201},
+	"frame": {"x":858,"y":957,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":15,"w":119,"h":201},
@@ -353,7 +821,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-03",
-	"frame": {"x":354,"y":203,"w":119,"h":200},
+	"frame": {"x":560,"y":382,"w":119,"h":200},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":16,"w":119,"h":200},
@@ -362,7 +830,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-04",
-	"frame": {"x":239,"y":1230,"w":119,"h":197},
+	"frame": {"x":171,"y":1361,"w":119,"h":197},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":19,"w":119,"h":197},
@@ -371,7 +839,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-05",
-	"frame": {"x":587,"y":1,"w":119,"h":198},
+	"frame": {"x":1237,"y":1527,"w":119,"h":198},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":18,"w":119,"h":198},
@@ -380,7 +848,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-06",
-	"frame": {"x":120,"y":1235,"w":119,"h":199},
+	"frame": {"x":1000,"y":1330,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":17,"w":119,"h":199},
@@ -389,7 +857,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-07",
-	"frame": {"x":235,"y":1031,"w":119,"h":199},
+	"frame": {"x":1000,"y":1529,"w":119,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":17,"w":119,"h":199},
@@ -398,7 +866,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-08",
-	"frame": {"x":354,"y":1018,"w":119,"h":197},
+	"frame": {"x":887,"y":1735,"w":119,"h":197},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":19,"w":119,"h":197},
@@ -407,7 +875,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-09",
-	"frame": {"x":468,"y":1,"w":119,"h":200},
+	"frame": {"x":1113,"y":1129,"w":119,"h":200},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":16,"w":119,"h":200},
@@ -416,7 +884,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-10",
-	"frame": {"x":119,"y":830,"w":119,"h":201},
+	"frame": {"x":875,"y":1158,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":15,"w":119,"h":201},
@@ -425,7 +893,7 @@
 },
 {
 	"filename": "dino-rex-idle-up-loop/trex-idle-up-11",
-	"frame": {"x":234,"y":618,"w":119,"h":201},
+	"frame": {"x":994,"y":1129,"w":119,"h":201},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":15,"w":119,"h":201},
@@ -434,7 +902,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-00",
-	"frame": {"x":1121,"y":765,"w":115,"h":188},
+	"frame": {"x":1576,"y":1690,"w":115,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":21,"w":115,"h":188},
@@ -443,7 +911,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-01",
-	"frame": {"x":810,"y":585,"w":115,"h":190},
+	"frame": {"x":284,"y":976,"w":115,"h":190},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":19,"w":115,"h":190},
@@ -452,7 +920,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-02",
-	"frame": {"x":639,"y":399,"w":115,"h":196},
+	"frame": {"x":445,"y":386,"w":115,"h":196},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":15,"w":115,"h":196},
@@ -461,7 +929,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-03",
-	"frame": {"x":1,"y":1034,"w":115,"h":202},
+	"frame": {"x":760,"y":1160,"w":115,"h":202},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":11,"w":115,"h":202},
@@ -470,7 +938,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-04",
-	"frame": {"x":1,"y":627,"w":115,"h":204},
+	"frame": {"x":484,"y":765,"w":115,"h":204},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":10,"w":115,"h":204},
@@ -479,7 +947,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-05",
-	"frame": {"x":117,"y":1,"w":116,"h":210},
+	"frame": {"x":286,"y":581,"w":116,"h":210},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":5,"w":116,"h":210},
@@ -488,7 +956,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-06",
-	"frame": {"x":1,"y":1,"w":116,"h":211},
+	"frame": {"x":170,"y":593,"w":116,"h":211},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":4,"w":116,"h":211},
@@ -497,7 +965,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-07",
-	"frame": {"x":1,"y":212,"w":117,"h":210},
+	"frame": {"x":290,"y":1166,"w":117,"h":210},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":5,"w":117,"h":210},
@@ -506,7 +974,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-08",
-	"frame": {"x":233,"y":1,"w":117,"h":204},
+	"frame": {"x":525,"y":1165,"w":117,"h":204},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":9,"w":117,"h":204},
@@ -515,7 +983,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-09",
-	"frame": {"x":350,"y":1,"w":118,"h":202},
+	"frame": {"x":835,"y":755,"w":118,"h":202},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":51,"y":9,"w":118,"h":202},
@@ -524,7 +992,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-10",
-	"frame": {"x":238,"y":819,"w":118,"h":199},
+	"frame": {"x":1119,"y":1329,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":51,"y":10,"w":118,"h":199},
@@ -533,7 +1001,7 @@
 },
 {
 	"filename": "dino-rex-walking-down-loop/trex-walking-down-11",
-	"frame": {"x":523,"y":399,"w":116,"h":196},
+	"frame": {"x":506,"y":969,"w":116,"h":196},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":52,"y":13,"w":116,"h":196},
@@ -542,7 +1010,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-00",
-	"frame": {"x":816,"y":775,"w":166,"h":189},
+	"frame": {"x":171,"y":392,"w":166,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":25,"y":20,"w":166,"h":189},
@@ -551,7 +1019,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-01",
-	"frame": {"x":824,"y":1,"w":170,"h":191},
+	"frame": {"x":1,"y":978,"w":170,"h":191},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":24,"y":18,"w":170,"h":191},
@@ -560,7 +1028,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-02",
-	"frame": {"x":530,"y":1197,"w":172,"h":190},
+	"frame": {"x":685,"y":1,"w":172,"h":190},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":19,"w":172,"h":190},
@@ -569,7 +1037,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-03",
-	"frame": {"x":356,"y":1427,"w":170,"h":194},
+	"frame": {"x":1,"y":399,"w":170,"h":194},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":15,"w":170,"h":194},
@@ -578,7 +1046,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-04",
-	"frame": {"x":754,"y":394,"w":173,"h":191},
+	"frame": {"x":512,"y":1,"w":173,"h":191},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":22,"y":18,"w":173,"h":191},
@@ -587,7 +1055,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-05",
-	"frame": {"x":1419,"y":1,"w":172,"h":183},
+	"frame": {"x":1544,"y":1,"w":172,"h":183},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":26,"w":172,"h":183},
@@ -596,7 +1064,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-06",
-	"frame": {"x":1419,"y":184,"w":169,"h":183},
+	"frame": {"x":1716,"y":1,"w":169,"h":183},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":23,"y":26,"w":169,"h":183},
@@ -605,7 +1073,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-07",
-	"frame": {"x":702,"y":1180,"w":171,"h":189},
+	"frame": {"x":1202,"y":1,"w":171,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":24,"y":20,"w":171,"h":189},
@@ -614,7 +1082,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-08",
-	"frame": {"x":641,"y":199,"w":170,"h":195},
+	"frame": {"x":169,"y":197,"w":170,"h":195},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":25,"y":13,"w":170,"h":195},
@@ -623,7 +1091,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-09",
-	"frame": {"x":473,"y":201,"w":168,"h":198},
+	"frame": {"x":1,"y":201,"w":168,"h":198},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":26,"y":10,"w":168,"h":198},
@@ -632,7 +1100,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-10",
-	"frame": {"x":641,"y":595,"w":169,"h":192},
+	"frame": {"x":1,"y":786,"w":169,"h":192},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":26,"y":16,"w":169,"h":192},
@@ -641,7 +1109,7 @@
 },
 {
 	"filename": "dino-rex-walking-left-loop/dino-rex-walking-left-11",
-	"frame": {"x":647,"y":787,"w":169,"h":190},
+	"frame": {"x":1,"y":1551,"w":169,"h":190},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":25,"y":18,"w":169,"h":190},
@@ -650,7 +1118,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-00",
-	"frame": {"x":1400,"y":550,"w":167,"h":188},
+	"frame": {"x":1,"y":1741,"w":167,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":32,"y":21,"w":167,"h":188},
@@ -659,7 +1127,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-01",
-	"frame": {"x":811,"y":196,"w":171,"h":191},
+	"frame": {"x":1,"y":1169,"w":171,"h":191},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":18,"w":171,"h":191},
@@ -668,7 +1136,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-02",
-	"frame": {"x":642,"y":990,"w":172,"h":190},
+	"frame": {"x":857,"y":1,"w":172,"h":190},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":19,"w":172,"h":190},
@@ -677,7 +1145,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-03",
-	"frame": {"x":358,"y":1215,"w":172,"h":193},
+	"frame": {"x":339,"y":193,"w":172,"h":193},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":16,"w":172,"h":193},
@@ -686,7 +1154,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-04",
-	"frame": {"x":474,"y":798,"w":173,"h":192},
+	"frame": {"x":339,"y":1,"w":173,"h":192},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":17,"w":173,"h":192},
@@ -695,7 +1163,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-05",
-	"frame": {"x":1246,"y":1,"w":173,"h":188},
+	"frame": {"x":1029,"y":1,"w":173,"h":188},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":21,"w":173,"h":188},
@@ -704,7 +1172,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-06",
-	"frame": {"x":1400,"y":367,"w":169,"h":183},
+	"frame": {"x":402,"y":582,"w":169,"h":183},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":32,"y":26,"w":169,"h":183},
@@ -713,7 +1181,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-07",
-	"frame": {"x":814,"y":977,"w":171,"h":189},
+	"frame": {"x":1373,"y":1,"w":171,"h":189},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":20,"w":171,"h":189},
@@ -722,7 +1190,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-08",
-	"frame": {"x":471,"y":602,"w":170,"h":196},
+	"frame": {"x":169,"y":1,"w":170,"h":196},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":13,"w":170,"h":196},
@@ -731,7 +1199,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-09",
-	"frame": {"x":237,"y":408,"w":168,"h":200},
+	"frame": {"x":1,"y":1,"w":168,"h":200},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":30,"y":9,"w":168,"h":200},
@@ -740,7 +1208,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-10",
-	"frame": {"x":473,"y":1004,"w":169,"h":193},
+	"frame": {"x":1,"y":593,"w":169,"h":193},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":16,"w":169,"h":193},
@@ -749,7 +1217,7 @@
 },
 {
 	"filename": "dino-rex-walking-right-loop/dino-rex-walking-right-11",
-	"frame": {"x":526,"y":1408,"w":170,"h":191},
+	"frame": {"x":1,"y":1360,"w":170,"h":191},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":29,"y":18,"w":170,"h":191},
@@ -758,7 +1226,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-00",
-	"frame": {"x":706,"y":1,"w":118,"h":195},
+	"frame": {"x":172,"y":1166,"w":118,"h":195},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":1,"w":118,"h":195},
@@ -767,7 +1235,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-01",
-	"frame": {"x":353,"y":608,"w":118,"h":199},
+	"frame": {"x":1119,"y":1528,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":2,"w":118,"h":199},
@@ -776,7 +1244,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-02",
-	"frame": {"x":1,"y":831,"w":118,"h":203},
+	"frame": {"x":622,"y":958,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":8,"w":118,"h":203},
@@ -785,7 +1253,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-03",
-	"frame": {"x":1,"y":422,"w":118,"h":205},
+	"frame": {"x":407,"y":1165,"w":118,"h":205},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":11,"w":118,"h":205},
@@ -794,7 +1262,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-04",
-	"frame": {"x":116,"y":627,"w":118,"h":203},
+	"frame": {"x":642,"y":1161,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":12,"w":118,"h":203},
@@ -803,7 +1271,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-05",
-	"frame": {"x":356,"y":807,"w":118,"h":197},
+	"frame": {"x":1242,"y":1725,"w":118,"h":197},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":8,"w":118,"h":197},
@@ -812,7 +1280,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-06",
-	"frame": {"x":120,"y":1434,"w":118,"h":198},
+	"frame": {"x":1006,"y":1728,"w":118,"h":198},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":3,"w":118,"h":198},
@@ -821,7 +1289,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-07",
-	"frame": {"x":405,"y":403,"w":118,"h":199},
+	"frame": {"x":1237,"y":1328,"w":118,"h":199},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":6,"w":118,"h":199},
@@ -830,7 +1298,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-08",
-	"frame": {"x":119,"y":415,"w":118,"h":203},
+	"frame": {"x":717,"y":754,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":12,"w":118,"h":203},
@@ -839,7 +1307,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-09",
-	"frame": {"x":118,"y":211,"w":118,"h":204},
+	"frame": {"x":599,"y":754,"w":118,"h":204},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":12,"w":118,"h":204},
@@ -848,7 +1316,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-10",
-	"frame": {"x":236,"y":205,"w":118,"h":203},
+	"frame": {"x":740,"y":957,"w":118,"h":203},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":8,"w":118,"h":203},
@@ -857,7 +1325,7 @@
 },
 {
 	"filename": "dino-rex-walking-up-loop/trex-walking-up-11",
-	"frame": {"x":238,"y":1434,"w":118,"h":198},
+	"frame": {"x":1124,"y":1727,"w":118,"h":198},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":49,"y":2,"w":118,"h":198},
@@ -869,8 +1337,8 @@
 	"version": "1.0",
 	"image": "sprite-sheet-general-0.png",
 	"format": "RGBA8888",
-	"size": {"w":1681,"h":1681},
+	"size": {"w":1933,"h":1933},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:5c9c9c8973b2c2654ff7f3f77f5b5d2e:a3ce7c05377b7fa1c08541a499750e9d:596e3f093264869e3290e0ae51b48a1b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:bcb356dcc7d08abbe3360333a5ed3e2c:6cb635de1161d5b1ea48b8a4f1466b0a:596e3f093264869e3290e0ae51b48a1b$"
 }
 }
