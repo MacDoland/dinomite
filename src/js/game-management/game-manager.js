@@ -213,7 +213,6 @@ class GameManager {
         if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
             player.move(offset.getYOnly());
         }
-
     }
 
     #getExplosionTargets(tiles) {

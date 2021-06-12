@@ -13,13 +13,14 @@
     "test": "jest",
     "build:dev": "npx webpack --mode development --config webpack.client.config.js",
     "build:dev:watch": "npx webpack --mode development --watch --config webpack.client.config.js",
-    "build:dev:server": "npx webpack --mode development --config webpack.server.config.js",
+    "build:dev:server": "npx webpack --mode development --watch --config webpack.server.config.js",
     "build": "webpack --mode production",
     "serve": "serve ./dist",
     "dev": "npm run build:dev && npm run serve",
     "app": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "server": "node ./dist/server.js"
   },
   "repository": {
     "type": "git",

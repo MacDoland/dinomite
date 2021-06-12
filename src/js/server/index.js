@@ -2,12 +2,15 @@ const httpServer = require("http").createServer();
 
 const io = require("socket.io")(httpServer, {
     cors: {
-        origin: "http://localhost:8080",
+        origin: "http://localhost:5000",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
     }
 });
+
+
+const players = {};
 
 io.on("connection", socket => {
   // either with send()
@@ -27,4 +30,6 @@ io.on("connection", socket => {
   });
 });
 
-httpServer.listen(3000);
+httpServer.listen(3000, '', () => {
+  console.log('listening on port 3000');
+});
