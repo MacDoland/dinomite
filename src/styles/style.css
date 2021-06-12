@@ -52,3 +52,5 @@ h2 {
     left: 20px;
     max-width: 500px;
 }
+
+[v-cloak] { display: none; }

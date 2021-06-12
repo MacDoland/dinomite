@@ -1,5 +1,4 @@
 import directions from "../helpers/direction";
-import Animation from "../helpers/animation";
 import Drawable from "../helpers/drawable";
 import SpriteSheet from "../helpers/spriteSheet";
 import Grid from "../structures/grid";
@@ -8,7 +7,6 @@ import spriteSheetEnvironmentConfig from "../config/sprite-sheet-env-0.json";
 import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
 import { TileState } from "../state/tile-state";
-import Vector from "../structures/vector";
 
 
 let characters = {};
@@ -36,9 +34,9 @@ class CanvasRenderer {
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
-        this.#spriteSheetGeneral = new SpriteSheet('./images/sprite-sheet-general-0.png', spriteSheetGeneralConfig, 1000 / 24);
-        this.#spriteSheetEnvironment = new SpriteSheet('./images/sprite-sheet-env-0.png', spriteSheetEnvironmentConfig, 1000 / 24);
-        this.#spriteSheetItems = new SpriteSheet('./images/sprite-sheet-items-0.png', spriteSheetItemsConfig, 1000 / 24);
+        this.#spriteSheetGeneral = new SpriteSheet('../images/sprite-sheet-general-0.png', spriteSheetGeneralConfig, 1000 / 24);
+        this.#spriteSheetEnvironment = new SpriteSheet('../images/sprite-sheet-env-0.png', spriteSheetEnvironmentConfig, 1000 / 24);
+        this.#spriteSheetItems = new SpriteSheet('../images/sprite-sheet-items-0.png', spriteSheetItemsConfig, 1000 / 24);
         this.#previousTime = 0;
         this.#drawQueue = [];
         this.#columnCount = columnCount;

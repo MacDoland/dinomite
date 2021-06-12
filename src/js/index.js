@@ -17,26 +17,9 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 let config = optionsManager.get() || {};
-//audioManager.load('menu-bg', './audio/Komiku_-_12_-_Bicycle.mp3', 0.5, true);
 
-//const ui = new UI(introScreen, gameScreen, highScoreScreen, reviewScreen);
-
-// ui.onMainMenu(() => {
-//     audioManager.play('menu-bg');
-// });
-
-// ui.onInitGame(() => {
-//     audioManager.stop('menu-bg');
-//     gameManager.init();
-// });
-
-// ui.onStartGame(() => {
-//     gameManager.start();
-// });
 
 inputManager.onKeyUp((key) => {
-    // console.log('key', key);
-
     if (key === InputKeys.KEY_G.toString()) {
         config = optionsManager.get() || {};
         config.showGrid = !config.showGrid;
