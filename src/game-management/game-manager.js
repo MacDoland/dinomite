@@ -8,10 +8,7 @@ import AudioManager from "./audio-manager";
 import Player from "../player";
 import BombShop from "./bomb-shop";
 import { indexToTileState, TileState } from "../state/tile-state";
-import SinglyLinkedList from "../structures/linked-list";
 import stateManager, { StateEvents } from "./state-manager";
-import Rectangle from "../structures/rectangle";
-import { resolveCollisions } from "../helpers/collisions";
 import controlConfig from '../config/controls';
 
 class GameManager {
@@ -86,11 +83,7 @@ class GameManager {
         let prev = 0;
         let deltaTime = 0;
         let now;
-        let potentialPositionX;
-        let potentialPositionY;
-        let offset;
-        // this.#audioManager.play('bg');
-
+  
         const loop = () => {
             now = performance.now();
             deltaTime = (now - prev) / 1000;
@@ -103,88 +96,6 @@ class GameManager {
             let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
             this.#currentGridIndex = gridIndex;
 
-         
-
-            // let offsetRight, offsetLeft, offsetUp, offsetDown;
-            // let collider = this.#player.getGlobalBoundingBox().clone();
-            // let playerTileCoordinate = Grid.convertIndexToCoordinate(gridIndex, 15, 15).multiplyScalar(100);
-            // let neighbours = this.#grid.getNeighbours(gridIndex);
-
-
-            // offsetRight = collider.getRight() - playerTileCoordinate.x - 100;
-            // const isCollidingRight = offsetRight > 0;
-
-            // offsetLeft = collider.getLeft() - playerTileCoordinate.x;
-            // const isCollidingLeft = offsetLeft < 0;
-
-            // offsetDown = collider.getBottom() - playerTileCoordinate.y - 100;
-            // const isCollidingDown = offsetDown > 0;
-
-            // offsetUp = collider.getTop() - playerTileCoordinate.y;
-            // const isCollidingUp = offsetUp < 0;
-
-            // this.#logger.log('player collisions', {
-            //     isCollidingRight,
-            //     isCollidingLeft,
-            //     isCollidingDown,
-            //     isCollidingUp
-            // });
-
-            // if(isCollidingRight && isCollidingUp){
-            //     if(offsetRight < offsetUp){
-            //         offset.add(new Vector(-offsetRight, 0));
-            //     }
-            //     else{
-            //         offset.add(new Vector(0, -offsetUp));
-            //     }
-            // }
-            // else if (isCollidingRight){
-            //     offset.add(new Vector(-offsetRight, 0));
-            // }
-            // else{
-            //     offset.add(new Vector(0, -offsetUp));
-            // }
-
-            // if(isCollidingRight && isCollidingDown){
-            //     if(offsetRight < offsetDown){
-            //         offset.add(new Vector(-offsetRight, 0));
-            //     }
-            //     else{
-            //         offset.add(new Vector(0, -offsetDown));
-            //     }
-            // }
-            // else if (isCollidingRight){
-            //     offset.add(new Vector(-offsetRight, 0));
-            // }
-            // else{
-            //     offset.add(new Vector(0, -offsetDown));
-            // }
-
-
-            // if (isCollidingDown || isCollidingLeft || isCollidingRight || isCollidingUp) {
-            //     console.log('overlap', `up: ${isCollidingUp} right: ${isCollidingRight} down: ${isCollidingDown} left: ${isCollidingLeft} `);
-            // }
-
-
-
-            // let colliders = Object.keys(neighbours)
-            //     .map(key => neighbours[key])
-            //     .flat()
-            //     .map((index) => {
-            //         return new Rectangle(Grid.convertIndexToCoordinate(index, 15, 15).multiplyScalar(100).add(new Vector(50, 50)), 100, 100);
-            //     });
-
-            // this.#colliders = [collider.clone(), ...colliders];
-
-            //   let newOffSet = resolveCollisions(collider, colliders);
-
-            // if (newOffSet.x != 0 || newOffSet.y != 0) {
-            //     console.log('newOffSet', newOffSet);
-            // }
-
-
-            prev = now;
-
             this.#eventDispatcher.dispatch(this.#events.UPDATE, {
                 grid: this.#grid,
                 players: [this.#player, this.#playerTwo],
@@ -194,6 +105,9 @@ class GameManager {
                 colliders: this.#colliders,
                 deltaTime
             });
+
+            prev = now;
+
             requestAnimationFrame(loop);
         }
 
