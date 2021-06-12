@@ -1,13 +1,19 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 module.exports = {
-    entry: './src/js/index.js',
+    entry: { server: './src/js/server.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js'
+        filename: '[name].js',
+        chunkFilename: '[id].[chunkhash].js'
     },
+    target: "node",
+    externals: [nodeExternals()], 
     plugins: [
+        new NodePolyfillPlugin(),
         new CopyPlugin({
             patterns: [
                 { from: "./app.js", to: "" },

@@ -11,10 +11,11 @@
   },
   "scripts": {
     "test": "jest",
-    "build:dev": "npx webpack --mode development",
-    "build:dev:watch": "npx webpack --mode development --watch",
+    "build:dev": "npx webpack --mode development --config webpack.client.config.js",
+    "build:dev:watch": "npx webpack --mode development --watch --config webpack.client.config.js",
+    "build:dev:server": "npx webpack --mode development --config webpack.server.config.js",
     "build": "webpack --mode production",
-    "serve": " npx webpack serve -o /dist/. --mode development --open",
+    "serve": "serve ./dist",
     "dev": "npm run build:dev && npm run serve",
     "app": "electron .",
     "pack": "electron-builder --dir",
@@ -45,14 +46,15 @@
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^27.0.1",
-    "json-loader": "^0.5.7",
-    "raw-loader": "^4.0.2",
+    "node-polyfill-webpack-plugin": "^1.1.2",
+    "serve": "^12.0.0",
+    "socket.io-client": "^4.1.2",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "firebase": "^8.6.3",
+    "socket.io": "^4.1.2",
     "vue": "^2.6.13",
     "xstate": "^4.20.0"
   }
