@@ -34,8 +34,9 @@ class GameAuthority {
     }
 
     addPlayer(id) {
-        this.players[id] = new Player(id, 'name', 0, 48, null, null);
-        this.players[id].setPosition(this.#grid.getCellCenter(this.#gameConfig.startPlayerOne, this.#gameConfig.cellSize));
+        this.players[id] = new Player(id, 'name', 0, 48);
+        let startIndex = Object.keys(this.players).length === 1 ? this.#gameConfig.startPlayerOne : this.#gameConfig.startPlayerTwo;
+        this.players[id].setPosition(this.#grid.getCellCenter(startIndex, this.#gameConfig.cellSize));
     }
 
     processPlayerInput(id, input) {
@@ -63,7 +64,12 @@ class GameAuthority {
 
         this.players[id].move(result.offset);
 
-        return { id, position: this.players[id].getPosition(), state: this.players[id].getState() };
+        return {
+            id,
+            position: this.players[id].getPosition(),
+            state: this.players[id].getState(),
+            direction: this.players[id].getDirection()
+        };
     }
 
     processPlayerMovement(id, bounds, offset) {
@@ -106,7 +112,8 @@ class LocalClient {
                     const message = {
                         id: result.id,
                         position: result.position,
-                        state: result.state
+                        state: result.state,
+                        direction: result.direction
                     };
 
                     this.#eventDispatcher.dispatch(this.#events.ON_RECEIVE_MESSAGE, {

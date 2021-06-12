@@ -108,6 +108,7 @@ class GameManager {
 
                     player.setPosition(message.position);
                     player.setState(message.state);
+                    player.setDirection(message.direction);
                     break;
             }
         })

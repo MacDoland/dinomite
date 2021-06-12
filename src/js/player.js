@@ -11,7 +11,6 @@ class Player {
     #height;
     #state;
     #boundingBox;
-    #inputSystem;
     #eventDispatcher;
     #events;
     #speed;
@@ -21,12 +20,11 @@ class Player {
     #id;
     #size;
 
-    constructor(id, name, characterIndex, startPosition, inputSystem) {
+    constructor(id, name, characterIndex, startPosition) {
         this.#id = id;
         this.#name = name;
         this.#characterIndex = characterIndex;
         this.#startPosition = startPosition;
-        this.#inputSystem = inputSystem;
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
         this.#height = 50;
@@ -48,39 +46,7 @@ class Player {
         return this.#id;
     }
 
-    update(deltaTime) {
-
-        let input = this.#inputSystem.update();
-
-        let offset = new Vector(0, 0);
-
-        if (input.current.DOWN) {
-            offset.add(new Vector(0, this.#speed * deltaTime));
-        }
-
-        if (input.current.RIGHT) {
-            offset.add(new Vector(this.#speed * deltaTime, 0))
-        }
-
-        if (input.current.UP) {
-            offset.add(new Vector(0, -this.#speed * deltaTime))
-        }
-
-        if (input.current.LEFT) {
-            offset.add(new Vector(-this.#speed * deltaTime, 0))
-        }
-
-        if (offset.y === 0 && offset.x === 0) {
-            this.#state = PlayerState.IDLE;
-        }
-
-        this.#eventDispatcher.dispatch(this.#events.MOVE, {
-            player: this,
-            offset,
-            id: this.#id
-        });
-    }
-
+   
     move(offset) {
 
         if (offset.x < 0) {
@@ -125,6 +91,11 @@ class Player {
     getDirection() {
         return this.#direction;
     }
+
+    setDirection(direction) {
+        this.#direction = direction;
+    }
+
 
     getPosition() {
         return Vector.add(this.#position, this.#origin);
