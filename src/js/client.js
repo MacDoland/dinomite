@@ -7,15 +7,21 @@ import { defaultLevel } from './levels/levels';
 import OptionsManager from './game-management/options-manager';
 import InputManager, { InputKeys } from './game-management/input-manager';
 import Logger from './helpers/logger';
+import { LocalClient } from './game-management/game-authority';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
 const canvas = document.getElementById('canvas');
 const renderer = new CanvasRenderer(canvas, 100, grid.getColumnCount(), grid.getRowCount());
-const gameManager = new GameManager(defaultLevel, grid, logger);
 const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
+
+const client = new LocalClient(grid);
+
+const gameManager = new GameManager(client, defaultLevel, grid, logger);
+
+
 let config = optionsManager.get() || {};
 
 inputManager.onKeyUp((key) => {
@@ -69,13 +75,7 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
         renderer.drawDebug(colliders);
     }
 
-    // let before = performance.now();
-    // let numDrawCalls =  renderer.draw();
-    // let after = performance.now() - before;
-    // console.log('draw calls: ', numDrawCalls, after);
-
     renderer.draw(deltaTime * 1000);
-
 }
 
 gameManager.onInit(updateGame);

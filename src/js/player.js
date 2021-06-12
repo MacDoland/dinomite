@@ -19,8 +19,11 @@ class Player {
     #startPosition
     #name;
     #characterIndex;
+    #id;
+    #size;
 
-    constructor(name, characterIndex, startPosition, inputSystem, logger) {
+    constructor(id, name, characterIndex, startPosition, inputSystem, logger) {
+        this.#id = id;
         this.#name = name;
         this.#characterIndex = characterIndex;
         this.#startPosition = startPosition;
@@ -33,6 +36,7 @@ class Player {
         this.#speed = 400;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
+        this.#size = 60;
         this.#boundingBox = new Rectangle(this.#origin, 60, 60);
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
@@ -40,6 +44,10 @@ class Player {
             DEATH: 'DEATH'
         }
         Object.freeze(this.#events);
+    }
+
+    getId() {
+        return this.#id;
     }
 
     update(deltaTime) {
@@ -74,7 +82,8 @@ class Player {
 
         this.#eventDispatcher.dispatch(this.#events.MOVE, {
             player: this,
-            offset
+            offset,
+            id: this.#id
         });
     }
 
@@ -129,6 +138,16 @@ class Player {
     getBoundingBox() {
         return this.#boundingBox;
     }
+
+    getBounds() {
+        return {
+            topLeft: this.getTopLeft(),
+            topRight: this.getTopRight(),
+            bottomLeft: this.getBottomLeft(),
+            bottomRight: this.getBottomRight()
+        }
+    }
+
     getGlobalBoundingBox() {
         return Rectangle.move(this.#boundingBox, this.#position);
     }

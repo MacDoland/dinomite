@@ -10,6 +10,8 @@ import BombShop from "./bomb-shop";
 import { indexToTileState, TileState } from "../state/tile-state";
 import stateManager, { StateEvents } from "./state-manager";
 import controlConfig from '../config/controls';
+import { GameEvents } from "../events/events";
+import { findById } from "../helpers/helpers";
 
 class GameManager {
     #gameConfig;
@@ -27,9 +29,12 @@ class GameManager {
     #currentGridIndex;
     #colliders;
     #logger;
+    #client;
+    #players;
 
 
-    constructor(gameConfig, grid, logger) {
+    constructor(client, gameConfig, grid, logger) {
+        this.#client = client;
         this.#gameConfig = gameConfig;
         this.#logger = logger;
         this.#grid = grid;
@@ -40,18 +45,24 @@ class GameManager {
         const playerOneInputSystem = new InputSystem(controlConfig.playerOne);
         const playerTwoInputSystem = new InputSystem(controlConfig.playerTwo);
 
-        this.#player = new Player('player one', 0, gameConfig.startPlayerOne, playerOneInputSystem, logger);
+        this.#player = new Player(123, 'player one', 0, gameConfig.startPlayerOne, playerOneInputSystem, logger);
         this.#player.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerOne, gameConfig.cellSize));
         this.#player.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
 
-        this.#playerTwo = new Player('player two', 1, gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
+        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#player.getId() });
+
+        this.#playerTwo = new Player(456, 'player two', 1, gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
         this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
 
         this.#playerTwo.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
+
+        this.#players = [];
+        this.#players.push(this.#player);
+        this.#players.push(this.#playerTwo);
 
         this.#bombShop = new BombShop();
         this.#inputManager = new InputManager();
@@ -71,6 +82,18 @@ class GameManager {
         Object.freeze(this.#events);
 
         this.#colliders = [];
+
+        this.#client.onMessage(({ gameEvent, message }) => {
+            switch (gameEvent) {
+                case GameEvents.PLAYER_MOVE:
+                    const { id, offset } = message;
+                    let player = findById(this.#players, id);
+
+                    this.#logger.log('offset test', offset);
+                    player.move(offset);
+                    break;
+            }
+        })
     }
 
     /* Public methods */
@@ -83,7 +106,7 @@ class GameManager {
         let prev = 0;
         let deltaTime = 0;
         let now;
-  
+
         const loop = () => {
             now = performance.now();
             deltaTime = (now - prev) / 1000;
@@ -111,8 +134,11 @@ class GameManager {
             requestAnimationFrame(loop);
         }
 
-        this.#player.onMove(({ player, offset }) => {
-            this.#processPlayerMovement(player, offset);
+
+
+        this.#player.onMove(({ id, player, offset }) => {
+            this.#client.send(GameEvents.PLAYER_MOVE, { id, bounds: player.getBounds(), offset });
+         //   this.#processPlayerMovement(player, offset);
         });
 
         this.#playerTwo.onMove(({ player, offset }) => {

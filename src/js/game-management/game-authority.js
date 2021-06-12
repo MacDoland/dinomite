@@ -1,16 +1,15 @@
+import { GameEvents } from "../events/events";
 import EventDispatcher from "../helpers/event-dispatcher";
 import { processPlayerMovement } from "../helpers/referee";
 import Vector from "../structures/vector";
 import stateMachine, { StateEvents } from "./state-manager";
 
 class GameAuthority {
-    messenger;
     players;
     #grid;
 
     constructor(grid) {
-        this.#gridgrid = grid;
-        this.messenger = messenger;
+        this.#grid = grid;
         this.players = {};
     }
 
@@ -18,30 +17,29 @@ class GameAuthority {
         this.players[player.getId()] = player;
     }
 
-    processPlayerMovement(player, offset) {
-        const newPosition = processPlayerMovement(this.#grid, player, offset);
+    processPlayerMovement(id, bounds, offset) {
+        const newPosition = processPlayerMovement(this.#grid, bounds, offset);
 
         return {
             offset: newPosition,
-            player
+            id
         }
     }
 }
 
 export default GameAuthority;
 
-const GameEvents = {
-    PLAYER_MOVE: 'PLAYER_MOVE'
-}
-
 class LocalClient {
+    #grid;
     #eventDispatcher;
     #events;
     #gameAuthority;
+    #players;
 
     constructor(grid) {
         this.#gameAuthority = new GameAuthority(grid);
         this.#eventDispatcher = new EventDispatcher();
+        this.#players = {};
         this.#events = {
             ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE'
         }
@@ -49,9 +47,28 @@ class LocalClient {
 
     send(gameEvent, data) {
         switch (gameEvent) {
+            case GameEvents.NEW_PLAYER:
+                if (!this.#players[data.id]) {
+                    this.#players[data.id] = {
+                        id: data.id
+                    }
+                }
+                break;
             case GameEvents.PLAYER_MOVE:
-                const response = this.#gameAuthority.processPlayerMovement(data.player, data.offset);
-                this.#eventDispatcher.dispatch(this.#events.ON_RECEIVE_MESSAGE, response);
+                const { id, offset} = this.#gameAuthority.processPlayerMovement(data.id, data.bounds, data.offset);
+
+                if (offset.magnitude() > 0) {
+
+                    const message = {
+                        id,
+                        offset
+                    };
+
+                    this.#eventDispatcher.dispatch(this.#events.ON_RECEIVE_MESSAGE, {
+                        gameEvent,
+                        message
+                    });
+                }
                 break;
         }
     }

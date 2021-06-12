@@ -48,6 +48,10 @@ class Vector {
         );
     }
 
+    magnitude() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
     static add(vectorA, vectorB) {
         return new Vector(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
     }

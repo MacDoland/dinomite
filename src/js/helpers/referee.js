@@ -1,26 +1,26 @@
 import { TileState } from "../state/tile-state";
 import Vector from "../structures/vector";
 
-export const processPlayerMovement = (grid, player, offset) => {
+export const processPlayerMovement = (grid, bounds, offset) => {
     let newOffset = new Vector();
 
-    if (player && offset) {
-        const canMoveTopRightX = this.#canMove(offset.getXOnly(), player.getTopRight(), this.#grid);
-        const canMoveBottomRightX = this.#canMove(offset.getXOnly(), player.getBottomRight(), this.#grid);
-        const canMoveTopLeftX = this.#canMove(offset.getXOnly(), player.getTopLeft(), this.#grid);
-        const canMoveBottomLeftX = this.#canMove(offset.getXOnly(), player.getBottomLeft(), this.#grid);
+    if (grid && bounds && offset) {
+        const canMoveTopRightX = canMove(offset.getXOnly(), bounds.topRight, grid);
+        const canMoveBottomRightX = canMove(offset.getXOnly(), bounds.bottomRight, grid);
+        const canMoveTopLeftX = canMove(offset.getXOnly(), bounds.topLeft, grid);
+        const canMoveBottomLeftX = canMove(offset.getXOnly(), bounds.bottomLeft, grid);
 
-        const canMoveTopRightY = this.#canMove(offset.getYOnly(), player.getTopRight(), this.#grid);
-        const canMoveBottomRightY = this.#canMove(offset.getYOnly(), player.getBottomRight(), this.#grid);
-        const canMoveTopLeftY = this.#canMove(offset.getYOnly(), player.getTopLeft(), this.#grid);
-        const canMoveBottomLeftY = this.#canMove(offset.getYOnly(), player.getBottomLeft(), this.#grid);
+        const canMoveTopRightY = canMove(offset.getYOnly(), bounds.topRight, grid);
+        const canMoveBottomRightY = canMove(offset.getYOnly(), bounds.bottomRight, grid);
+        const canMoveTopLeftY = canMove(offset.getYOnly(), bounds.topLeft, grid);
+        const canMoveBottomLeftY = canMove(offset.getYOnly(), bounds.bottomLeft, grid);
 
         if (canMoveTopRightX && canMoveBottomRightX && canMoveTopLeftX && canMoveBottomLeftX) {
             newOffset.add(offset.getXOnly())
         }
 
         if (canMoveTopRightY && canMoveBottomRightY && canMoveTopLeftY && canMoveBottomLeftY) {
-            newOffset.add(offset.getXOnly())
+            newOffset.add(offset.getYOnly())
         }
     }
 
