@@ -5,7 +5,7 @@ import Timer from "../helpers/timer";
 import Vector from "../structures/vector";
 import InputManager, { InputKeys, InputSystem } from "./input-manager";
 import AudioManager from "./audio-manager";
-import Player from "../player";
+import Player, { PlayerState } from "../player";
 import BombShop from "./bomb-shop";
 import { indexToTileState, TileState } from "../state/tile-state";
 import stateManager, { StateEvents } from "./state-manager";
@@ -31,6 +31,7 @@ class GameManager {
     #logger;
     #client;
     #players;
+    #inputSystems;
 
 
     constructor(client, gameConfig, grid, logger) {
@@ -42,8 +43,16 @@ class GameManager {
         this.#gameInProgess = false;
         this.#moveDelay = 150;
 
-        const playerOneInputSystem = new InputSystem(controlConfig.playerOne);
-        const playerTwoInputSystem = new InputSystem(controlConfig.playerTwo);
+
+
+        const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
+        const playerTwoInputSystem = new InputSystem(456, controlConfig.playerTwo);
+
+        this.#inputSystems = [
+            playerOneInputSystem,
+            playerTwoInputSystem
+        ];
+
 
         this.#player = new Player(123, 'player one', 0, gameConfig.startPlayerOne, playerOneInputSystem, logger);
         this.#player.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerOne, gameConfig.cellSize));
@@ -51,14 +60,15 @@ class GameManager {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
 
-        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#player.getId() });
-
         this.#playerTwo = new Player(456, 'player two', 1, gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
         this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
 
         this.#playerTwo.onDeath((player) => {
             player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
         });
+
+        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#player.getId() });
+        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#playerTwo.getId() });
 
         this.#players = [];
         this.#players.push(this.#player);
@@ -84,13 +94,20 @@ class GameManager {
         this.#colliders = [];
 
         this.#client.onMessage(({ gameEvent, message }) => {
+            let player;
+
             switch (gameEvent) {
                 case GameEvents.PLAYER_MOVE:
-                    const { id, offset } = message;
-                    let player = findById(this.#players, id);
+                    player = findById(this.#players, message.id);
 
-                    this.#logger.log('offset test', offset);
-                    player.move(offset);
+                    player.move(message.offset);
+                    break;
+
+                case GameEvents.PLAYER_SET_POSITION:
+                    player = findById(this.#players, message.id);
+
+                    player.setPosition(message.position);
+                    player.setState(message.state);
                     break;
             }
         })
@@ -112,8 +129,11 @@ class GameManager {
             deltaTime = (now - prev) / 1000;
             input = this.#inputManager.update();
 
-            this.#player.update(deltaTime);
-            this.#playerTwo.update(deltaTime);
+            this.#inputSystems.forEach((system) => {
+                const input = system.update();
+                const id = system.getId();
+                this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
+            });
 
             let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
             let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
@@ -134,16 +154,11 @@ class GameManager {
             requestAnimationFrame(loop);
         }
 
-
-
-        this.#player.onMove(({ id, player, offset }) => {
-            this.#client.send(GameEvents.PLAYER_MOVE, { id, bounds: player.getBounds(), offset });
-         //   this.#processPlayerMovement(player, offset);
-        });
-
-        this.#playerTwo.onMove(({ player, offset }) => {
-            this.#processPlayerMovement(player, offset);
-        });
+        this.#players.forEach((player) => {
+            player.onMove(({ id, player, offset }) => {
+                // this.#client.send(GameEvents.PLAYER_MOVE, { id, bounds: player.getBounds(), offset });
+            });
+        })
 
         this.#inputManager.onKeyDown(key => {
             if (key === InputKeys.KEY_SPACE.toString()) {

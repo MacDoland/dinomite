@@ -17,7 +17,7 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 
-const client = new LocalClient(grid);
+const client = new LocalClient(grid, defaultLevel);
 
 const gameManager = new GameManager(client, defaultLevel, grid, logger);
 

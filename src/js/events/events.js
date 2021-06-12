@@ -1,4 +1,6 @@
 export const GameEvents = {
-    NEW_PLAYER: 'NEW_PLAYER',
-    PLAYER_MOVE: 'PLAYER_MOVE'
+    NEW_PLAYER: 0,
+    PLAYER_MOVE: 1,
+    PLAYER_INPUT: 2,
+    PLAYER_SET_POSITION: 3
 }

@@ -64,7 +64,7 @@ class InputManager {
 
     }
 
-    getKeyPressed(key){
+    getKeyPressed(key) {
         return this.#keyState[key];
     }
 
@@ -119,8 +119,12 @@ class InputSystem {
     #downKeyCode;
     #leftKeyCode;
     #actionKeyCode;
+    #id;
+    #previousInput;
+    #currentInput;
 
-    constructor({ upKeyCode, rightKeyCode, downKeyCode, leftKeyCode, actionKeyCode }) {
+    constructor(id, { upKeyCode, rightKeyCode, downKeyCode, leftKeyCode, actionKeyCode }) {
+        this.#id = id;
         this.#inputManager = new InputManager();
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
@@ -137,19 +141,44 @@ class InputSystem {
         this.#leftKeyCode = leftKeyCode;
         this.#actionKeyCode = actionKeyCode;
 
+        this.#previousInput = {
+            UP: false,
+            RIGHT: false,
+            DOWN: false,
+            LEFT: false
+        }
+
+        this.#currentInput = this.#previousInput;
+
         // this.#inputManager.onKeyDown(this.processKeyPress)
         // this.#inputManager.onKeyPress(this.processKeyPress);
     }
 
-    update(){
-        this.#inputManager.update();
+    getId() {
+        return this.#id;
+    }
 
-        return {
+    update() {
+        this.#inputManager.update();
+        this.#previousInput = this.#currentInput;
+        this.#currentInput = {
             UP: this.#inputManager.getKeyPressed(this.#upKeyCode),
             RIGHT: this.#inputManager.getKeyPressed(this.#rightKeyCode),
             DOWN: this.#inputManager.getKeyPressed(this.#downKeyCode),
             LEFT: this.#inputManager.getKeyPressed(this.#leftKeyCode),
         }
+
+        return {
+           previous: this.#previousInput,
+           current: this.#currentInput
+        }
+    }
+
+    hasChanged(){
+        return this.#currentInput.UP !== this.#previousInput.UP
+        || this.#currentInput.DOWN !== this.#previousInput.DOWN
+        || this.#currentInput.LEFT !== this.#previousInput.LEFT
+        || this.#currentInput.RIGHT !== this.#previousInput.RIGHT
     }
 
     processKeyPress(key) {

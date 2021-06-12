@@ -15,20 +15,18 @@ class Player {
     #eventDispatcher;
     #events;
     #speed;
-    #logger;
     #startPosition
     #name;
     #characterIndex;
     #id;
     #size;
 
-    constructor(id, name, characterIndex, startPosition, inputSystem, logger) {
+    constructor(id, name, characterIndex, startPosition, inputSystem) {
         this.#id = id;
         this.#name = name;
         this.#characterIndex = characterIndex;
         this.#startPosition = startPosition;
         this.#inputSystem = inputSystem;
-        this.#logger = logger;
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
         this.#height = 50;
@@ -54,31 +52,27 @@ class Player {
 
         let input = this.#inputSystem.update();
 
-        this.#logger.log(`${this.#name} player input: `, input);
-
-
         let offset = new Vector(0, 0);
 
-        if (input.DOWN) {
+        if (input.current.DOWN) {
             offset.add(new Vector(0, this.#speed * deltaTime));
         }
 
-        if (input.RIGHT) {
+        if (input.current.RIGHT) {
             offset.add(new Vector(this.#speed * deltaTime, 0))
         }
 
-        if (input.UP) {
+        if (input.current.UP) {
             offset.add(new Vector(0, -this.#speed * deltaTime))
         }
 
-        if (input.LEFT) {
+        if (input.current.LEFT) {
             offset.add(new Vector(-this.#speed * deltaTime, 0))
         }
 
         if (offset.y === 0 && offset.x === 0) {
             this.#state = PlayerState.IDLE;
         }
-
 
         this.#eventDispatcher.dispatch(this.#events.MOVE, {
             player: this,
@@ -109,14 +103,14 @@ class Player {
             this.#state = PlayerState.WALKING;
         }
 
+        if (offset.x === 0 && offset.y === 0) {
+            this.#state = PlayerState.IDLE;
+        }
 
-        this.#logger.log(`${this.#name} player state: `, this.#state);
-        this.#logger.log(`${this.#name} player direction: `, this.#direction);
         this.#position = Vector.add(this.#position, offset);
     }
 
     die() {
-        console.log('deaders');
         this.#eventDispatcher.dispatch(this.#events.DEATH, this);
     }
 
@@ -179,6 +173,10 @@ class Player {
 
     getStartPosition() {
         return this.#startPosition;
+    }
+
+    setState(state) {
+        this.#state = state;
     }
 
     /* Events */

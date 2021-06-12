@@ -48,6 +48,13 @@ class Vector {
         );
     }
 
+    raw() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
+
     magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
