@@ -18,7 +18,6 @@ const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 let config = optionsManager.get() || {};
 
-
 inputManager.onKeyUp((key) => {
     if (key === InputKeys.KEY_G.toString()) {
         config = optionsManager.get() || {};

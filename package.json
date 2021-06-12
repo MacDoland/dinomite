@@ -2,9 +2,12 @@
   "name": "super-dinomite",
   "version": "1.0.0",
   "description": "super-dinomite game",
-  "main": "app.js",
+  "main": "./dist/app.js",
   "build": {
-    "appId": "super-dinomite"
+    "appId": "super-dinomite",
+    "directories": {
+      "output": "release"
+    }
   },
   "scripts": {
     "test": "jest",

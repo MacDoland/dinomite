@@ -34,9 +34,9 @@ class CanvasRenderer {
         this.#canvas = canvas;
         this.#context = canvas.getContext('2d');
         this.#cellSize = cellSize;
-        this.#spriteSheetGeneral = new SpriteSheet('../images/sprite-sheet-general-0.png', spriteSheetGeneralConfig, 1000 / 24);
-        this.#spriteSheetEnvironment = new SpriteSheet('../images/sprite-sheet-env-0.png', spriteSheetEnvironmentConfig, 1000 / 24);
-        this.#spriteSheetItems = new SpriteSheet('../images/sprite-sheet-items-0.png', spriteSheetItemsConfig, 1000 / 24);
+        this.#spriteSheetGeneral = new SpriteSheet('./images/sprite-sheet-general-0.png', spriteSheetGeneralConfig, 1000 / 24);
+        this.#spriteSheetEnvironment = new SpriteSheet('./images/sprite-sheet-env-0.png', spriteSheetEnvironmentConfig, 1000 / 24);
+        this.#spriteSheetItems = new SpriteSheet('./images/sprite-sheet-items-0.png', spriteSheetItemsConfig, 1000 / 24);
         this.#previousTime = 0;
         this.#drawQueue = [];
         this.#columnCount = columnCount;

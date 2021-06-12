@@ -11,6 +11,7 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
+                { from: "./app.js", to: "" },
                 { from: "./src/html", to: "" },
                 { from: "./src/audio", to: "audio" },
                 { from: "./src/fonts", to: "fonts" },
