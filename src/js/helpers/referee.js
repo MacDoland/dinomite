@@ -4,7 +4,7 @@ import Vector from "../structures/vector";
 export const processPlayerMovement = (grid, bounds, offset) => {
     let newOffset = new Vector();
 
-    if (grid && bounds && offset) {
+    if (grid && bounds && offset && (offset.x != 0 || offset.y != 0)) {
         const canMoveTopRightX = canMove(offset.getXOnly(), bounds.topRight, grid);
         const canMoveBottomRightX = canMove(offset.getXOnly(), bounds.bottomRight, grid);
         const canMoveTopLeftX = canMove(offset.getXOnly(), bounds.topLeft, grid);

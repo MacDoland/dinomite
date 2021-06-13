@@ -17,7 +17,7 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 
-const client = new LocalClient(grid, defaultLevel);
+const client = new NetworkClient(grid, defaultLevel);
 
 const gameManager = new GameManager(client, defaultLevel, grid, logger);
 
@@ -56,10 +56,7 @@ var app = new Vue({
     },
     mounted() {
         gameManager.onUpdate(({ grid, players, playerState, direction, gridIndex, bombs }) => {
-
-
             this.logs = logger.retrieveLogs();
-
             this.showDebug = config.showGrid;
         });
     }

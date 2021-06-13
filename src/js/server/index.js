@@ -36,7 +36,7 @@ setTimeout(loop, 0);
 io.on("connection", socket => {
   socket.on(GameEvents.NEW_PLAYER, (data) => {
     console.log('recieved new player request');
-    const player = gameAuthority.addPlayer(data.id);
+    const player = gameAuthority.addPlayer(socket.id);
 
     const message = {
       id: player.getId(),
@@ -45,22 +45,19 @@ io.on("connection", socket => {
       state: player.getState()
     }
 
-    socket.emit(GameEvents.NEW_PLAYER, message);
+    io.emit(GameEvents.NEW_PLAYER, message);
+  });
+
+  socket.on("disconnect", (reason) => {
+    gameAuthority.removePlayer(socket.id);
+    io.emit(GameEvents.PLAYER_LEFT, {
+      id: socket.id
+    });
   });
 
   socket.on(GameEvents.PLAYER_INPUT, ({ id, input }) => {
-    const result = gameAuthority.processPlayerInput(id, input);
-    // if (result && result.position.magnitude() > 0) {
-
-    //   const message = {
-    //     id: result.id,
-    //     position: result.position,
-    //     state: result.state,
-    //     direction: result.direction
-    //   };
-
-    //  // socket.emit(GameEvents.PLAYER_SET_POSITION, message);
-    // }
+    
+    gameAuthority.addPlayerInputUpdate(socket.id, input);
   });
 });
 

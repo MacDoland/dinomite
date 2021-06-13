@@ -6,14 +6,19 @@ import Player from "../player";
 import Vector from "../structures/vector";
 import stateMachine, { StateEvents } from "./state-manager";
 import { io } from 'socket.io-client';
+import Timer from "../helpers/timer";
 
 class GameAuthority {
     players;
     #grid;
     #deltaTime;
     #gameConfig;
+    #timer;
+
+    #playerMovementUpdates;
 
     constructor(grid, gameConfig) {
+        this.#timer = new Timer(true);
         this.#grid = grid;
         this.#gameConfig = gameConfig;
         this.players = {};
@@ -23,13 +28,29 @@ class GameAuthority {
         let now;
         let player;
         let speed = 400;
+        this.#playerMovementUpdates = {};
 
         const loop = () => {
             now = new Date();
             this.#deltaTime = (now - prev) / 1000;
+
+
+            Object.keys(this.#playerMovementUpdates).forEach(key => {
+                if (this.#playerMovementUpdates[key]) {
+                    const input = this.#playerMovementUpdates[key];
+
+                    if (input) {
+                        this.processPlayerInput(key, input);
+                        this.#playerMovementUpdates[key] = null;
+                    }
+                }
+            })
+
             prev = now;
-            setTimeout(loop, 0);
         }
+
+        this.#timer.onElapsed(loop);
+        this.#timer.start(1000 / 60)
 
         setTimeout(loop, 0);
     }
@@ -44,9 +65,15 @@ class GameAuthority {
         return this.players[id];
     }
 
+    removePlayer(id) {
+        if (this.players[id]) {
+            this.players[id] = null;
+        }
+    }
+
     getUpdate() {
         return {
-            players: Object.keys(this.players).map((key) => { 
+            players: Object.keys(this.players).filter(key => this.players[key]).map((key) => {
                 const player = this.players[key];
                 return {
                     id: player.getId(),
@@ -56,6 +83,10 @@ class GameAuthority {
                 }
             })
         }
+    }
+
+    addPlayerInputUpdate(id, input) {
+        this.#playerMovementUpdates[id] = input;
     }
 
     processPlayerInput(id, input) {
@@ -125,10 +156,10 @@ class LocalClient {
             this.#eventDispatcher.dispatch(GameEvents.UPDATE, {
                 ...message
             });
-            setTimeout(loop, 1000/60);
+            setTimeout(loop, 1000 / 60);
         }
 
-        setTimeout(loop, 1000/60);
+        setTimeout(loop, 1000 / 60);
 
     }
 
@@ -145,21 +176,7 @@ class LocalClient {
                 });
                 break;
             case GameEvents.PLAYER_INPUT:
-                result = this.#gameAuthority.processPlayerInput(data.id, data.input);
-                if (result && result.position.magnitude() > 0) {
-
-                    const message = {
-                        id: result.id,
-                        position: result.position,
-                        state: result.state,
-                        direction: result.direction
-                    };
-
-                    this.#eventDispatcher.dispatch(GameEvents.PLAYER_SET_POSITION, {
-                        ...message
-                    });
-
-                }
+                result = this.#gameAuthority.addPlayerInputUpdate(data.id, data.input);
                 break;
         }
     }
@@ -189,17 +206,11 @@ class NetworkClient {
 
         });
 
-        this.#socket.on(GameEvents.NEW_PLAYER, data => {
-            this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, data);
-        });
-
-        this.#socket.on(GameEvents.PLAYER_SET_POSITION, data => {
-            this.#eventDispatcher.dispatch(GameEvents.PLAYER_SET_POSITION, data);
-        });
-
-        this.#socket.on(GameEvents.UPDATE, data => {
-            this.#eventDispatcher.dispatch(GameEvents.UPDATE, data);
-        });
+        Object.keys(GameEvents).map(key => {
+            this.#socket.on(GameEvents[key], data => {
+                this.#eventDispatcher.dispatch(GameEvents[key], data);
+            });
+        })
     }
 
     send(gameEvent, data) {

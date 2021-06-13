@@ -25,7 +25,6 @@ class GameManager {
     #events;
     #bombShop;
     #player;
-    #playerTwo;
     #currentGridIndex;
     #colliders;
     #logger;
@@ -39,19 +38,15 @@ class GameManager {
         this.#gameConfig = gameConfig;
         this.#logger = logger;
         this.#grid = grid;
-        this.#timer = new Timer();
+        this.#timer = new Timer(true);
         this.#gameInProgess = false;
         this.#moveDelay = 150;
 
         const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
-        const playerTwoInputSystem = new InputSystem(456, controlConfig.playerTwo);
 
         this.#inputSystems = [
-            playerOneInputSystem,
-            playerTwoInputSystem
+            playerOneInputSystem
         ];
-
-
 
         this.#players = [];
 
@@ -87,6 +82,11 @@ class GameManager {
             }
         });
 
+        
+        this.#client.on(GameEvents.PLAYER_LEFT, ({ id }) => {
+            this.#players = this.#players.filter(player => player.getId() !== id)
+        });
+
         this.#client.on(GameEvents.PLAYER_SET_POSITION, ({ id, state, position, direction }) => {
             const player = findById(this.#players, id);
 
@@ -99,13 +99,19 @@ class GameManager {
 
         this.#client.on(GameEvents.UPDATE, ({ players }) => {
             players.forEach(({ id, position, state, direction }) => {
-                const player = findById(this.#players, id);
+                let player = findById(this.#players, id);
+
+                if (!player) {
+                    player = new Player(id, 'janedoe', 0, 48);
+                    this.#players.push(player);
+                }
 
                 if (player) {
                     player.setPosition(position);
                     player.setState(state);
                     player.setDirection(direction);
                 }
+
             });
         });
 
@@ -130,11 +136,11 @@ class GameManager {
             deltaTime = (now - prev) / 1000;
             input = this.#inputManager.update();
 
-            this.#inputSystems.forEach((system) => {
-                const input = system.update();
-                const id = system.getId();
-                this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
-            });
+            // this.#inputSystems.forEach((system) => {
+            //     const input = system.update();
+            //     const id = system.getId();
+            //     this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
+            // });
 
             // let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
             // let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
@@ -154,6 +160,7 @@ class GameManager {
             prev = now;
 
             requestAnimationFrame(loop);
+
         }
 
         this.#inputManager.onKeyDown(key => {
@@ -187,7 +194,7 @@ class GameManager {
             targets.forEach((target) => {
                 this.#bombShop.createExplosion(target, 30, 800);
 
-                [this.#player, this.#playerTwo].forEach(player => {
+                [this.#player].forEach(player => {
                     let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
                     let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
                     if (target === playerIndex) {
@@ -281,7 +288,7 @@ class GameManager {
 
     start() {
         this.#gameInProgess = true;
-        this.#timer.start(1000/60);
+        this.#timer.start(1000 / 60);
     }
 
     end() {
@@ -298,7 +305,11 @@ class GameManager {
 
     /* Private Methods */
     #update() {
-        this.#inputManager.update();
+        this.#inputSystems.forEach((system) => {
+            const input = system.update();
+            const id = system.getId();
+            this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
+        });
     }
 
     #canMove(offset, position, grid) {
