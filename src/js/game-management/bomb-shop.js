@@ -97,7 +97,6 @@ class BombShop {
         });
         
         blast.onExplode(() => {
-            console.log('BIG EXPLODY');
             this.#eventDispatcher.dispatch(this.#events.EXPLOSION, index);
         });
 

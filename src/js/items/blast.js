@@ -50,6 +50,11 @@ class Blast {
     getRemainingTime() {
         return this.#durationTimer.getRemainingTime();
     }
+    
+    getProgress() {
+        return (1 -(this.#durationTimer.getRemainingTime() / this.#duration)) * 100
+    }
+
 
     detonate(index) {
         this.#blastAreas = [];
@@ -61,7 +66,6 @@ class Blast {
             this.#durationTimer.reset();
             this.#durationTimer.start(this.#duration);
 
-            console.log("BOMB about to explode");
             this.#eventDispatcher.dispatch(this.#events.EXPLODE, this.#blastAreas);
         }
     }

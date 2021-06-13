@@ -34,12 +34,14 @@ class GameAuthority {
         this.#bombShop.onPlant(({ index }) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
+            console.log(`plant-bomb transitioning ${index} from ${currentState} to ${newState}`);
             this.#grid.set(index, newState);
         });
 
         this.#bombShop.onBombExpired(({ index, strength }) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
+            console.log(`bomb-detonate transitioning ${index} from ${currentState} to ${newState}`);
             this.#grid.set(index, newState);
 
             let neighbours = this.#grid.getNeighbours(index, strength);
@@ -82,7 +84,20 @@ class GameAuthority {
             }
 
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
+            console.log(`explosion transitioning ${index} from ${currentState} to ${newState}`);
             this.#grid.set(index, newState);
+        });
+
+        this.#bombShop.onExplosionEnd((index) => {
+            if (!this.#bombShop.hasActiveBlastAt(index)) {
+                const currentState = indexToTileState(this.#grid.getElementAt(index));
+
+                if (currentState >= 0) {
+                    const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                    console.log(`explosion-end transitioning ${index} from ${currentState} to ${newState}`);
+                    this.#grid.set(index, newState);
+                }
+            }
         });
 
         const loop = () => {
@@ -176,6 +191,12 @@ class GameAuthority {
                     progress: bomb.getProgress(),
                     state: bomb.getState()
                 };
+            }),
+            blasts: this.#bombShop.getActiveBlasts().map(blast => {
+                return {
+                    id: blast.getIndex(),
+                    progress: blast.getProgress()
+                };
             })
         }
     }
@@ -197,6 +218,12 @@ class GameAuthority {
                     id: bomb.getIndex(),
                     progress: bomb.getProgress(),
                     state: bomb.getState()
+                };
+            }),
+            blasts: this.#bombShop.getActiveBlasts().map(blast => {
+                return {
+                    id: blast.getIndex(),
+                    progress: blast.getProgress()
                 };
             })
 

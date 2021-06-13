@@ -65,7 +65,7 @@ var app = new Vue({
 const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
     inputManager.update();
     renderer.clear();
-
+    
     if (grid) {
         renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
     }

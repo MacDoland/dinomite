@@ -310,10 +310,7 @@ class CanvasRenderer {
 
     drawExplosion(coordinate, blast) {
         if (blast) {
-            let duration = blast.getTimerDuration();
-            let timeLeft = blast.getRemainingTime();
-            // console.log(`progress: ${duration - timeLeft}, duration: ${duration}`);
-            let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAt(duration - timeLeft, duration)
+            let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
 
             if (sprite) {
                 let drawParams = [
@@ -349,26 +346,17 @@ class CanvasRenderer {
 
     drawGrid(grid, config, bombs, blasts) {
 
-        if (blasts > 0) {
-            console.log('#blasts', blasts.length);
-        }
-
         let coordinate, bomb, bombsByIndex, blast, blastsByIndex;
-
-        if(bombs.length > 0){
-            console.log('bombs', bombs[0].progress);
-        }
 
         grid.forEach((element, index) => {
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
-            bombsByIndex = bombs.filter((bomb) => bomb.id === index);
+            bombsByIndex = bombs.filter((bomb) => bomb.id == index);
             bomb = bombsByIndex.length > 0 ? bombsByIndex[0] : null;
 
-            blastsByIndex = blasts.filter((blast) => blast.getIndex() === index);
+            blastsByIndex = blasts.filter((blast) => blast.id === index);
             blast = blastsByIndex.length > 0 ? blastsByIndex[0] : null;
-
 
             if (element === TileState.EMPTY) {
                 this.drawBasicTile(coordinate, index);

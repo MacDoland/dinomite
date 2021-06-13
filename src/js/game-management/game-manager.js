@@ -32,6 +32,7 @@ class GameManager {
     #players;
     #inputSystems;
     #bombs;
+    #blasts;
 
 
     constructor(client, gameConfig, grid, logger) {
@@ -42,6 +43,7 @@ class GameManager {
         this.#gameInProgess = false;
         this.#moveDelay = 150;
         this.#bombs = [];
+        this.#blasts = [];
 
         const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
 
@@ -83,13 +85,15 @@ class GameManager {
             }
         }
 
-        this.#client.on(GameEvents.CONNECTED, ({ players, grid, bombs }) => {
+        this.#client.on(GameEvents.CONNECTED, ({ players, grid, bombs, blasts }) => {
             players.forEach(player => addPlayer(player));
             this.#grid = new Grid(15, 15, grid);
 
             if(bombs) {
                 this.#bombs = bombs;
             }
+
+           
         });
 
         this.#client.on(GameEvents.NEW_PLAYER, ({ id, state, position, direction }) => {
@@ -120,7 +124,7 @@ class GameManager {
             }
         });
 
-        this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs }) => {
+        this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs, blasts }) => {
             players.forEach(({ id, position, state, direction }) => {
                 let player = findById(this.#players, id);
 
@@ -137,6 +141,10 @@ class GameManager {
 
                 if(bombs) {
                     this.#bombs = bombs;
+                }
+
+                if(blasts) {
+                    this.#blasts = blasts;
                 }
             });
 
@@ -184,7 +192,7 @@ class GameManager {
                 grid: this.#grid,
                 players: this.#players,
                 bombs: this.#bombs || [],
-                blasts: this.#bombShop.getActiveBlasts() || [],
+                blasts: this.#blasts || [],
                 colliders: this.#colliders,
                 deltaTime
             });
