@@ -119,13 +119,30 @@ class LocalClient {
         this.#events = {
             ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE'
         }
+
+        const loop = () => {
+            let message = this.#gameAuthority.getUpdate();
+            this.#eventDispatcher.dispatch(GameEvents.UPDATE, {
+                ...message
+            });
+            setTimeout(loop, 1000/60);
+        }
+
+        setTimeout(loop, 1000/60);
+
     }
 
     send(gameEvent, data) {
         let result;
         switch (gameEvent) {
             case GameEvents.NEW_PLAYER:
-                this.#gameAuthority.addPlayer(data.id);
+                let response = this.#gameAuthority.addPlayer(data.id);
+                this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, {
+                    id: response.getId(),
+                    state: response.getState(),
+                    position: response.getPosition(),
+                    direction: response.getDirection()
+                });
                 break;
             case GameEvents.PLAYER_INPUT:
                 result = this.#gameAuthority.processPlayerInput(data.id, data.input);

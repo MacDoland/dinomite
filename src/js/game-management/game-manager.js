@@ -51,8 +51,7 @@ class GameManager {
             playerTwoInputSystem
         ];
 
-        this.#client.send(GameEvents.NEW_PLAYER, { id: 123 });
-        this.#client.send(GameEvents.NEW_PLAYER, { id: 456 });
+
 
         this.#players = [];
 
@@ -109,6 +108,9 @@ class GameManager {
                 }
             });
         });
+
+        this.#client.send(GameEvents.NEW_PLAYER, { id: 123 });
+        this.#client.send(GameEvents.NEW_PLAYER, { id: 456 });
     }
 
     /* Public methods */
@@ -122,6 +124,7 @@ class GameManager {
         let deltaTime = 0;
         let now;
 
+        //fast update loop
         const loop = () => {
             now = performance.now();
             deltaTime = (now - prev) / 1000;
@@ -278,7 +281,7 @@ class GameManager {
 
     start() {
         this.#gameInProgess = true;
-        this.#timer.start(this.#moveDelay);
+        this.#timer.start(1000/60);
     }
 
     end() {
