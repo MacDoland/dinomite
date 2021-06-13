@@ -51,7 +51,7 @@ class BombShop {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
         const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
 
-        if (bombCanBePlacedOnIndex && this.getActiveBombsCount() < 4) {
+        if (bombCanBePlacedOnIndex && this.getActiveBombsCount() < 40) {
             let bomb;
             let inactiveBombs = this.#bombs.filter(bomb => bomb.getIsActive() === false);
 
