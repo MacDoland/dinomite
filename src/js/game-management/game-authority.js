@@ -5,6 +5,7 @@ import { processPlayerMovement } from "../helpers/referee";
 import Player from "../player";
 import Vector from "../structures/vector";
 import stateMachine, { StateEvents } from "./state-manager";
+import { io } from 'socket.io-client';
 
 class GameAuthority {
     players;
@@ -24,52 +25,73 @@ class GameAuthority {
         let speed = 400;
 
         const loop = () => {
-            now = performance.now();
+            now = new Date();
             this.#deltaTime = (now - prev) / 1000;
             prev = now;
-            requestAnimationFrame(loop);
+            setTimeout(loop, 0);
         }
 
-        requestAnimationFrame(loop);
+        setTimeout(loop, 0);
     }
 
     addPlayer(id) {
-        this.players[id] = new Player(id, 'name', 0, 48);
-        let startIndex = Object.keys(this.players).length === 1 ? this.#gameConfig.startPlayerOne : this.#gameConfig.startPlayerTwo;
-        this.players[id].setPosition(this.#grid.getCellCenter(startIndex, this.#gameConfig.cellSize));
+        if (!this.players[id]) {
+            this.players[id] = new Player(id, 'name', 0, 48);
+            let startIndex = Object.keys(this.players).length === 1 ? this.#gameConfig.startPlayerOne : this.#gameConfig.startPlayerTwo;
+            this.players[id].setPosition(this.#grid.getCellCenter(startIndex, this.#gameConfig.cellSize));
+        }
+
+        return this.players[id];
+    }
+
+    getUpdate() {
+        return {
+            players: Object.keys(this.players).map((key) => { 
+                const player = this.players[key];
+                return {
+                    id: player.getId(),
+                    position: player.getPosition().raw(),
+                    state: player.getState(),
+                    direction: player.getDirection()
+                }
+            })
+        }
     }
 
     processPlayerInput(id, input) {
         const player = this.players[id];
-        const speed = 400;
-        let offset = new Vector(0, 0);
 
-        if (input.DOWN) {
-            offset.add(new Vector(0, speed * this.#deltaTime));
+        if (player) {
+            const speed = 400;
+            let offset = new Vector(0, 0);
+
+            if (input.DOWN) {
+                offset.add(new Vector(0, speed * this.#deltaTime));
+            }
+
+            if (input.RIGHT) {
+                offset.add(new Vector(speed * this.#deltaTime, 0))
+            }
+
+            if (input.UP) {
+                offset.add(new Vector(0, -speed * this.#deltaTime))
+            }
+
+            if (input.LEFT) {
+                offset.add(new Vector(-speed * this.#deltaTime, 0))
+            }
+
+            const result = this.processPlayerMovement(id, player.getBounds(), offset);
+
+            this.players[id].move(result.offset);
+
+            return {
+                id,
+                position: this.players[id].getPosition(),
+                state: this.players[id].getState(),
+                direction: this.players[id].getDirection()
+            };
         }
-
-        if (input.RIGHT) {
-            offset.add(new Vector(speed * this.#deltaTime, 0))
-        }
-
-        if (input.UP) {
-            offset.add(new Vector(0, -speed * this.#deltaTime))
-        }
-
-        if (input.LEFT) {
-            offset.add(new Vector(-speed * this.#deltaTime, 0))
-        }
-
-        const result = this.processPlayerMovement(id, player.getBounds(), offset);
-
-        this.players[id].move(result.offset);
-
-        return {
-            id,
-            position: this.players[id].getPosition(),
-            state: this.players[id].getState(),
-            direction: this.players[id].getDirection()
-        };
     }
 
     processPlayerMovement(id, bounds, offset) {
@@ -107,7 +129,7 @@ class LocalClient {
                 break;
             case GameEvents.PLAYER_INPUT:
                 result = this.#gameAuthority.processPlayerInput(data.id, data.input);
-                if (result.position.magnitude() > 0) {
+                if (result && result.position.magnitude() > 0) {
 
                     const message = {
                         id: result.id,
@@ -116,54 +138,63 @@ class LocalClient {
                         direction: result.direction
                     };
 
-                    this.#eventDispatcher.dispatch(this.#events.ON_RECEIVE_MESSAGE, {
-                        gameEvent: GameEvents.PLAYER_SET_POSITION,
-                        message
+                    this.#eventDispatcher.dispatch(GameEvents.PLAYER_SET_POSITION, {
+                        ...message
                     });
-                }
-                break;
 
-            case GameEvents.PLAYER_MOVE:
-                result = this.#gameAuthority.processPlayerMovement(data.id, data.bounds, data.offset);
-
-                if (result.offset.magnitude() > 0) {
-
-                    const message = {
-                        id: result.id,
-                        offset: result.offset
-                    };
-
-                    this.#eventDispatcher.dispatch(this.#events.ON_RECEIVE_MESSAGE, {
-                        gameEvent,
-                        message
-                    });
                 }
                 break;
         }
     }
 
-    onMessage(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.ON_RECEIVE_MESSAGE, handler);
+    on(event, handler) {
+        this.#eventDispatcher.registerHandler(event, handler);
     }
 }
 
 class NetworkClient {
     #eventDispatcher;
     #events;
+    #socket
 
-    constructor(grid) {
+    constructor() {
+        this.#socket = io("ws://localhost:3000", {
+            withCredentials: true,
+            extraHeaders: {}
+        });
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
-            ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE'
+            ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE',
+            ON_CONNECTED: 'ON_CONNECTED'
         }
+
+        this.#socket.on("connect", () => {
+
+        });
+
+        this.#socket.on(GameEvents.NEW_PLAYER, data => {
+            this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, data);
+        });
+
+        this.#socket.on(GameEvents.PLAYER_SET_POSITION, data => {
+            this.#eventDispatcher.dispatch(GameEvents.PLAYER_SET_POSITION, data);
+        });
+
+        this.#socket.on(GameEvents.UPDATE, data => {
+            this.#eventDispatcher.dispatch(GameEvents.UPDATE, data);
+        });
     }
 
     send(gameEvent, data) {
-
+        this.#socket.emit(gameEvent, data);
     }
 
-    onReceiveMessage(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.ON_RECEIVE_MESSAGE, handler);
+    on(event, handler) {
+        this.#eventDispatcher.registerHandler(event, handler);
+    }
+
+    onConnected(handler) {
+        this.#eventDispatcher.registerHandler(this.#events.ON_CONNECTED, handler);
     }
 }
 

@@ -1,32 +1,66 @@
+const { GameEvents } = require("../events/events");
+const { default: GameAuthority } = require("../game-management/game-authority");
+const { default: Timer } = require("../helpers/timer");
+const { defaultLevel } = require("../levels/levels");
+const { default: Grid } = require("../structures/grid");
+
 const httpServer = require("http").createServer();
 
 const io = require("socket.io")(httpServer, {
-    cors: {
-        origin: "http://localhost:5000",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
+  cors: {
+    origin: "http://localhost:5000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
 });
 
+const grid = new Grid(15, 15, defaultLevel.grid);
+const gameAuthority = new GameAuthority(grid, defaultLevel);
+const tickRate = 1000 / 60;
 
-const players = {};
+let timer = new Timer(true);
+
+timer.start(tickRate);
+
+const loop = () => {
+  setTimeout(loop, 0);
+}
+
+timer.onElapsed(() => {
+  io.emit(GameEvents.UPDATE, gameAuthority.getUpdate());
+});
+
+setTimeout(loop, 0);
 
 io.on("connection", socket => {
-  // either with send()
-  socket.send("Hello!");
+  socket.on(GameEvents.NEW_PLAYER, (data) => {
+    console.log('recieved new player request');
+    const player = gameAuthority.addPlayer(data.id);
 
-  // or with emit() and custom event names
-  socket.emit("greetings", "Hey!", { "ms": "jane" }, Buffer.from([4, 3, 3, 1]));
+    const message = {
+      id: player.getId(),
+      position: player.getPosition().raw(),
+      direction: player.getDirection(),
+      state: player.getState()
+    }
 
-  // handle the event sent with socket.send()
-  socket.on("message", (data) => {
-    console.log(data);
+    socket.emit(GameEvents.NEW_PLAYER, message);
   });
 
-  // handle the event sent with socket.emit()
-  socket.on("salutations", (elem1, elem2, elem3) => {
-    console.log(elem1, elem2, elem3);
+  socket.on(GameEvents.PLAYER_INPUT, ({ id, input }) => {
+    const result = gameAuthority.processPlayerInput(id, input);
+    // if (result && result.position.magnitude() > 0) {
+
+    //   const message = {
+    //     id: result.id,
+    //     position: result.position,
+    //     state: result.state,
+    //     direction: result.direction
+    //   };
+
+    //  // socket.emit(GameEvents.PLAYER_SET_POSITION, message);
+    // }
   });
 });
 

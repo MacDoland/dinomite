@@ -7,7 +7,7 @@ import { defaultLevel } from './levels/levels';
 import OptionsManager from './game-management/options-manager';
 import InputManager, { InputKeys } from './game-management/input-manager';
 import Logger from './helpers/logger';
-import { LocalClient } from './game-management/game-authority';
+import { LocalClient, NetworkClient } from './game-management/game-authority';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
@@ -17,7 +17,7 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 
-const client = new LocalClient(grid, defaultLevel);
+const client = new NetworkClient(grid, defaultLevel);
 
 const gameManager = new GameManager(client, defaultLevel, grid, logger);
 
@@ -69,7 +69,10 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
     inputManager.update();
     renderer.clear();
     renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
-    renderer.drawPlayers(players);
+
+    if (players && players.length > 0) {
+        renderer.drawPlayers(players);
+    }
 
     if (config.showGrid) {
         renderer.drawDebug(colliders);

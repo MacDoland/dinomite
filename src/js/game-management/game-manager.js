@@ -43,8 +43,6 @@ class GameManager {
         this.#gameInProgess = false;
         this.#moveDelay = 150;
 
-
-
         const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
         const playerTwoInputSystem = new InputSystem(456, controlConfig.playerTwo);
 
@@ -53,26 +51,10 @@ class GameManager {
             playerTwoInputSystem
         ];
 
-
-        this.#player = new Player(123, 'player one', 0, gameConfig.startPlayerOne, playerOneInputSystem, logger);
-        this.#player.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerOne, gameConfig.cellSize));
-        this.#player.onDeath((player) => {
-            player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
-        });
-
-        this.#playerTwo = new Player(456, 'player two', 1, gameConfig.startPlayerTwo, playerTwoInputSystem, logger);
-        this.#playerTwo.setPosition(this.#grid.getCellCenter(gameConfig.startPlayerTwo, gameConfig.cellSize));
-
-        this.#playerTwo.onDeath((player) => {
-            player.setPosition(this.#grid.getCellCenter(player.getStartPosition(), gameConfig.cellSize));
-        });
-
-        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#player.getId() });
-        this.#client.send(GameEvents.NEW_PLAYER, { id: this.#playerTwo.getId() });
+        this.#client.send(GameEvents.NEW_PLAYER, { id: 123 });
+        this.#client.send(GameEvents.NEW_PLAYER, { id: 456 });
 
         this.#players = [];
-        this.#players.push(this.#player);
-        this.#players.push(this.#playerTwo);
 
         this.#bombShop = new BombShop();
         this.#inputManager = new InputManager();
@@ -93,25 +75,40 @@ class GameManager {
 
         this.#colliders = [];
 
-        this.#client.onMessage(({ gameEvent, message }) => {
-            let player;
-
-            switch (gameEvent) {
-                case GameEvents.PLAYER_MOVE:
-                    player = findById(this.#players, message.id);
-
-                    player.move(message.offset);
-                    break;
-
-                case GameEvents.PLAYER_SET_POSITION:
-                    player = findById(this.#players, message.id);
-
-                    player.setPosition(message.position);
-                    player.setState(message.state);
-                    player.setDirection(message.direction);
-                    break;
+        this.#client.on(GameEvents.NEW_PLAYER, ({ id, state, position, direction }) => {
+            const player = new Player(id, 'janedoe', 0, 48);
+            if (player) {
+                player.setPosition(position);
+                player.setState(state);
+                player.setDirection(direction);
             }
-        })
+
+            if (!findById(this.#players, id)) {
+                this.#players.push(player);
+            }
+        });
+
+        this.#client.on(GameEvents.PLAYER_SET_POSITION, ({ id, state, position, direction }) => {
+            const player = findById(this.#players, id);
+
+            if (player) {
+                player.setPosition(position);
+                player.setState(state);
+                player.setDirection(direction);
+            }
+        });
+
+        this.#client.on(GameEvents.UPDATE, ({ players }) => {
+            players.forEach(({ id, position, state, direction }) => {
+                const player = findById(this.#players, id);
+
+                if (player) {
+                    player.setPosition(position);
+                    player.setState(state);
+                    player.setDirection(direction);
+                }
+            });
+        });
     }
 
     /* Public methods */
@@ -136,14 +133,15 @@ class GameManager {
                 this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
             });
 
-            let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
-            let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-            this.#currentGridIndex = gridIndex;
+            // let gridCoordinate = Vector.multiplyScalar(this.#player.getPosition(), 1 / 100).floor();
+            // let gridIndex = this.#grid.getIndex(gridCoordinate.x, gridCoordinate.y);
+            // this.#currentGridIndex = gridIndex;
+
+            this.#logger.log('player count', this.#players.length);
 
             this.#eventDispatcher.dispatch(this.#events.UPDATE, {
                 grid: this.#grid,
-                players: [this.#player, this.#playerTwo],
-                gridIndex,
+                players: this.#players,
                 bombs: this.#bombShop.getActiveBombs() || [],
                 blasts: this.#bombShop.getActiveBlasts() || [],
                 colliders: this.#colliders,
@@ -154,12 +152,6 @@ class GameManager {
 
             requestAnimationFrame(loop);
         }
-
-        this.#players.forEach((player) => {
-            player.onMove(({ id, player, offset }) => {
-                // this.#client.send(GameEvents.PLAYER_MOVE, { id, bounds: player.getBounds(), offset });
-            });
-        })
 
         this.#inputManager.onKeyDown(key => {
             if (key === InputKeys.KEY_SPACE.toString()) {

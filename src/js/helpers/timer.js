@@ -10,8 +10,10 @@ class Timer {
     #events;
     #previousTick;
     #deltaTime;
+    #isLoop;
 
-    constructor(){
+    constructor(isLoop) {
+        this.#isLoop = isLoop;
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             TICK: "TICK",
@@ -22,23 +24,23 @@ class Timer {
 
     start(target) {
         this.#current = 0;
-        this.#startTime = performance.now();
+        this.#startTime = new Date();
         this.#target = target;
         this.#isActive = true;
-        
-        window.requestAnimationFrame(this.#timerLoop.bind(this));
+
+        setTimeout(this.#timerLoop.bind(this), 0);
     }
 
     reset() {
         this.#current = 0;
-        this.#startTime = performance.now();
+        this.#startTime = new Date();
     }
 
     stop() {
         this.#isActive = false;
     }
 
-    finish(){
+    finish() {
         this.#current = this.#target;
     }
 
@@ -46,7 +48,7 @@ class Timer {
         return this.#elaspsed;
     }
 
-    getRemainingTime(){
+    getRemainingTime() {
         return this.#target - this.#current;
     }
 
@@ -54,15 +56,21 @@ class Timer {
 
     tick() {
         if (this.#isActive) {
-            this.#deltaTime = (performance.now() - this.#previousTick) / 1000;
-            this.#previousTick = performance.now();
-            this.#eventDispatcher.dispatch(this.#events.TICK, this.#deltaTime );
-            this.#current = performance.now() - this.#startTime;
+            this.#deltaTime = (new Date() - this.#previousTick) / 1000;
+            this.#previousTick = new Date();
+            this.#eventDispatcher.dispatch(this.#events.TICK, this.#deltaTime);
+            this.#current = new Date() - this.#startTime;
             this.#elaspsed = this.#current > this.#target;
 
             if (this.hasElapsed()) {
                 this.#eventDispatcher.dispatch(this.#events.ELAPSED);
-                this.#isActive = false;
+
+                if (this.#isLoop) {
+                    this.reset();
+                }
+                else {
+                    this.#isActive = false;
+                }
             }
         }
     }
@@ -71,11 +79,11 @@ class Timer {
         this.tick();
 
         if (this.#isActive) {
-            setTimeout(this.#timerLoop.bind(this),0);
+            setTimeout(this.#timerLoop.bind(this), 0);
         }
     }
 
-    clearHandlers(){
+    clearHandlers() {
         this.#eventDispatcher.reset();
     }
 
