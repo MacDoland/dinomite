@@ -30,7 +30,7 @@ Object.freeze(TileStateStrings);
 
 const indexToTileState = (index) => {
     let match = Object.keys(TileState).map(key => TileState[key]).filter(value => value === index);
-    return match.length > 0 ? match[0] : -1;
+    return match.length > 0 ? match[0] : 0;
 }
 
 export { TileState, TileStateStrings, indexToTileState };

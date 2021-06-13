@@ -9,6 +9,7 @@ class Bomb {
     #eventDispatcher;
     #events;
     #timeToExplode;
+    #state;
 
     constructor(index, strength, timeToExplode) {
         this.#index = index;
@@ -39,6 +40,15 @@ class Bomb {
         return this.#timer.getRemainingTime();
     }
 
+    getState() {
+        if(!this.#isActive){
+            return BombState.INACTIVE;
+        }
+        else{
+            return  this.#timer.getRemainingTime() < (this.#timeToExplode / 2) ? BombState.NEAR_DETONATION : BombState.ACTIVE;
+        }
+    }
+
     lightFuse() {
         this.#isActive = true;
         this.#timer.clearHandlers();
@@ -67,8 +77,12 @@ class Bomb {
         this.#index = index;
     }
 
-    reset(){
-         this.#index = -1;
+    reset() {
+        this.#index = -1;
+    }
+
+    getProgress() {
+        return (1 -(this.#timer.getRemainingTime() / this.#timeToExplode)) * 100
     }
 
     clearHandlers() {
@@ -84,4 +98,11 @@ class Bomb {
     }
 }
 
+const BombState = {
+    ACTIVE: 0,
+    NEAR_DETONATION: 1,
+    INACTIVE: 3
+}
+
 export default Bomb;
+export { BombState };

@@ -7,6 +7,7 @@ import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
 import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
+import { nanoid } from "nanoid";
 
 class GameAuthority {
     players;
@@ -168,7 +169,14 @@ class GameAuthority {
                     direction: player.getDirection(),
                 }
             }),
-            grid: this.#grid.getGrid()
+            grid: this.#grid.getGrid(),
+            bombs: this.#bombShop.getActiveBombs().map(bomb => {
+                return {
+                    id: bomb.getIndex(),
+                    progress: bomb.getProgress(),
+                    state: bomb.getState()
+                };
+            })
         }
     }
 
@@ -183,7 +191,15 @@ class GameAuthority {
                     direction: player.getDirection(),
                 }
             }),
-            tiles: this.#grid.flushHistory()
+            tiles: this.#grid.flushHistory(),
+            bombs: this.#bombShop.getActiveBombs().map(bomb => {
+                return {
+                    id: bomb.getIndex(),
+                    progress: bomb.getProgress(),
+                    state: bomb.getState()
+                };
+            })
+
         }
     }
 
@@ -217,7 +233,7 @@ class GameAuthority {
             if (input.ACTION_UP) {
                 let gridCoordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
                 let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
-                this.plantBomb(id, playerTile);
+                this.plantBomb(nanoid(), playerTile);
             }
 
             const result = this.processPlayerMovement(id, player.getBounds(), offset);

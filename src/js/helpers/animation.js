@@ -41,6 +41,12 @@ class Animation {
         return this.frames[frameIndex];
     }
 
+    getFrameAtProgress(progress) {
+        console.log(progress);
+        let frameIndex = Math.floor((progress/100) * this.frames.length);
+        return this.frames.length >= frameIndex ? this.frames[frameIndex] : this.frames[this.frames.length - 1];
+    }
+
     stop() {
         this.currentStepTime = 0;
     }

@@ -7,6 +7,7 @@ import spriteSheetEnvironmentConfig from "../config/sprite-sheet-env-0.json";
 import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
 import { TileState } from "../state/tile-state";
+import { BombState } from "../items/bomb";
 
 
 let characters = {};
@@ -251,12 +252,8 @@ class CanvasRenderer {
 
     drawBomb(coordinate, bomb) {
         if (bomb) {
-            let duration = bomb.getTimerDuration();
-            let timeLeft = bomb.getTimeToDetonation();
-            let isUnderHalfTimeLeft = timeLeft < (duration / 2);
-
-            let sprite = isUnderHalfTimeLeft
-                ? this.#spriteSheetItems.getAnimation('egg-teal-crack').getFrameAt(duration - timeLeft, duration)
+            let sprite = bomb.state === BombState.NEAR_DETONATION
+                ? this.#spriteSheetItems.getAnimation('egg-teal-crack').getFrameAtProgress(bomb.progress)
                 : this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
 
             if (sprite) {
@@ -358,11 +355,15 @@ class CanvasRenderer {
 
         let coordinate, bomb, bombsByIndex, blast, blastsByIndex;
 
+        if(bombs.length > 0){
+            console.log('bombs', bombs[0].progress);
+        }
+
         grid.forEach((element, index) => {
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
-            bombsByIndex = bombs.filter((bomb) => bomb.getIndex() === index);
+            bombsByIndex = bombs.filter((bomb) => bomb.id === index);
             bomb = bombsByIndex.length > 0 ? bombsByIndex[0] : null;
 
             blastsByIndex = blasts.filter((blast) => blast.getIndex() === index);
