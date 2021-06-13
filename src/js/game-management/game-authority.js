@@ -178,6 +178,7 @@ class GameAuthority {
                     position: player.getPosition().raw(),
                     state: player.getState(),
                     direction: player.getDirection(),
+                    characterId: player.getCharacterIndex()
                 }
             }),
             grid: this.#grid.getGrid(),

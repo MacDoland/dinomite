@@ -28,6 +28,7 @@ class GameManager {
     #inputSystems;
     #bombs;
     #blasts;
+    #playerId;
 
 
     constructor(client, logger) {
@@ -36,6 +37,7 @@ class GameManager {
         this.#timer = new Timer(true);
         this.#bombs = [];
         this.#blasts = [];
+        this.#playerId = null;
 
         const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
 
@@ -61,33 +63,33 @@ class GameManager {
         }
         Object.freeze(this.#events);
 
-        const addPlayer = ({ id, state, position, direction }) => {
-            const player = new Player(id, 'janedoe', 0, 48);
+        const addPlayer = ({ id, state, position, direction, characterId }, playerId) => {
+            const player = new Player(playerId, characterId, 48);
             if (player) {
                 player.setPosition(position);
                 player.setState(state);
                 player.setDirection(direction);
             }
 
-            if (!findById(this.#players, id)) {
+            if (!findById(this.#players, playerId)) {
                 this.#players.push(player);
             }
         }
 
-        this.#client.on(GameEvents.CONNECTED, ({ players, grid, bombs, blasts }) => {
-            players.forEach(player => addPlayer(player));
+        this.#client.on(GameEvents.CONNECTED, ({ players, grid, bombs, blasts, playerId }) => {
+            players.forEach(player => addPlayer(player, playerId));
             this.#grid = new Grid(15, 15, grid);
 
             if (bombs) {
                 this.#bombs = bombs;
             }
 
-
+            this.#playerId = playerId;
         });
 
         this.#client.on(GameEvents.NEW_PLAYER, ({ id, cId: characterId, s: state, p: position, d: direction }) => {
             const player = new Player(id, characterId, 48);
-            
+
             if (player) {
                 player.setPosition(position);
                 player.setState(state);
@@ -171,7 +173,8 @@ class GameManager {
                 players: this.#players,
                 bombs: this.#bombs || [],
                 blasts: this.#blasts || [],
-                deltaTime
+                deltaTime,
+                playerId: this.#playerId
             });
 
             prev = now;

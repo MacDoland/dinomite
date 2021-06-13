@@ -20,7 +20,6 @@ class NetworkClient {
         }
 
         this.#socket.on("connect", () => {
-
         });
 
         Object.keys(GameEvents).map(key => {

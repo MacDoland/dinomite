@@ -9,6 +9,7 @@ import InputManager, { InputKeys } from './game-management/input-manager';
 import Logger from './helpers/logger';
 import { NetworkClient } from './transport/network-client';
 import { LocalClient } from './transport/local-client';
+import { findById } from './helpers/helpers';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
@@ -63,12 +64,14 @@ var app = new Vue({
     }
 })
 
-const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
+const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, playerId }) => {
     inputManager.update();
     renderer.clear();
 
+    const currentPlayer = findById(players, playerId);
+
     if (grid) {
-        renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
+        renderer.drawGrid(grid.getGrid(), config, bombs, blasts, currentPlayer);
     }
 
     if (players && players.length > 0) {

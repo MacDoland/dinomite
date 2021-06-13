@@ -245,11 +245,12 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + this.#borderWidth + 1));
     }
 
-    drawBomb(coordinate, bomb) {
-        if (bomb) {
+    drawBomb(coordinate, bomb, player) {
+        if (bomb && player) {
+            let character = characterNames[player.getCharacterIndex()] || 'rex';
             let sprite = bomb.state === BombState.NEAR_DETONATION
-                ? this.#spriteSheetItems.getAnimation('egg-teal-crack').getFrameAtProgress(bomb.progress)
-                : this.#spriteSheetItems.getAnimation('egg-teal-wobble-loop').getCurrentFrame();
+                ? this.#spriteSheetItems.getAnimation(`${character}-egg-crack`).getFrameAtProgress(bomb.progress)
+                : this.#spriteSheetItems.getAnimation(`${character}-egg-wobble-loop`).getCurrentFrame();
 
             if (sprite) {
                 let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
@@ -339,7 +340,7 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize - 100));
     }
 
-    drawGrid(grid, config, bombs, blasts) {
+    drawGrid(grid, config, bombs, blasts, player) {
 
         let coordinate, bomb, bombsByIndex, blast, blastsByIndex;
 
@@ -383,12 +384,12 @@ class CanvasRenderer {
             else if (element === TileState.BOMB_RUBBLE) {
                 this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
-                this.drawBomb(coordinate, bomb);
+                this.drawBomb(coordinate, bomb, player);
             }
             else if (element === TileState.BOMB_SCORCH) {
                 this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate);
-                this.drawBomb(coordinate, bomb);
+                this.drawBomb(coordinate, bomb, player);
             }
             else if (element === TileState.RUBBLE_SCORCH) {
                 this.drawBasicTile(coordinate, index);
@@ -399,7 +400,7 @@ class CanvasRenderer {
                 this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
-                this.drawBomb(coordinate, bomb);
+                this.drawBomb(coordinate, bomb, player);
             }
             else if (element === TileState.EXPLOSION) {
                 this.drawBasicTile(coordinate, index);
@@ -449,7 +450,7 @@ class CanvasRenderer {
             this.#currentTime = performance.now();
             this.#deltaTime = this.#currentTime - this.#previousTime;
             this.#previousTime = this.#currentTime;
-            let character = characterNames[player.getCharacterIndex()];
+            let character = characterNames[player.getCharacterIndex()] || 'rex';
 
             if (player && direction) {
 
