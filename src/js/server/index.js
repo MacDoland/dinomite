@@ -30,6 +30,9 @@ timer.onElapsed(() => {
 
 
 io.on("connection", socket => {
+
+  socket.emit(GameEvents.CONNECTED,  gameAuthority.getFullGameState());
+
   socket.on(GameEvents.NEW_PLAYER, (data) => {
     console.log('recieved new player request');
     const player = gameAuthority.addPlayer(socket.id);

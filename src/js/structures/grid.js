@@ -89,6 +89,10 @@ class Grid {
         return Grid.convertIndexToCoordinate(cellIndex, this.#numberOfColumns, this.#numberOfRows).multiplyScalar(cellSize).add(new Vector(cellSize / 2, cellSize / 2));
     }
 
+    load(cells) {
+        this.#grid = cells;
+    }
+
 
     static convertIndexToCoordinate(index, numberOfColumns, numberOfRows) {
         return new Vector(index % numberOfColumns, Math.floor(index / numberOfRows));

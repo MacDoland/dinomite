@@ -37,7 +37,6 @@ class GameManager {
         this.#client = client;
         this.#gameConfig = gameConfig;
         this.#logger = logger;
-        this.#grid = grid;
         this.#timer = new Timer(true);
         this.#gameInProgess = false;
         this.#moveDelay = 150;
@@ -68,6 +67,24 @@ class GameManager {
         Object.freeze(this.#events);
 
         this.#colliders = [];
+
+        const addPlayer = ({ id, state, position, direction }) => {
+            const player = new Player(id, 'janedoe', 0, 48);
+            if (player) {
+                player.setPosition(position);
+                player.setState(state);
+                player.setDirection(direction);
+            }
+
+            if (!findById(this.#players, id)) {
+                this.#players.push(player);
+            }
+        }
+
+        this.#client.on(GameEvents.CONNECTED, ({ players, grid }) => {
+            players.forEach(player => addPlayer(player));
+            this.#grid = new Grid(15, 15, grid);
+        });
 
         this.#client.on(GameEvents.NEW_PLAYER, ({ id, state, position, direction }) => {
             const player = new Player(id, 'janedoe', 0, 48);

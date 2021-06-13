@@ -1,15 +1,12 @@
-import { GameEvents } from "../events/events";
-import EventDispatcher from "../helpers/event-dispatcher";
-import { findById } from "../helpers/helpers";
 import { processPlayerMovement } from "../helpers/referee";
 import Player from "../player";
 import Vector from "../structures/vector";
 import stateManager, { StateEvents } from "./state-manager";
-import { io } from 'socket.io-client';
 import Timer from "../helpers/timer";
 import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
-import { indexToTileState } from "../state/tile-state";
+import { indexToTileState, TileState } from "../state/tile-state";
+import directions from "../helpers/direction";
 
 class GameAuthority {
     players;
@@ -36,6 +33,54 @@ class GameAuthority {
         this.#bombShop.onPlant(({ index }) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
             const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
+            this.#grid.set(index, newState);
+        });
+
+        this.#bombShop.onBombExpired(({ index, strength }) => {
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
+            this.#grid.set(index, newState);
+
+            let neighbours = this.#grid.getNeighbours(index, strength);
+            let targets = [];
+
+            Object.keys(neighbours)
+                .filter(key => [directions.UP, directions.RIGHT, directions.DOWN, directions.LEFT].includes(key))
+                .map(key => neighbours[key]).map(tiles => {
+                    targets = targets.concat(this.getExplosionTargets(tiles));
+                });
+
+            this.#bombShop.createExplosion(index, 30, 800);
+
+            targets.forEach((target) => {
+                this.#bombShop.createExplosion(target, 30, 800);
+
+                // [this.#player].forEach(player => {
+                //     let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+                //     let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+                //     if (target === playerIndex) {
+                //         player.die();
+                //     }
+                // });
+            });
+
+        });
+
+        this.#bombShop.onExplosion((index) => {
+            //this.#audioManager.play('boom');
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+
+            if (currentState === TileState.BOMB
+                || currentState === TileState.BOMB_RUBBLE
+                || currentState === TileState.BOMB_RUBBLE_SCORCH
+                || currentState === TileState.BOMB_SCORCH) {
+                //theres a bomb on this tile - detonate it
+                setTimeout(() => {
+                    this.#bombShop.detonateBombAt(index);
+                }, 100);
+            }
+
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
             this.#grid.set(index, newState);
         });
 
@@ -85,6 +130,48 @@ class GameAuthority {
         this.#bombShop.plant(tileId);
     }
 
+    getExplosionTargets(tiles) {
+        let targets = [];
+        let hasHitDeadEnd = false;
+        let index = 0;
+        let targetIndex;
+
+        if (tiles && Array.isArray(tiles)) {
+
+            while (!hasHitDeadEnd && index < tiles.length) {
+                targetIndex = tiles[index];
+                hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE || this.#grid.getElementAt(targetIndex) === TileState.OCEAN;
+                if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
+                    targets.push(targetIndex);
+                }
+
+                if (this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
+                    index++;
+                }
+                else {
+                    hasHitDeadEnd = true;
+                }
+            }
+        }
+
+        return targets;
+    }
+
+    getFullGameState() {
+        return {
+            players: Object.keys(this.players).filter(key => this.players[key]).map((key) => {
+                const player = this.players[key];
+                return {
+                    id: player.getId(),
+                    position: player.getPosition().raw(),
+                    state: player.getState(),
+                    direction: player.getDirection(),
+                }
+            }),
+            grid: this.#grid.getGrid()
+        }
+    }
+
     getUpdate() {
         return {
             players: Object.keys(this.players).filter(key => this.players[key]).map((key) => {
@@ -127,7 +214,7 @@ class GameAuthority {
                 offset.add(new Vector(-speed * this.#deltaTime, 0))
             }
 
-            if(input.ACTION_UP){
+            if (input.ACTION_UP) {
                 let gridCoordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
                 let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
                 this.plantBomb(id, playerTile);
@@ -157,92 +244,3 @@ class GameAuthority {
 }
 
 export default GameAuthority;
-
-class LocalClient {
-    #grid;
-    #eventDispatcher;
-    #events;
-    #gameAuthority;
-    #players;
-
-    constructor(grid, gameConfig) {
-        this.#gameAuthority = new GameAuthority(grid, gameConfig);
-        this.#eventDispatcher = new EventDispatcher();
-        this.#events = {
-            ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE'
-        }
-
-        const loop = () => {
-            let message = this.#gameAuthority.getUpdate();
-            this.#eventDispatcher.dispatch(GameEvents.UPDATE, message);
-            setTimeout(loop, 1000 / 60);
-        }
-
-        setTimeout(loop, 1000 / 60);
-
-    }
-
-    send(gameEvent, data) {
-        let result;
-        switch (gameEvent) {
-            case GameEvents.NEW_PLAYER:
-                let response = this.#gameAuthority.addPlayer(data.id);
-                this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, {
-                    id: response.getId(),
-                    state: response.getState(),
-                    position: response.getPosition(),
-                    direction: response.getDirection()
-                });
-                break;
-            case GameEvents.PLAYER_INPUT:
-                result = this.#gameAuthority.addPlayerInputUpdate(data.id, data.input);
-                break;
-        }
-    }
-
-    on(event, handler) {
-        this.#eventDispatcher.registerHandler(event, handler);
-    }
-}
-
-class NetworkClient {
-    #eventDispatcher;
-    #events;
-    #socket
-
-    constructor() {
-        this.#socket = io("ws://localhost:3000", {
-            withCredentials: true,
-            extraHeaders: {}
-        });
-        this.#eventDispatcher = new EventDispatcher();
-        this.#events = {
-            ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE',
-            ON_CONNECTED: 'ON_CONNECTED'
-        }
-
-        this.#socket.on("connect", () => {
-
-        });
-
-        Object.keys(GameEvents).map(key => {
-            this.#socket.on(GameEvents[key], data => {
-                this.#eventDispatcher.dispatch(GameEvents[key], data);
-            });
-        })
-    }
-
-    send(gameEvent, data) {
-        this.#socket.emit(gameEvent, data);
-    }
-
-    on(event, handler) {
-        this.#eventDispatcher.registerHandler(event, handler);
-    }
-
-    onConnected(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.ON_CONNECTED, handler);
-    }
-}
-
-export { LocalClient, NetworkClient };
