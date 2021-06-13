@@ -8,8 +8,8 @@ class NetworkClient {
     #socket
 
     constructor() {
-        this.#socket = io("ws://localhost:3000", {
-        //this.#socket = io('ws://192.248.152.139:3000', {
+        //this.#socket = io("ws://localhost:3000", {
+        this.#socket = io('ws://192.248.152.139:3000', {
             withCredentials: false,
             extraHeaders: {}
         });

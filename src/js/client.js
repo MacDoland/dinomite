@@ -20,7 +20,7 @@ const inputManager = new InputManager();
 
 const client = new NetworkClient(grid, defaultLevel);
 
-const gameManager = new GameManager(client, defaultLevel, grid, logger);
+const gameManager = new GameManager(client, logger);
 
 
 let config = optionsManager.get() || {};
