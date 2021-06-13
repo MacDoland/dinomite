@@ -1,18 +1,15 @@
+import { GameEvents } from "../events/events";
+import GameAuthority from "../game-management/game-authority";
+import EventDispatcher from "../helpers/event-dispatcher";
 import { defaultLevel } from "../levels/levels";
 
 class LocalClient {
-    #grid;
     #eventDispatcher;
-    #events;
     #gameAuthority;
-    #players;
 
     constructor(grid, gameConfig) {
         this.#gameAuthority = new GameAuthority(grid, gameConfig);
         this.#eventDispatcher = new EventDispatcher();
-        this.#events = {
-            ON_RECEIVE_MESSAGE: 'ON_RECEIVE_MESSAGE'
-        }
 
         const loop = () => {
             let message = this.#gameAuthority.getUpdate();
@@ -22,6 +19,9 @@ class LocalClient {
 
         setTimeout(loop, 1000 / 60);
 
+        setTimeout(() => {
+            this.#eventDispatcher.dispatch(GameEvents.CONNECTED, this.#gameAuthority.getFullGameState());
+        }, 10);
     }
 
     send(gameEvent, data) {

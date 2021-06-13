@@ -8,6 +8,7 @@ import OptionsManager from './game-management/options-manager';
 import InputManager, { InputKeys } from './game-management/input-manager';
 import Logger from './helpers/logger';
 import { NetworkClient } from './transport/network-client';
+import { LocalClient } from './transport/local-client';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
@@ -17,7 +18,7 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 
-const client = new NetworkClient(grid, defaultLevel);
+const client = new LocalClient(grid, defaultLevel);
 
 const gameManager = new GameManager(client, defaultLevel, grid, logger);
 
@@ -65,7 +66,7 @@ var app = new Vue({
 const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime }) => {
     inputManager.update();
     renderer.clear();
-    
+
     if (grid) {
         renderer.drawGrid(grid.getGrid(), config, bombs, blasts);
     }
