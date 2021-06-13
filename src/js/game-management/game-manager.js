@@ -11,7 +11,7 @@ import { indexToTileState, TileState } from "../state/tile-state";
 import stateManager, { StateEvents } from "./state-manager";
 import controlConfig from '../config/controls';
 import { GameEvents } from "../events/events";
-import { findById } from "../helpers/helpers";
+import { findById, objectPropertiesAreFalse } from "../helpers/helpers";
 
 class GameManager {
     #gameConfig;
@@ -44,6 +44,7 @@ class GameManager {
         this.#moveDelay = 150;
         this.#bombs = [];
         this.#blasts = [];
+
 
         const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
 
@@ -89,11 +90,11 @@ class GameManager {
             players.forEach(player => addPlayer(player));
             this.#grid = new Grid(15, 15, grid);
 
-            if(bombs) {
+            if (bombs) {
                 this.#bombs = bombs;
             }
 
-           
+
         });
 
         this.#client.on(GameEvents.NEW_PLAYER, ({ id, state, position, direction }) => {
@@ -139,11 +140,11 @@ class GameManager {
                     player.setDirection(direction);
                 }
 
-                if(bombs) {
+                if (bombs) {
                     this.#bombs = bombs;
                 }
 
-                if(blasts) {
+                if (blasts) {
                     this.#blasts = blasts;
                 }
             });
@@ -348,12 +349,12 @@ class GameManager {
         this.#inputSystems.forEach((system) => {
             const input = system.update();
 
-            if (input.current.ACTION_UP) {
-                console.log('action up', input.current.ACTION_UP)
+            if (input && (!objectPropertiesAreFalse(input.previous) || !objectPropertiesAreFalse(input.current))) {
+                const id = system.getId();
+                this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
+                console.log('send');
             }
 
-            const id = system.getId();
-            this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
         });
     }
 
