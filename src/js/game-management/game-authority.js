@@ -4,9 +4,12 @@ import { findById } from "../helpers/helpers";
 import { processPlayerMovement } from "../helpers/referee";
 import Player from "../player";
 import Vector from "../structures/vector";
-import stateMachine, { StateEvents } from "./state-manager";
+import stateManager, { StateEvents } from "./state-manager";
 import { io } from 'socket.io-client';
 import Timer from "../helpers/timer";
+import BombShop from "./bomb-shop";
+import Grid from "../structures/grid";
+import { indexToTileState } from "../state/tile-state";
 
 class GameAuthority {
     players;
@@ -14,6 +17,7 @@ class GameAuthority {
     #deltaTime;
     #gameConfig;
     #timer;
+    #bombShop;
 
     #playerMovementUpdates;
 
@@ -26,9 +30,14 @@ class GameAuthority {
         let prev = 0;
         this.#deltaTime = 0;
         let now;
-        let player;
-        let speed = 400;
         this.#playerMovementUpdates = {};
+        this.#bombShop = new BombShop();
+
+        this.#bombShop.onPlant(({ index }) => {
+            const currentState = indexToTileState(this.#grid.getElementAt(index));
+            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
+            this.#grid.set(index, newState);
+        });
 
         const loop = () => {
             now = new Date();
@@ -71,6 +80,11 @@ class GameAuthority {
         }
     }
 
+    plantBomb(playerId, tileId) {
+        //TODO check here if player can drop bombs
+        this.#bombShop.plant(tileId);
+    }
+
     getUpdate() {
         return {
             players: Object.keys(this.players).filter(key => this.players[key]).map((key) => {
@@ -79,9 +93,10 @@ class GameAuthority {
                     id: player.getId(),
                     position: player.getPosition().raw(),
                     state: player.getState(),
-                    direction: player.getDirection()
+                    direction: player.getDirection(),
                 }
-            })
+            }),
+            tiles: this.#grid.flushHistory()
         }
     }
 
@@ -110,6 +125,12 @@ class GameAuthority {
 
             if (input.LEFT) {
                 offset.add(new Vector(-speed * this.#deltaTime, 0))
+            }
+
+            if(input.ACTION_UP){
+                let gridCoordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+                let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
+                this.plantBomb(id, playerTile);
             }
 
             const result = this.processPlayerMovement(id, player.getBounds(), offset);
@@ -153,9 +174,7 @@ class LocalClient {
 
         const loop = () => {
             let message = this.#gameAuthority.getUpdate();
-            this.#eventDispatcher.dispatch(GameEvents.UPDATE, {
-                ...message
-            });
+            this.#eventDispatcher.dispatch(GameEvents.UPDATE, message);
             setTimeout(loop, 1000 / 60);
         }
 

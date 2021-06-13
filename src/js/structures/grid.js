@@ -5,30 +5,15 @@ class Grid {
     #grid;
     #numberOfColumns;
     #numberOfRows;
+    #gridUpdateHistory;
 
     constructor(numberOfColumns = 0, numberOfRows = 0, data) {
 
         this.#numberOfColumns = numberOfColumns;
         this.#numberOfRows = numberOfRows;
         data = data || new Array(this.#numberOfColumns * this.#numberOfRows);
-
+        this.#gridUpdateHistory = [];
         this.#grid = data;
-        // this.#grid.fill(0);
-        // this.#grid = this.#grid
-        //     .map((value, index) => {
-        //         const coordinates = Grid.convertIndexToCoordinate(index, numberOfColumns, numberOfRows);
-        //         if (coordinates.x === 0 || coordinates.y === 0 || coordinates.x === numberOfColumns - 1 || coordinates.y === numberOfRows - 1) {
-        //             return 1;
-        //         };
-
-        //         if ((coordinates.x % 2) !== 1
-        //             && (coordinates.y % 2) !== 1) {
-        //             return 1;
-        //         };
-
-        //         return 0;
-
-        //     });
     }
 
     getCenter() {
@@ -50,7 +35,6 @@ class Grid {
     getElementAt(index) {
         return this.#grid[index];
     }
-
 
     getIndex(x, y) {
         return (y * this.#numberOfColumns) + x;
@@ -85,10 +69,20 @@ class Grid {
         });
     }
 
-    set(index, value) {
+    set(index, value, includeInHistory = true) {
         if (index > 0 && index < this.#grid.length) {
             this.#grid[index] = value;
+
+            if (includeInHistory) {
+                this.#gridUpdateHistory.push({ index, value })
+            }
         }
+    }
+
+    flushHistory() {
+        const history = this.#gridUpdateHistory;
+        this.#gridUpdateHistory = [];
+        return history;
     }
 
     getCellCenter(cellIndex, cellSize) {

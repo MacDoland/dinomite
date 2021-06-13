@@ -23,15 +23,11 @@ let timer = new Timer(true);
 
 timer.start(tickRate);
 
-const loop = () => {
-  setTimeout(loop, 0);
-}
-
 timer.onElapsed(() => {
-  io.emit(GameEvents.UPDATE, gameAuthority.getUpdate());
+  const update = gameAuthority.getUpdate();
+  io.emit(GameEvents.UPDATE, update);
 });
 
-setTimeout(loop, 0);
 
 io.on("connection", socket => {
   socket.on(GameEvents.NEW_PLAYER, (data) => {

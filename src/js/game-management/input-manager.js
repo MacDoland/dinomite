@@ -145,7 +145,8 @@ class InputSystem {
             UP: false,
             RIGHT: false,
             DOWN: false,
-            LEFT: false
+            LEFT: false,
+            ACTION_UP: false
         }
 
         this.#currentInput = this.#previousInput;
@@ -166,6 +167,8 @@ class InputSystem {
             RIGHT: this.#inputManager.getKeyPressed(this.#rightKeyCode),
             DOWN: this.#inputManager.getKeyPressed(this.#downKeyCode),
             LEFT: this.#inputManager.getKeyPressed(this.#leftKeyCode),
+            ACTION: this.#inputManager.getKeyPressed(this.#actionKeyCode),
+            ACTION_UP: this.#previousInput.ACTION && !this.#inputManager.getKeyPressed(this.#actionKeyCode)
         }
 
         return {
@@ -179,6 +182,7 @@ class InputSystem {
         || this.#currentInput.DOWN !== this.#previousInput.DOWN
         || this.#currentInput.LEFT !== this.#previousInput.LEFT
         || this.#currentInput.RIGHT !== this.#previousInput.RIGHT
+        || this.#currentInput.ACTION_UP !== this.#previousInput.ACTION_UP
     }
 
     processKeyPress(key) {

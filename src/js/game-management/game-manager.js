@@ -82,7 +82,7 @@ class GameManager {
             }
         });
 
-        
+
         this.#client.on(GameEvents.PLAYER_LEFT, ({ id }) => {
             this.#players = this.#players.filter(player => player.getId() !== id)
         });
@@ -97,7 +97,7 @@ class GameManager {
             }
         });
 
-        this.#client.on(GameEvents.UPDATE, ({ players }) => {
+        this.#client.on(GameEvents.UPDATE, ({ players, tiles }) => {
             players.forEach(({ id, position, state, direction }) => {
                 let player = findById(this.#players, id);
 
@@ -111,8 +111,13 @@ class GameManager {
                     player.setState(state);
                     player.setDirection(direction);
                 }
-
             });
+
+            if (Array.isArray(tiles)) {
+                tiles.forEach((tileUpdate) => {
+                    this.#grid.set(tileUpdate.index, tileUpdate.value, false);
+                });
+            }
         });
 
         this.#client.send(GameEvents.NEW_PLAYER, { id: 123 });
@@ -164,9 +169,9 @@ class GameManager {
         }
 
         this.#inputManager.onKeyDown(key => {
-            if (key === InputKeys.KEY_SPACE.toString()) {
-                this.#bombShop.plant(this.#currentGridIndex);
-            }
+            // if (key === InputKeys.KEY_SPACE.toString()) {
+            //     this.#bombShop.plant(this.#currentGridIndex);
+            // }
         })
 
         this.#bombShop.onPlant(({ index }) => {
@@ -307,6 +312,11 @@ class GameManager {
     #update() {
         this.#inputSystems.forEach((system) => {
             const input = system.update();
+
+            if (input.current.ACTION_UP) {
+                console.log('action up', input.current.ACTION_UP)
+            }
+
             const id = system.getId();
             this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
         });
