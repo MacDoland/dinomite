@@ -13,26 +13,20 @@ class Player {
     #boundingBox;
     #eventDispatcher;
     #events;
-    #speed;
     #startPosition
-    #name;
     #characterIndex;
     #id;
-    #size;
 
-    constructor(id, name, characterIndex, startPosition) {
+    constructor(id, characterIndex, startPosition) {
         this.#id = id;
-        this.#name = name;
         this.#characterIndex = characterIndex;
         this.#startPosition = startPosition;
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
         this.#height = 50;
         this.#width = 50;
-        this.#speed = 400;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
-        this.#size = 60;
         this.#boundingBox = new Rectangle(this.#origin, 60, 60);
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {

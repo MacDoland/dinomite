@@ -121,9 +121,9 @@ class GameAuthority {
         setTimeout(loop, 0);
     }
 
-    addPlayer(id) {
+    addPlayer(id, characterId) {
         if (!this.players[id]) {
-            this.players[id] = new Player(id, 'name', 0, 48);
+            this.players[id] = new Player(id, characterId, 48);
             let startIndex = Object.keys(this.players).length === 1 ? this.#gameConfig.startPlayerOne : this.#gameConfig.startPlayerTwo;
             this.players[id].setPosition(this.#grid.getCellCenter(startIndex, this.#gameConfig.cellSize));
         }

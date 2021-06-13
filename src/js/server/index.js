@@ -68,13 +68,14 @@ io.on("connection", socket => {
 
   socket.on(GameEvents.NEW_PLAYER, (data) => {
     console.log('recieved new player request');
-    const player = gameAuthority.addPlayer(socket.id);
+    const player = gameAuthority.addPlayer(socket.id, data.cId);
 
     const message = {
       id: player.getId(),
-      position: player.getPosition().raw(),
-      direction: player.getDirection(),
-      state: player.getState()
+      cId: player.getCharacterIndex(),
+      p: player.getPosition().raw(),
+      d: player.getDirection(),
+      s: player.getState()
     }
 
     io.emit(GameEvents.NEW_PLAYER, message);

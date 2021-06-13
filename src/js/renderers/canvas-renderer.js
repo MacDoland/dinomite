@@ -8,12 +8,7 @@ import spriteSheetItemsConfig from "../config/sprite-sheet-items-0.json";
 import { PlayerState } from '../player';
 import { TileState } from "../state/tile-state";
 import { BombState } from "../items/bomb";
-
-
-let characters = {};
-characters[0] = 'rex';
-characters[1] = 'humphry';
-
+import { characterNames } from "../state/characters";
 
 class CanvasRenderer {
     #canvas;
@@ -454,7 +449,7 @@ class CanvasRenderer {
             this.#currentTime = performance.now();
             this.#deltaTime = this.#currentTime - this.#previousTime;
             this.#previousTime = this.#currentTime;
-            let character = characters[player.getCharacterIndex()];
+            let character = characterNames[player.getCharacterIndex()];
 
             if (player && direction) {
 

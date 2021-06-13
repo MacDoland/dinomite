@@ -85,8 +85,9 @@ class GameManager {
 
         });
 
-        this.#client.on(GameEvents.NEW_PLAYER, ({ id, state, position, direction }) => {
-            const player = new Player(id, 'janedoe', 0, 48);
+        this.#client.on(GameEvents.NEW_PLAYER, ({ id, cId: characterId, s: state, p: position, d: direction }) => {
+            const player = new Player(id, characterId, 48);
+            
             if (player) {
                 player.setPosition(position);
                 player.setState(state);
@@ -145,8 +146,8 @@ class GameManager {
             }
         });
 
-        this.#client.send(GameEvents.NEW_PLAYER, { id: 123 });
-        this.#client.send(GameEvents.NEW_PLAYER, { id: 456 });
+        let characterId = window.localStorage.getItem('dinomiteCharacterId') || 0
+        this.#client.send(GameEvents.NEW_PLAYER, { id: 123, cId: characterId });
     }
 
     /* Public methods */
