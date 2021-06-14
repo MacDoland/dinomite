@@ -47,7 +47,7 @@ class BombShop {
         return this.#blasts.filter((blast) => blast.getIndex() === index && blast.getIsActive()).length > 0;
     }
 
-    plant(index) {
+    plant(index, ownerId) {
         const bombOnIndex = this.#bombs.filter(bomb => bomb.getIndex() === index);
         const bombCanBePlacedOnIndex = bombOnIndex.length === 0 || (bombOnIndex === 1 && !bombOnIndex[0].getIsActive());
 
@@ -58,11 +58,12 @@ class BombShop {
             if (inactiveBombs.length > 0) {
                 bomb = inactiveBombs[0];
                 bomb.reset();
+                bomb.assignOwner(ownerId);
                 bomb.move(index);
                 bomb.lightFuse();
             }
             else {
-                bomb = new Bomb(index, this.#strength, this.#fuseDuration);
+                bomb = new Bomb(ownerId, index, this.#strength, this.#fuseDuration);
                 bomb.lightFuse();
                 this.#bombs.push(bomb);
             }

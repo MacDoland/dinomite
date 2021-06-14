@@ -14,10 +14,10 @@ class LocalClient {
         const loop = () => {
             let message = this.#gameAuthority.getUpdate();
             this.#eventDispatcher.dispatch(GameEvents.UPDATE, message);
-            setTimeout(loop, 1000 / 60);
+            setTimeout(loop, 1);
         }
 
-        setTimeout(loop, 1000 / 60);
+        setTimeout(loop, 1);
 
         setTimeout(() => {
             this.#eventDispatcher.dispatch(GameEvents.CONNECTED, this.#gameAuthority.getFullGameState());
@@ -31,12 +31,13 @@ class LocalClient {
                 this.#eventDispatcher.dispatch(GameEvents.CONNECTED, defaultLevel.grid);
                 break;
             case GameEvents.NEW_PLAYER:
-                let response = this.#gameAuthority.addPlayer(data.id);
+                const newPlayer = this.#gameAuthority.addPlayer(data.id, data.cId);
                 this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, {
-                    id: response.getId(),
-                    state: response.getState(),
-                    position: response.getPosition(),
-                    direction: response.getDirection()
+                    id: newPlayer.getId(),
+                    cId: newPlayer.getCharacterIndex(),
+                    p: newPlayer.getPosition().raw(),
+                    d: newPlayer.getDirection(),
+                    s: newPlayer.getState()
                 });
                 break;
             case GameEvents.PLAYER_INPUT:

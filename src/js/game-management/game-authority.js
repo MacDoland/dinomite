@@ -137,9 +137,9 @@ class GameAuthority {
         }
     }
 
-    plantBomb(playerId, tileId) {
+    plantBomb(tileId, playerId) {
         //TODO check here if player can drop bombs
-        this.#bombShop.plant(tileId);
+        this.#bombShop.plant(tileId, playerId);
     }
 
     getExplosionTargets(tiles) {
@@ -185,6 +185,7 @@ class GameAuthority {
             bombs: this.#bombShop.getActiveBombs().map(bomb => {
                 return {
                     id: bomb.getIndex(),
+                    onwer: bomb.getOwnerId(),
                     progress: bomb.getProgress(),
                     state: bomb.getState()
                 };
@@ -213,6 +214,7 @@ class GameAuthority {
             bombs: this.#bombShop.getActiveBombs().map(bomb => {
                 return {
                     id: bomb.getIndex(),
+                    owner: bomb.getOwnerId(),
                     progress: bomb.getProgress(),
                     state: bomb.getState()
                 };
@@ -257,7 +259,7 @@ class GameAuthority {
             if (input.ACTION_UP) {
                 let gridCoordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
                 let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
-                this.plantBomb(nanoid(), playerTile);
+                this.plantBomb(playerTile, id);
             }
 
             const result = this.processPlayerMovement(id, player.getBounds(), offset);

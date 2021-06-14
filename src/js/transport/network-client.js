@@ -8,8 +8,8 @@ class NetworkClient {
     #socket
 
     constructor() {
-        //this.#socket = io("ws://localhost:3000", {
-        this.#socket = io('ws://192.248.152.139:3000', {
+        this.#socket = io("ws://localhost:3000", {
+        //this.#socket = io('ws://192.248.152.139:3000', {
             withCredentials: false,
             extraHeaders: {}
         });
@@ -19,8 +19,7 @@ class NetworkClient {
             ON_CONNECTED: 'ON_CONNECTED'
         }
 
-        this.#socket.on("connect", () => {
-        });
+        this.#socket.on("connect", () => {});
 
         Object.keys(GameEvents).map(key => {
             this.#socket.on(GameEvents[key], data => {

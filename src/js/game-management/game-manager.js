@@ -20,9 +20,7 @@ class GameManager {
     #inputManager;
     #eventDispatcher;
     #events;
-    #bombShop;
     #player;
-    #logger;
     #client;
     #players;
     #inputSystems;
@@ -30,19 +28,20 @@ class GameManager {
     #blasts;
     #playerId;
 
-
     constructor(client, logger) {
         this.#client = client;
-        this.#logger = logger;
         this.#timer = new Timer(true);
         this.#bombs = [];
         this.#blasts = [];
         this.#playerId = null;
 
-        const playerOneInputSystem = new InputSystem(123, controlConfig.playerOne);
+        const playerOneInputSystem = new InputSystem("123", controlConfig.playerOne);
+        const playerTwoInputSystem = new InputSystem("456", controlConfig.playerTwo);
+
 
         this.#inputSystems = [
-            playerOneInputSystem
+            playerOneInputSystem,
+            playerTwoInputSystem
         ];
 
         this.#players = [];
@@ -64,7 +63,9 @@ class GameManager {
         Object.freeze(this.#events);
 
         const addPlayer = ({ id, state, position, direction, characterId }, playerId) => {
+            
             const player = new Player(playerId, characterId, 48);
+
             if (player) {
                 player.setPosition(position);
                 player.setState(state);
@@ -77,7 +78,7 @@ class GameManager {
         }
 
         this.#client.on(GameEvents.CONNECTED, ({ players, grid, bombs, blasts, playerId }) => {
-            players.forEach(player => addPlayer(player, playerId));
+            players.forEach(player => addPlayer(player, player.id));
             this.#grid = new Grid(15, 15, grid);
 
             if (bombs) {
@@ -117,7 +118,6 @@ class GameManager {
         });
 
         this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs, blasts }) => {
-            console.log('receive');
             players.forEach(({ id, position, state, direction }) => {
                 let player = findById(this.#players, id);
 
@@ -149,7 +149,9 @@ class GameManager {
         });
 
         let characterId = window.localStorage.getItem('dinomiteCharacterId') || 0
-        this.#client.send(GameEvents.NEW_PLAYER, { id: 123, cId: characterId });
+        this.#client.send(GameEvents.NEW_PLAYER, { id: "123", cId: characterId });
+
+        this.#client.send(GameEvents.NEW_PLAYER, { id: "456", cId: 1 });
     }
 
     /* Public methods */
@@ -209,7 +211,6 @@ class GameManager {
             if (input && (!objectPropertiesAreFalse(input.previous) || !objectPropertiesAreFalse(input.current))) {
                 const id = system.getId();
                 this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
-                console.log('send');
             }
 
         });

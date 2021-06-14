@@ -19,7 +19,7 @@ const audioManager = new AudioManager();
 const optionsManager = new OptionsManager();
 const inputManager = new InputManager();
 
-const client = new NetworkClient(grid, defaultLevel);
+const client = new LocalClient(grid, defaultLevel);
 
 const gameManager = new GameManager(client, logger);
 
@@ -71,7 +71,7 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     const currentPlayer = findById(players, playerId);
 
     if (grid) {
-        renderer.drawGrid(grid.getGrid(), config, bombs, blasts, currentPlayer);
+        renderer.drawGrid(grid.getGrid(), config, bombs, blasts, currentPlayer, players);
     }
 
     if (players && players.length > 0) {

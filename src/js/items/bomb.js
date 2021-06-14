@@ -10,8 +10,10 @@ class Bomb {
     #events;
     #timeToExplode;
     #state;
+    #ownerId;
 
-    constructor(index, strength, timeToExplode) {
+    constructor(ownerId, index, strength, timeToExplode) {
+        this.#ownerId = ownerId;
         this.#index = index;
         this.#strength = strength;
         this.#timeToExplode = timeToExplode;
@@ -22,6 +24,14 @@ class Bomb {
         this.#events = {
             EXPLODE: 'EXPLODE'
         }
+    }
+
+    assignOwner(id){
+        this.#ownerId = id;
+    }
+
+    getOwnerId(){
+        return this.#ownerId;
     }
 
     getIndex() {
