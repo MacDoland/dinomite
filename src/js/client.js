@@ -57,7 +57,7 @@ var app = new Vue({
         showDebug
     },
     mounted() {
-        gameManager.onUpdate(({ grid, players, playerState, direction, gridIndex, bombs }) => {
+        gameManager.onUpdate(({ grid, players, bombs, blasts, colliders, deltaTime, playerId }) => {
             this.logs = logger.retrieveLogs();
             this.showDebug = config.showGrid;
         });
@@ -68,7 +68,12 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     inputManager.update();
     renderer.clear();
 
+
     const currentPlayer = findById(players, playerId);
+
+    if (currentPlayer) {
+        logger.log('player-position', currentPlayer.getPosition());
+    }
 
     if (grid) {
         renderer.drawGrid(grid.getGrid(), config, bombs, blasts, currentPlayer, players);
@@ -78,16 +83,14 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
         renderer.drawPlayers(players);
     }
 
-    if (config.showGrid) {
-        renderer.drawDebug(colliders);
+    if (grid && config.showGrid) {
+        renderer.drawDebug(grid.getGrid(), 100);
     }
 
     renderer.draw(deltaTime * 1000);
 }
 
-gameManager.onInit(updateGame);
 gameManager.onUpdate(updateGame);
-// gameManager.onEnd();
 
 gameManager.init();
 gameManager.start();

@@ -46,36 +46,54 @@ class CanvasRenderer {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawBasicTile(coordinate, index) {
-        let sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
+    drawImageTile({ queue, image, sprite, coordinate, size, anchor = directions.DOWN, zIndex = coordinate.y * size - size, useSpriteDimensions = false }) {
+        let yoffset = 0;
+
+        if(anchor === directions.UP){
+            yoffset = yoffset - sprite.frame.h + size;
+        }
 
         let drawParams = [
-            this.#spriteSheetEnvironment.getImage(),
+            image,
             sprite.frame.x,
             sprite.frame.y,
             sprite.frame.w,
             sprite.frame.h,
-            coordinate.x * this.#cellSize + this.#borderWidth,
-            coordinate.y * this.#cellSize + this.#borderWidth,
-            this.#cellSize,
-            this.#cellSize];
+            coordinate.x * size,
+            coordinate.y * size + yoffset,
+            useSpriteDimensions ? sprite.frame.w : size,
+            useSpriteDimensions ? sprite.frame.h : size];
 
-        this.#drawQueue.push(new Drawable('image', drawParams, 0));
+        queue.push(new Drawable('image', drawParams, zIndex));
+    }
+
+    drawBasicTile(coordinate, index) {
+        const sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue, 
+            image, 
+            sprite, 
+            coordinate, 
+            size: this.#cellSize, 
+            zIndex: 0,
+        });
     }
 
     drawBasicSolidBlock(coordinate) {
-        let sprite = this.#spriteSheetEnvironment.getAnimation('indestructable-terrain').getCurrentFrame();
-        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
-        sprite.frame.x,
-        sprite.frame.y,
-        sprite.frame.w,
-        sprite.frame.h,
-        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2),
-        coordinate.y * this.#cellSize + this.#cellSize - sprite.frame.h,
-        sprite.frame.w,
-        sprite.frame.h];
-
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize));
+        const sprite = this.#spriteSheetEnvironment.getAnimation('indestructable-terrain').getCurrentFrame();
+        const image = this.#spriteSheetEnvironment.getImage();
+        const zIndex = coordinate.y * this.#cellSize - this.#cellSize + 100;
+        this.drawImageTile({
+            queue: this.#drawQueue, 
+            image, 
+            sprite, 
+            coordinate, 
+            anchor: directions.UP,
+            size: this.#cellSize, 
+            zIndex,
+            useSpriteDimensions: true
+        });
     }
 
     drawOcean(grid, index, coordinate) {
@@ -381,7 +399,7 @@ class CanvasRenderer {
             }
             else if (element === TileState.BOMB) {
                 this.drawBasicTile(coordinate, index);
-                this.drawBomb(coordinate, bomb,player, players);
+                this.drawBomb(coordinate, bomb, player, players);
             }
             else if (element === TileState.RUBBLE) {
                 this.drawBasicTile(coordinate, index);
@@ -509,13 +527,17 @@ class CanvasRenderer {
 
     }
 
-    drawDebug(colliders) {
-        colliders.forEach(collider => {
-            let drawParams = [
-                collider.getLeft(),
-                collider.getTop(),
-                collider.width,
-                collider.height
+    drawDebug(grid, size) {
+        let coordinate, drawParams;
+
+        grid.forEach(index => {
+            coordinate = Grid.convertIndexToCoordinate(index);
+
+            drawParams = [
+                coordinate.x,
+                coordinate.y,
+                coordinate.x * size,
+                coordinate.y * size
             ]
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));

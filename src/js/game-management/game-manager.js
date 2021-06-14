@@ -1,14 +1,9 @@
-import directions from "../helpers/direction";
 import EventDispatcher from "../helpers/event-dispatcher";
 import Grid from "../structures/grid";
 import Timer from "../helpers/timer";
-import Vector from "../structures/vector";
 import InputManager, { InputKeys, InputSystem } from "./input-manager";
 import AudioManager from "./audio-manager";
-import Player, { PlayerState } from "../player";
-import BombShop from "./bomb-shop";
-import { indexToTileState, TileState } from "../state/tile-state";
-import stateManager, { StateEvents } from "./state-manager";
+import Player from "../player";
 import controlConfig from '../config/controls';
 import { GameEvents } from "../events/events";
 import { findById, objectPropertiesAreFalse } from "../helpers/helpers";
@@ -28,23 +23,21 @@ class GameManager {
     #blasts;
     #playerId;
 
-    constructor(client, logger) {
+    constructor(client) {
         this.#client = client;
         this.#timer = new Timer(true);
         this.#bombs = [];
         this.#blasts = [];
+        this.#players = [];
         this.#playerId = null;
 
         const playerOneInputSystem = new InputSystem("123", controlConfig.playerOne);
         const playerTwoInputSystem = new InputSystem("456", controlConfig.playerTwo);
 
-
         this.#inputSystems = [
             playerOneInputSystem,
             playerTwoInputSystem
         ];
-
-        this.#players = [];
 
         this.#inputManager = new InputManager();
         this.#audioManager = new AudioManager();
@@ -52,18 +45,12 @@ class GameManager {
 
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
-            INIT: 'INIT',
-            START: 'START',
-            END: 'END',
-            PAUSE: 'PAUSE',
-            RESET: 'RESET',
             UPDATE: 'UPDATE',
-            TICK: 'TICK',
+            END: 'END'
         }
         Object.freeze(this.#events);
 
         const addPlayer = ({ id, state, position, direction, characterId }, playerId) => {
-            
             const player = new Player(playerId, characterId, 48);
 
             if (player) {
@@ -83,6 +70,10 @@ class GameManager {
 
             if (bombs) {
                 this.#bombs = bombs;
+            }
+
+            if (blasts) {
+                this.#blasts = bombs;
             }
 
             this.#playerId = playerId;
@@ -159,12 +150,12 @@ class GameManager {
         this.#timer.stop();
         this.#timer.clearHandlers();;
         this.#timer.onElapsed(this.#update.bind(this));
-        let input;
         let prev = 0;
         let deltaTime = 0;
         let now;
+        let input;
 
-        //fast update loop
+        //render / update loop
         const loop = () => {
             now = performance.now();
             deltaTime = (now - prev) / 1000;
@@ -172,10 +163,10 @@ class GameManager {
 
             this.#eventDispatcher.dispatch(this.#events.UPDATE, {
                 grid: this.#grid,
-                players: this.#players,
                 bombs: this.#bombs || [],
                 blasts: this.#blasts || [],
                 deltaTime,
+                players: this.#players,
                 playerId: this.#playerId
             });
 
@@ -185,7 +176,7 @@ class GameManager {
         }
 
         requestAnimationFrame(loop);
-    }  
+    }
 
     start() {
         this.#timer.start(1000 / 60);
@@ -194,8 +185,8 @@ class GameManager {
     end() {
         this.#timer.stop();
         this.#timer.removeOnElapsed(this.#update);
-        this.#audioManager.stop('bg');
-        this.#audioManager.play('cheering');
+        // this.#audioManager.stop('bg');
+        // this.#audioManager.play('cheering');
         this.#eventDispatcher.dispatch(this.#events.END,
             {
                 grid: this.#grid,
@@ -212,7 +203,6 @@ class GameManager {
                 const id = system.getId();
                 this.#client.send(GameEvents.PLAYER_INPUT, { id, input: input.current });
             }
-
         });
     }
 
@@ -225,21 +215,6 @@ class GameManager {
         this.#eventDispatcher.deregisterHandler(this.#events.UPDATE, handler);
     }
 
-    onInit(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.INIT, handler);
-    }
-
-    removeOnInit(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.INIT, handler);
-    }
-
-    onEnd(handler) {
-        this.#eventDispatcher.registerHandler(this.#events.END, handler);
-    }
-
-    removeOnEnd(handler) {
-        this.#eventDispatcher.deregisterHandler(this.#events.END, handler);
-    }
 }
 
 export default GameManager;

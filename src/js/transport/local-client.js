@@ -20,16 +20,15 @@ class LocalClient {
         setTimeout(loop, 1);
 
         setTimeout(() => {
-            this.#eventDispatcher.dispatch(GameEvents.CONNECTED, this.#gameAuthority.getFullGameState());
-        }, 10);
+            let state = this.#gameAuthority.getFullGameState();
+            state.playerId = "123";
+            this.#eventDispatcher.dispatch(GameEvents.CONNECTED, state);
+        }, 0);
     }
 
     send(gameEvent, data) {
         let result;
         switch (gameEvent) {
-            case GameEvents.CONNECTED:
-                this.#eventDispatcher.dispatch(GameEvents.CONNECTED, defaultLevel.grid);
-                break;
             case GameEvents.NEW_PLAYER:
                 const newPlayer = this.#gameAuthority.addPlayer(data.id, data.cId);
                 this.#eventDispatcher.dispatch(GameEvents.NEW_PLAYER, {

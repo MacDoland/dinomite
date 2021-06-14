@@ -193,6 +193,18 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-down-loop/humphry-idle-down-11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-idle-up-11.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down02.png</key>
@@ -205,6 +217,18 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-down-loop/humphry-down11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-walk-up11.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-idle-down-loop/dino-rex-idle-down-02.png</key>
@@ -339,7 +363,6 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-right-loop/humphry-idle-right11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-idle-up-loop/humphry-down-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-left-loop/humphry-walk-left02.png</key>
@@ -364,7 +387,6 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right10.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-right-loop/humphry-walk-right11.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-humphry-walking-up-loop/humphry-down-1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -376,6 +398,64 @@
                 <rect>270,270,540,540</rect>
                 <key>scale9Paddings</key>
                 <rect>270,270,540,540</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death12.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death13.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death14.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death15.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death16.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death17.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death18.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death19.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death20.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death21.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death22.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death23.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death24.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death25.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death26.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death27.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death28.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death29.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death30.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death31.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death32.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death33.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death34.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death35.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death36.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death37.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death38.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death39.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death40.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death41.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death42.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/general/dino-rex-death-right/rex-death43.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>450,375,900,750</rect>
+                <key>scale9Paddings</key>
+                <rect>450,375,900,750</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
