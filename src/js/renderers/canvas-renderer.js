@@ -12,6 +12,7 @@ import { characterNames } from "../state/characters";
 import { findById } from "../helpers/helpers";
 import { isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
 import { Anchors } from "../helpers/anchor";
+import Vector from "../structures/vector";
 
 class CanvasRenderer {
     #canvas;
@@ -651,8 +652,8 @@ class CanvasRenderer {
 
     }
 
-    drawDebug(grid, size) {
-        let coordinate, drawParams, textParams;
+    drawDebug(grid, size, players) {
+        let coordinate, drawParams, colliderParams, textParams, playerPosition;
 
         grid.forEach(index => {
             coordinate = Grid.convertIndexToCoordinate(index);
@@ -665,7 +666,27 @@ class CanvasRenderer {
             ]
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
+        });
 
+        players.forEach(player => {
+            let playerPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+
+            drawParams = [
+                playerPosition.x * size + 5,
+                playerPosition.y * size + 5,
+                size - 10,
+                size - 10
+            ];
+
+            colliderParams = [
+                player.getBounds().topLeft.x,
+                player.getBounds().topLeft.y,
+                player.getBounds().topRight.x - player.getBounds().topLeft.x,
+                player.getBounds().bottomLeft.y - player.getBounds().topLeft.y
+            ]
+
+            this.#drawQueue.push(new Drawable('rect', drawParams, 10000, null, 'red'));
+            this.#drawQueue.push(new Drawable('rect', colliderParams, 10000, null, 'magenta'));
         });
 
 

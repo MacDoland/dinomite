@@ -30,7 +30,7 @@ class Player {
         this.#width = 50;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
-        this.#boundingBox = new Rectangle(this.#origin, 55, 30);
+        this.#boundingBox = new Rectangle(this.#origin, 70, 30);
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             MOVE: 'MOVE',

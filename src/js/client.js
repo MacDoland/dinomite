@@ -109,7 +109,7 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     }
 
     if (grid && config.showGrid) {
-        renderer.drawDebug(grid.getGrid(), 100);
+        renderer.drawDebug(grid.getGrid(), 100, players);
     }
 
     renderer.draw(deltaTime * 1000);
