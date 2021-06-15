@@ -1,4 +1,6 @@
 import { TileState } from "../state/tile-state"
+import Grid from "../structures/grid";
+import Vector from "../structures/vector";
 import directions from "./direction"
 
 export const isOceanCornerBottomRight = (grid, tiles) => {
@@ -34,7 +36,18 @@ export const isOceanCornerTopLeft = (grid, tiles) => {
 }
 
 export const isBlockingTile = (tile) => {
-    return tile === TileState.INDESTRUCTIBLE || tile === TileState.OCEAN || tile === TileState.CLIFF;
+    return tile === TileState.INDESTRUCTIBLE 
+    || tile === TileState.OCEAN 
+    || tile === TileState.CLIFF
+}
+
+export const isDestructableTile = (tile) => {
+    return tile === TileState.DESTRUCTIBLE 
+    || tile === TileState.GRAVESTONE
+    || tile === TileState.GRAVESTONE_RUBBLE
+    || tile === TileState.GRAVESTONE_SORCH
+    || tile === TileState.GRAVESTONE_STAIRS
+    || tile === TileState.GRAVESTONE_TAR
 }
 
 export const isPlayerBlockingTile = (tile) => {
@@ -48,4 +61,17 @@ export const isPlayerBlockingTile = (tile) => {
     || tile === TileState.BOMB_SCORCH
     || tile === TileState.TAR_BOMB
     || tile === TileState.STAIRS_BOMB
+    || tile === TileState.GRAVESTONE
+    || tile === TileState.GRAVESTONE_RUBBLE
+    || tile === TileState.GRAVESTONE_SORCH
+    || tile === TileState.GRAVESTONE_STAIRS
+    || tile === TileState.GRAVESTONE_TAR
+}
+
+export const getPlayersOnTile = (tileId, players, gridColumnCount, gridRowCount) => {
+    return players.filter(player => {
+        let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+        let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, gridColumnCount, gridRowCount);
+        return playerIndex === tileId;
+    });
 }

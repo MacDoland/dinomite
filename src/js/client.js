@@ -10,6 +10,7 @@ import Logger from './helpers/logger';
 import { NetworkClient } from './transport/network-client';
 import { LocalClient } from './transport/local-client';
 import { findById } from './helpers/helpers';
+import { TileState } from './state/tile-state';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
@@ -42,7 +43,13 @@ let gridIndex = '';
 let state = '';
 let bombCount = '';
 let logs = '';
-let showDebug;
+let showDebug = config.showGrid;;
+let legendItems = Object.keys(TileState).map(key => {
+    return {
+        name: key,
+        value: TileState[key]
+    }
+});;
 
 var app = new Vue({
     el: '#debug-window',
@@ -63,6 +70,23 @@ var app = new Vue({
         });
     }
 })
+
+
+var legend = new Vue({
+    el: '#legend',
+    data: {
+        legendItems,
+        showDebug
+    },
+    mounted() {
+        gameManager.onUpdate(() => {
+            this.showDebug = config.showGrid;
+        });
+    }
+})
+
+
+
 
 const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, playerId }) => {
     inputManager.update();

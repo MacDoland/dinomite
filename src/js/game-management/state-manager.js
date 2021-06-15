@@ -5,7 +5,8 @@ const StateEvents = {
     PLANT_BOMB: 'PLANT_BOMB',
     BOMB_DETONATE: 'BOMB_DETONATE',
     EXPLOSION: 'EXPLOSION',
-    EXPLOSION_END: 'EXPLOSION_END'
+    EXPLOSION_END: 'EXPLOSION_END',
+    DEATH: 'DEATH'
 }
 
 //Empty Tile
@@ -16,6 +17,7 @@ emptyTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION;
 //Explosion Tile
 const explosionTileEvents = {};
 explosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.EMPTY;
+explosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE;
 
 //Stairs
 const stairTileEvents = {};
@@ -29,6 +31,7 @@ stairBombTileEvents[StateEvents.EXPLOSION] = Tiles.STAIRS_EXPLOSION;
 //Stairs Explosion
 const stairExplosionTileEvents = {};
 stairExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.STAIRS;
+stairExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_STAIRS;
 
 //Tar
 const tarTileEvents = {};
@@ -42,6 +45,7 @@ tarBombTileEvents[StateEvents.EXPLOSION] = Tiles.TAR_EXPLOSION;
 //Tar Explosion
 const tarExplosionTileEvents = {};
 tarExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.TAR;
+tarExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_TAR;
 
 //Ocean
 const oceanTileEvents = {};
@@ -49,6 +53,7 @@ const oceanTileEvents = {};
 //Rubble Explosion Tile
 const rubbleExplosionTileEvents = {};
 rubbleExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
+rubbleExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE;
 
 //Scorch Tile
 const scorchTileEvents = {};
@@ -58,6 +63,7 @@ scorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
 //Scorch Explosion Tile
 const scorchExplosionTileEvents = {};
 scorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+scorchExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 
 //Rubble Tile
 const rubbleTileEvents = {};
@@ -72,31 +78,78 @@ rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORCH;
 //Rubble Scorch Explosion Tile
 const rubbleScorchExplosionTileEvents = {};
 rubbleScorchExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+rubbleScorchExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
 //Bomb Tile
 const bombTileEvents = {};
 bombTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
 bombTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
 bombTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+bombTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 
 //Bomb Rubble Tile
 const bombRubbleTileEvents = {};
 bombRubbleTileEvents[StateEvents.BOMB_DETONATE] = Tiles.RUBBLE_SCORCH;
 bombRubbleTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
 bombRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+bombRubbleTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
 //Bomb Scorch Tile
 const bombScorchTileEvents = {};
 bombScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.SCORCH;
 bombScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
 bombScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+bombScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 
 //Bomb Rubble Scorch Tile
 const bombRubbleScorchTileEvents = {};
 bombRubbleScorchTileEvents[StateEvents.BOMB_DETONATE] = Tiles.RUBBLE_SCORCH;
 bombRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORCH;
 bombRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+bombRubbleScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
+/*
+    GRAVESTONE: 23,
+    GRAVESTONE_SORCH: 24,
+    GRAVESTONE_RUBBLE: 25,
+    GRAVESTONE_SCORCH_RUBBLE: 26,
+    GRAVESTONE_STAIRS: 27,
+    GRAVESTONE_TAR: 28,
+    GRAVESTONE_EXPLOSION: 29,
+    GRAVESTONE_EXPLOSION_SORCH: 30,
+    GRAVESTONE_EXPLOSION_RUBBLE: 31,
+    GRAVESTONE_EXPLOSION_SORCH_RUBBLE: 32,
+    GRAVESTONE_EXPLOSION_STAIRS: 33,
+    GRAVESTONE_EXPLOSION_TAR: 34,
+*/
+
+//Gravestone
+const gravestoneTileEvents = {};
+gravestoneTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION;
+gravestoneTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+
+const gravestoneExplosionTileEvents = {};
+gravestoneExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.SCORCH;
+
+const gravestoneRubbleTileEvents = {};
+gravestoneRubbleTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_RUBBLE;
+gravestoneRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+const gravestoneScorchTileEvents = {};
+gravestoneScorchTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_SCORCH;
+gravestoneScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+const gravestoneRubbleScorchTileEvents = {};
+gravestoneRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_RUBBLE_SCORCH;
+gravestoneRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+const gravestoneStairsTileEvents = {};
+gravestoneStairsTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_STAIRS;
+gravestoneStairsTileEvents[StateEvents.EXPLOSION_END] = Tiles.STAIRS;
+
+const gravestoneTarTileEvents = {};
+gravestoneTarTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_TAR;
+gravestoneTarTileEvents[StateEvents.EXPLOSION_END] = Tiles.TAR;
 
 //Destructable Tile
 const destructableTileEvents = {};
@@ -112,6 +165,14 @@ states[Tiles.STAIRS_EXPLOSION] = { on: stairExplosionTileEvents };
 states[Tiles.TAR] = { on: tarTileEvents };
 states[Tiles.TAR_BOMB] = { on: tarBombTileEvents };
 states[Tiles.TAR_EXPLOSION] = { on: tarExplosionTileEvents };
+
+states[Tiles.GRAVESTONE] = { on: gravestoneTileEvents };
+states[Tiles.GRAVESTONE_EXPLOSION] = { on: gravestoneTileEvents };
+states[Tiles.GRAVESTONE_RUBBLE] = { on: gravestoneRubbleTileEvents };
+states[Tiles.GRAVESTONE_RUBBLE_SCORCH] = { on: gravestoneRubbleScorchTileEvents };
+states[Tiles.GRAVESTONE_SCORCH] = { on: gravestoneScorchTileEvents };
+states[Tiles.GRAVESTONE_STAIRS] = { on: gravestoneStairsTileEvents };
+states[Tiles.GRAVESTONE_TAR] = { on: gravestoneTarTileEvents };
 
 states[Tiles.DESTRUCTABLE] = { on: destructableTileEvents };
 states[Tiles.RUBBLE] = { on: rubbleTileEvents };

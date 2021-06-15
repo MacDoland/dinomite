@@ -7,8 +7,8 @@ import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
 import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
-import { nanoid } from "nanoid";
-import { isBlockingTile } from "../helpers/grid-helpers";
+import { getPlayersOnTile, isBlockingTile, isDestructableTile } from "../helpers/grid-helpers";
+import { killPlayersOnTile } from "../helpers/helpers";
 
 class GameAuthority {
     players;
@@ -59,17 +59,7 @@ class GameAuthority {
             targets.forEach((target) => {
                 this.#bombShop.createExplosion(target, 30, 800);
 
-                Object.keys(this.players).map(key => this.players[key]).forEach(player => {
-                    let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-                    let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
-                    if (target === playerIndex) {
-                        player.die();
-
-                        setTimeout(() => {
-                            player.respawn();
-                        }, 3000);
-                    }
-                });
+                killPlayersOnTile(target, Object.keys(this.players).map(key => this.players[key]), this.#grid);
             });
 
         });
@@ -97,8 +87,18 @@ class GameAuthority {
                 const currentState = indexToTileState(this.#grid.getElementAt(index));
 
                 if (currentState >= 0) {
-                    const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+
+                    const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
+                    let newState;
+                    if (playersOnTile.length === 0) {
+                        newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                    }
+                    else {
+                        newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.DEATH).value);
+                    }
+
                     this.#grid.set(index, newState);
+
                 }
             }
         });
@@ -164,7 +164,7 @@ class GameAuthority {
                     targets.push(targetIndex);
                 }
 
-                if (this.#grid.getElementAt(targetIndex) !== TileState.DESTRUCTABLE) {
+                if (isDestructableTile(this.#grid.getElementAt(targetIndex))) {
                     index++;
                 }
                 else {
@@ -244,8 +244,8 @@ class GameAuthority {
 
     processPlayerInput(id, input) {
         const player = this.players[id];
-        const position = player.getPosition().multiplyScalar(1/100);
-        
+        const position = player.getPosition().multiplyScalar(1 / 100);
+
         let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
         let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
         const currentTileState = this.#grid.getElementAt(playerIndex);

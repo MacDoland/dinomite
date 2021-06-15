@@ -11,6 +11,7 @@ import { BombState } from "../items/bomb";
 import { characterNames } from "../state/characters";
 import { findById } from "../helpers/helpers";
 import { isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
+import { Anchors } from "../helpers/anchor";
 
 class CanvasRenderer {
     #canvas;
@@ -49,11 +50,19 @@ class CanvasRenderer {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawImageTile({ queue, image, sprite, coordinate, size, anchor = directions.DOWN, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height }) {
+    drawImageTile({ queue, image, sprite, coordinate, size, anchor = Anchors.CENTER, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height }) {
         let yoffset = 0;
 
-        if (anchor === directions.UP) {
+        if (anchor === Anchors.UP) {
             yoffset = yoffset - sprite.frame.h + size;
+        }
+        else if (anchor === Anchors.BOTTOM) {
+            yoffset = yoffset - size / 2;
+            zIndex += size;
+        }
+        else if (anchor === Anchors.CENTER_BOTTOM) {
+            yoffset = yoffset - size;
+            zIndex += size/2;
         }
 
         width = typeof (width) !== 'undefined' ? width : size;
@@ -96,7 +105,7 @@ class CanvasRenderer {
             image,
             sprite,
             coordinate,
-            anchor: directions.UP,
+            anchor: Anchors.UP,
             size: this.#cellSize,
             zIndex,
             useSpriteDimensions: true
@@ -227,7 +236,6 @@ class CanvasRenderer {
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + 1));
     }
 
-
     drawScorch(coordinate) {
         let sprite = this.#spriteSheetEnvironment.getAnimation('scorched-terrain').getCurrentFrame();
         let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
@@ -301,6 +309,35 @@ class CanvasRenderer {
             coordinate,
             size: this.#cellSize,
         });
+    }
+
+    drawGravestone(coordinate) {
+        const sprite = this.#spriteSheetItems.getAnimation('grave-appear').getCurrentFrame();
+        const image = this.#spriteSheetItems.getImage();
+        let x = coordinate.x * this.#cellSize - (sprite.frame.w / 2) + (this.#cellSize / 2);
+        let y = coordinate.y * this.#cellSize - (sprite.frame.h / 2) + (this.#cellSize / 2) - (this.#cellSize);
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+            width: sprite.frame.w,
+            height: sprite.frame.h - 20,
+            useSpriteDimensions: true,
+            anchor: Anchors.BOTTOM
+        });
+
+        // const debugDrawParams = [
+        //     x,
+        //     y,
+        //     sprite.frame.w,
+        //     sprite.frame.h
+        // ]
+
+
+
+        // this.#drawQueue.push(new Drawable('rect', debugDrawParams, 10000, false, 'red'));
     }
 
     drawCliff(coordinate, index) {
@@ -446,6 +483,68 @@ class CanvasRenderer {
                 this.drawBasicTile(coordinate, index);
                 this.drawCliff(coordinate, index);
             }
+            else if (element === TileState.GRAVESTONE) {
+                this.drawBasicTile(coordinate, index);
+                this.drawGravestone(coordinate);
+            }
+            else if (element === TileState.GRAVESTONE_RUBBLE) {
+                this.drawBasicTile(coordinate, index);
+                this.drawRubble(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_SORCH) {
+                this.drawBasicTile(coordinate, index);
+                this.drawScorch(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_TAR) {
+                this.drawTar(coordinate, index);
+                this.drawGravestone(coordinate);
+            }
+            else if (element === TileState.GRAVESTONE_STAIRS) {
+                this.drawBasicTile(coordinate, index);
+                this.drawStairs(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION) {
+                this.drawBasicTile(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION_RUBBLE) {
+                this.drawBasicTile(coordinate, index);
+                this.drawRubble(coordinate);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH) {
+                this.drawBasicTile(coordinate, index);
+                this.drawScorch(coordinate);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH_RUBBLE) {
+                this.drawBasicTile(coordinate, index);
+                this.drawRubble(coordinate);
+                this.drawScorch(coordinate);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION_STAIRS) {
+                this.drawBasicTile(coordinate, index);
+                this.drawStairs(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.GRAVESTONE_EXPLOSION_TAR) {
+                this.drawBasicTile(coordinate, index);
+                this.drawTar(coordinate, index);
+                this.drawGravestone(coordinate);
+                this.drawExplosion(coordinate, blast);
+            }
 
             if (config.showGrid) {
                 let drawParams = [
@@ -459,7 +558,13 @@ class CanvasRenderer {
                     coordinate.x * this.#cellSize + 10,
                     coordinate.y * this.#cellSize + 20,
                 ]
-                this.#drawQueue.push(new Drawable('text', textParams, 10000, '#000'));
+                let textGridIdParams = [
+                    grid[index].toString(),
+                    coordinate.x * this.#cellSize + this.#cellSize / 2 ,
+                    coordinate.y * this.#cellSize + this.#cellSize / 2
+                ]
+                this.#drawQueue.push(new Drawable('text', textParams, 10000, '#fff'));
+                this.#drawQueue.push(new Drawable('text', textGridIdParams, 10000, '#000'));
                 this.#drawQueue.push(new Drawable('rect', drawParams, 10000, false, '#000'));
             }
         });
@@ -505,13 +610,8 @@ class CanvasRenderer {
                 if (state === PlayerState.DEATH) {
                     let timeOfDeath = player.getTimeOfDeath();
                     let currentTime = new Date() - timeOfDeath;
-                    let progress =  currentTime / 1830;
+                    let progress = currentTime / 1830;
 
-                    // if(progress > 1){
-                    //     progress= 1;
-                    // }
-
-                    console.log(Math.floor(progress * 100));
                     sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-death-right`).getFrameAtProgress(Math.floor(progress * 100));
                 }
                 else if (state === PlayerState.WALKING && direction === directions.LEFT) {
@@ -560,7 +660,7 @@ class CanvasRenderer {
     }
 
     drawDebug(grid, size) {
-        let coordinate, drawParams;
+        let coordinate, drawParams, textParams;
 
         grid.forEach(index => {
             coordinate = Grid.convertIndexToCoordinate(index);
@@ -575,6 +675,8 @@ class CanvasRenderer {
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
 
         });
+
+
     }
 
     draw(deltaTime) {
