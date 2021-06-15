@@ -5,6 +5,7 @@ class SpriteSheet {
     #animations;
     #randomFrames;
     #tiles;
+    #config;
 
     constructor(imagePath, config, speed) {
         this.#image = document.createElement('img');
@@ -12,6 +13,7 @@ class SpriteSheet {
         this.#animations = {};
         this.#randomFrames = {};
         this.#tiles = {};
+        this.#config = config;
 
 
         const animationNames = config.frames.map((frame) => {
@@ -41,13 +43,17 @@ class SpriteSheet {
         return this.#animations[name];
     }
 
+    getAnimationFrames(name) {
+        return this.#config.frames.filter(frame => frame.filename.includes(name))
+    }
+
     getRandomFrame(name, index) {
-        if(!this.#tiles[name]) {
+        if (!this.#tiles[name]) {
             this.#tiles[name] = {};
         }
 
         if (!this.#tiles[name][index]) {
-            let randomTiles =  this.#randomFrames[name];
+            let randomTiles = this.#randomFrames[name];
             this.#tiles[name][index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
         }
 

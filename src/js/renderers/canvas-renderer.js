@@ -13,6 +13,8 @@ import { findById } from "../helpers/helpers";
 import { isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
 import { Anchors } from "../helpers/anchor";
 import Vector from "../structures/vector";
+import { AnimationManager } from "../game-management/animation-manager";
+import Animation from "../helpers/animation";
 
 class CanvasRenderer {
     #canvas;
@@ -29,6 +31,9 @@ class CanvasRenderer {
     #columnCount;
     #rowCount;
     #plants;
+    #previousTiles;
+    #currentTiles;
+    #animationManager;
 
     constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
         this.#borderWidth = 0;
@@ -45,14 +50,16 @@ class CanvasRenderer {
         this.#canvas.height = this.#cellSize * columnCount;
         this.#canvas.width = this.#cellSize * rowCount;
         this.#plants = [];
+        this.#previousTiles = [];
+        this.#currentTiles = [];
+        this.#animationManager = new AnimationManager();
     }
 
     clear() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawImageTile({ queue, image, sprite, coordinate, size, anchor = Anchors.CENTER, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height }) {
-        let yoffset = 0;
+    drawImageTile({ queue, image, sprite, coordinate, size, anchor = Anchors.CENTER, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height, yoffset = 0 }) {
 
         if (anchor === Anchors.UP) {
             yoffset = yoffset - sprite.frame.h + size;
@@ -310,23 +317,39 @@ class CanvasRenderer {
         });
     }
 
-    drawGravestone(coordinate) {
-        const sprite = this.#spriteSheetItems.getAnimation('grave-appear').getCurrentFrame();
+    drawGravestone(coordinate, index, deltaTime) {
+        let animation;
         const image = this.#spriteSheetItems.getImage();
-        let x = coordinate.x * this.#cellSize - (sprite.frame.w / 2) + (this.#cellSize / 2);
-        let y = coordinate.y * this.#cellSize - (sprite.frame.h / 2) + (this.#cellSize / 2) - (this.#cellSize);
-        this.drawImageTile({
-            queue: this.#drawQueue,
-            image,
-            sprite,
-            coordinate,
-            size: this.#cellSize,
-            width: sprite.frame.w,
-            height: sprite.frame.h,
-            useSpriteDimensions: true,
-            anchor: Anchors.BOTTOM
-        });
 
+
+        if (this.#previousTiles[index] !== this.#currentTiles[index]) {
+            const frames = this.#spriteSheetItems.getAnimationFrames('grave-appear');
+            animation = new Animation('grave-appear', frames, 1000 / 24, false);
+            this.#animationManager.add(index, image, animation);
+        }
+
+        animation = this.#animationManager.get(index);
+        const animationImage = this.#animationManager.getImage(index);
+
+        if (animation) {
+            animation.update(deltaTime);
+
+            const sprite = this.#animationManager.get(index).getCurrentFrame();
+            let x = coordinate.x * this.#cellSize - (sprite.frame.w / 2) + (this.#cellSize / 2);
+            let y = coordinate.y * this.#cellSize - (sprite.frame.h / 2) + (this.#cellSize / 2) - (this.#cellSize);
+            this.drawImageTile({
+                queue: this.#drawQueue,
+                image: animationImage,
+                sprite,
+                coordinate,
+                size: this.#cellSize,
+                width: sprite.frame.w,
+                height: sprite.frame.h,
+                useSpriteDimensions: true,
+                anchor: Anchors.BOTTOM,
+                yoffset: -30
+            });
+        }
         // const debugDrawParams = [
         //     x,
         //     y,
@@ -352,8 +375,12 @@ class CanvasRenderer {
     }
 
     drawFern(coordinate) {
-        const sprite = this.#spriteSheetEnvironment.getAnimation('plant-fern-large').getCurrentFrame();
+        const sprite = this.#spriteSheetEnvironment.getAnimation('plant-fern-large-back').getCurrentFrame();
+        const sprite2 = this.#spriteSheetEnvironment.getAnimation('plant-fern-large-front').getCurrentFrame();
+
         const image = this.#spriteSheetEnvironment.getImage();
+    
+
         this.drawImageTile({
             queue: this.#drawQueue,
             image,
@@ -363,16 +390,31 @@ class CanvasRenderer {
             width: sprite.frame.w,
             height: sprite.frame.h,
             useSpriteDimensions: true,
-            zIndex: coordinate.y * this.#cellSize - this.#cellSize + 150
+            zIndex: coordinate.y * this.#cellSize - this.#cellSize 
+        });
+
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite: sprite2,
+            coordinate,
+            size: this.#cellSize,
+            width: sprite.frame.w,
+            height: sprite.frame.h,
+            useSpriteDimensions: true,
+            zIndex: coordinate.y * this.#cellSize - this.#cellSize + 180
         });
     }
 
 
-    drawGrid(grid, config, bombs, blasts, player, players) {
+    drawGrid(grid, config, bombs, blasts, player, players, deltaTime) {
+        this.#currentTiles = grid;
 
         let coordinate, bomb, bombsByIndex, blast, blastsByIndex;
 
-        grid.forEach((element, index) => {
+        this.#currentTiles.forEach((element, index) => {
+
+
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
             this.#context.beginPath();
 
@@ -484,28 +526,28 @@ class CanvasRenderer {
             }
             else if (element === TileState.GRAVESTONE) {
                 this.drawBasicTile(coordinate, index);
-                this.drawGravestone(coordinate);
+                this.drawGravestone(coordinate, index, deltaTime);
             }
             else if (element === TileState.GRAVESTONE_RUBBLE) {
                 this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
-                this.drawGravestone(coordinate);
+                this.drawGravestone(coordinate, index, deltaTime);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_SORCH) {
                 this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate, index);
-                this.drawGravestone(coordinate);
+                this.drawGravestone(coordinate, index, deltaTime);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_TAR) {
                 this.drawTar(coordinate, index);
-                this.drawGravestone(coordinate);
+                this.drawGravestone(coordinate, index, deltaTime);
             }
             else if (element === TileState.GRAVESTONE_STAIRS) {
                 this.drawBasicTile(coordinate, index);
                 this.drawStairs(coordinate, index);
-                this.drawGravestone(coordinate);
+                this.drawGravestone(coordinate, index, deltaTime);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION) {
@@ -560,6 +602,9 @@ class CanvasRenderer {
                 this.#drawQueue.push(new Drawable('text', textGridIdParams, 10000, '#000'));
                 this.#drawQueue.push(new Drawable('rect', drawParams, 10000, false, '#000'));
             }
+
+
+
         });
 
 
@@ -583,7 +628,7 @@ class CanvasRenderer {
         }
 
         this.#plants.forEach(plant => this.drawFern(plant));
-
+        this.#previousTiles = [...this.#currentTiles];
     }
 
 

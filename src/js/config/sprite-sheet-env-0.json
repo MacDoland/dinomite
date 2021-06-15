@@ -2,7 +2,7 @@
 
 {
 	"filename": "destructable-rock-random/rock-1",
-	"frame": {"x":683,"y":120,"w":96,"h":96},
+	"frame": {"x":0,"y":0,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -11,7 +11,7 @@
 },
 {
 	"filename": "destructable-rock-random/rock-2",
-	"frame": {"x":683,"y":216,"w":96,"h":96},
+	"frame": {"x":96,"y":0,"w":96,"h":96},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":96},
@@ -20,7 +20,7 @@
 },
 {
 	"filename": "grass-edge-bottom-random/bottom-edge-1",
-	"frame": {"x":0,"y":192,"w":160,"h":160},
+	"frame": {"x":651,"y":0,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -29,7 +29,7 @@
 },
 {
 	"filename": "grass-edge-bottom-random/tile-bottom-edge-2",
-	"frame": {"x":0,"y":352,"w":160,"h":160},
+	"frame": {"x":0,"y":96,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -38,7 +38,7 @@
 },
 {
 	"filename": "grass-edge-corner-bottom-left/tile-corner-bottom-left",
-	"frame": {"x":0,"y":512,"w":160,"h":160},
+	"frame": {"x":160,"y":122,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -47,7 +47,7 @@
 },
 {
 	"filename": "grass-edge-corner-bottom-right/corner-bottom-right",
-	"frame": {"x":160,"y":192,"w":160,"h":160},
+	"frame": {"x":320,"y":128,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -56,7 +56,7 @@
 },
 {
 	"filename": "grass-edge-corner-top-left/top-left_corner-1",
-	"frame": {"x":192,"y":0,"w":160,"h":160},
+	"frame": {"x":480,"y":128,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -65,7 +65,7 @@
 },
 {
 	"filename": "grass-edge-corner-top-right/top-right-corner-1",
-	"frame": {"x":160,"y":352,"w":160,"h":160},
+	"frame": {"x":640,"y":160,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -74,7 +74,7 @@
 },
 {
 	"filename": "grass-edge-left/left-edge_",
-	"frame": {"x":160,"y":512,"w":160,"h":160},
+	"frame": {"x":0,"y":256,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -83,7 +83,7 @@
 },
 {
 	"filename": "grass-edge-right/right-edge-1",
-	"frame": {"x":363,"y":0,"w":160,"h":160},
+	"frame": {"x":160,"y":282,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -92,7 +92,7 @@
 },
 {
 	"filename": "grass-edge-top/top-edge-1",
-	"frame": {"x":523,"y":0,"w":160,"h":160},
+	"frame": {"x":320,"y":288,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -101,7 +101,7 @@
 },
 {
 	"filename": "indestructable-terrain/indestructible-block-1",
-	"frame": {"x":683,"y":0,"w":96,"h":120},
+	"frame": {"x":192,"y":0,"w":96,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":120},
@@ -109,8 +109,26 @@
 	"pivot": {"x":0.5,"y":0.5}
 },
 {
+	"filename": "plant-fern-large-back/plant-fern-back-1",
+	"frame": {"x":192,"y":608,"w":208,"h":208},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":208,"h":208},
+	"sourceSize": {"w":208,"h":208},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "plant-fern-large-front/plant-fern-front-1",
+	"frame": {"x":400,"y":608,"w":208,"h":208},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":208,"h":208},
+	"sourceSize": {"w":208,"h":208},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
 	"filename": "plant-fern-large/plant_1-1",
-	"frame": {"x":0,"y":0,"w":192,"h":192},
+	"frame": {"x":0,"y":602,"w":192,"h":192},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
@@ -119,7 +137,7 @@
 },
 {
 	"filename": "rock-rubble/rock-2",
-	"frame": {"x":0,"y":672,"w":128,"h":128},
+	"frame": {"x":395,"y":0,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -128,7 +146,7 @@
 },
 {
 	"filename": "scorched-terrain/scorched_terrain-1",
-	"frame": {"x":128,"y":672,"w":128,"h":128},
+	"frame": {"x":523,"y":0,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -137,7 +155,7 @@
 },
 {
 	"filename": "shadow-indestructable/shadow-indestructable",
-	"frame": {"x":256,"y":672,"w":107,"h":122},
+	"frame": {"x":288,"y":0,"w":107,"h":122},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":107,"h":122},
@@ -146,7 +164,7 @@
 },
 {
 	"filename": "stairs-bottom/stairs-bottom",
-	"frame": {"x":363,"y":160,"w":160,"h":160},
+	"frame": {"x":480,"y":288,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -155,7 +173,7 @@
 },
 {
 	"filename": "swamp-middle/swamp-middle",
-	"frame": {"x":523,"y":160,"w":160,"h":160},
+	"frame": {"x":640,"y":320,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -164,7 +182,7 @@
 },
 {
 	"filename": "temp-edge/bottom-edge-2",
-	"frame": {"x":320,"y":320,"w":160,"h":160},
+	"frame": {"x":0,"y":416,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -173,7 +191,7 @@
 },
 {
 	"filename": "temp-grass/grass-2_1",
-	"frame": {"x":320,"y":480,"w":160,"h":160},
+	"frame": {"x":160,"y":442,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -182,7 +200,7 @@
 },
 {
 	"filename": "tile-grass-random/grass-2_1",
-	"frame": {"x":363,"y":640,"w":160,"h":160},
+	"frame": {"x":320,"y":448,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -191,7 +209,7 @@
 },
 {
 	"filename": "tile-grass-random/grass_1_1",
-	"frame": {"x":523,"y":320,"w":160,"h":160},
+	"frame": {"x":480,"y":448,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -200,7 +218,7 @@
 },
 {
 	"filename": "tile-grass-random/grassy",
-	"frame": {"x":480,"y":480,"w":160,"h":160},
+	"frame": {"x":640,"y":480,"w":160,"h":160},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
@@ -212,8 +230,8 @@
 	"version": "1.0",
 	"image": "sprite-sheet-env-0.png",
 	"format": "RGBA8888",
-	"size": {"w":800,"h":800},
+	"size": {"w":816,"h":816},
 	"scale": "0.2",
-	"smartupdate": "$TexturePacker:SmartUpdate:2829394d5cddc11143ec115ad66094e0:f487003e2fcb2edca80b0fa749884766:3c22793cef27942958a25079515fd615$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f5fff350b976995d57e6bad5942319fa:021eec6ee9b56e93a609b6da6d23a0b6:3c22793cef27942958a25079515fd615$"
 }
 }

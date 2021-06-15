@@ -135,6 +135,12 @@ const gravestoneRubbleTileEvents = {};
 gravestoneRubbleTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_RUBBLE;
 gravestoneRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 
+const gravestoneExplosionRubbleScorchTileEvents = {};
+gravestoneExplosionRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+
+const gravestoneExplosionRubbleTileEvents = {};
+gravestoneExplosionRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
+
 const gravestoneScorchTileEvents = {};
 gravestoneScorchTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_SCORCH;
 gravestoneScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
@@ -168,6 +174,8 @@ states[Tiles.TAR_EXPLOSION] = { on: tarExplosionTileEvents };
 
 states[Tiles.GRAVESTONE] = { on: gravestoneTileEvents };
 states[Tiles.GRAVESTONE_EXPLOSION] = { on: gravestoneTileEvents };
+states[Tiles.GRAVESTONE_EXPLOSION_RUBBLE] = { on: gravestoneExplosionRubbleTileEvents };
+states[Tiles.GRAVESTONE_EXPLOSION_RUBBLE_SCORCH] = { on: gravestoneExplosionRubbleScorchTileEvents };
 states[Tiles.GRAVESTONE_RUBBLE] = { on: gravestoneRubbleTileEvents };
 states[Tiles.GRAVESTONE_RUBBLE_SCORCH] = { on: gravestoneRubbleScorchTileEvents };
 states[Tiles.GRAVESTONE_SCORCH] = { on: gravestoneScorchTileEvents };
