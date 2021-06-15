@@ -7,7 +7,7 @@ import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
 import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
-import { getPlayersOnTile, isBlockingTile, isDestructableTile } from "../helpers/grid-helpers";
+import { getPlayersOnTile, isBlockingTile, isDestructableTile, isTileThatStopsExplosion } from "../helpers/grid-helpers";
 import { killPlayersOnTile } from "../helpers/helpers";
 
 class GameAuthority {
@@ -164,7 +164,7 @@ class GameAuthority {
                     targets.push(targetIndex);
                 }
 
-                if (isDestructableTile(this.#grid.getElementAt(targetIndex))) {
+                if (!isTileThatStopsExplosion(this.#grid.getElementAt(targetIndex))) {
                     index++;
                 }
                 else {

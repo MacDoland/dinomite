@@ -62,7 +62,7 @@ class CanvasRenderer {
         }
         else if (anchor === Anchors.CENTER_BOTTOM) {
             yoffset = yoffset - size;
-            zIndex += size/2;
+            zIndex += size / 2;
         }
 
         width = typeof (width) !== 'undefined' ? width : size;
@@ -222,18 +222,16 @@ class CanvasRenderer {
     }
 
     drawRubble(coordinate) {
-        let sprite = this.#spriteSheetEnvironment.getAnimation('rock-rubble').getCurrentFrame();
-        let playerSpriteParams = [this.#spriteSheetEnvironment.getImage(),
-        sprite.frame.x,
-        sprite.frame.y,
-        sprite.frame.w,
-        sprite.frame.h,
-        coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2),
-        coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2),
-        sprite.frame.w,
-        sprite.frame.h];
-
-        this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize + 1));
+        const sprite = this.#spriteSheetEnvironment.getAnimation('rock-rubble').getCurrentFrame();
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+            zIndex: 0,
+        });
     }
 
     drawScorch(coordinate) {
@@ -323,7 +321,7 @@ class CanvasRenderer {
             coordinate,
             size: this.#cellSize,
             width: sprite.frame.w,
-            height: sprite.frame.h - 20,
+            height: sprite.frame.h,
             useSpriteDimensions: true,
             anchor: Anchors.BOTTOM
         });
@@ -489,7 +487,7 @@ class CanvasRenderer {
             }
             else if (element === TileState.GRAVESTONE_RUBBLE) {
                 this.drawBasicTile(coordinate, index);
-                this.drawRubble(coordinate, index);
+                this.drawRubble(coordinate);
                 this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
@@ -511,38 +509,32 @@ class CanvasRenderer {
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION) {
                 this.drawBasicTile(coordinate, index);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION_RUBBLE) {
                 this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH) {
                 this.drawBasicTile(coordinate, index);
                 this.drawScorch(coordinate);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH_RUBBLE) {
                 this.drawBasicTile(coordinate, index);
                 this.drawRubble(coordinate);
                 this.drawScorch(coordinate);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION_STAIRS) {
                 this.drawBasicTile(coordinate, index);
                 this.drawStairs(coordinate, index);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
             else if (element === TileState.GRAVESTONE_EXPLOSION_TAR) {
                 this.drawBasicTile(coordinate, index);
                 this.drawTar(coordinate, index);
-                this.drawGravestone(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
 
@@ -560,7 +552,7 @@ class CanvasRenderer {
                 ]
                 let textGridIdParams = [
                     grid[index].toString(),
-                    coordinate.x * this.#cellSize + this.#cellSize / 2 ,
+                    coordinate.x * this.#cellSize + this.#cellSize / 2,
                     coordinate.y * this.#cellSize + this.#cellSize / 2
                 ]
                 this.#drawQueue.push(new Drawable('text', textParams, 10000, '#fff'));

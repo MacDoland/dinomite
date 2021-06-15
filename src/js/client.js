@@ -96,7 +96,8 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     const currentPlayer = findById(players, playerId);
 
     if (currentPlayer) {
-        logger.log('player-position', currentPlayer.getPosition());
+        const {x, y} = currentPlayer.getPosition();
+        logger.log('player-position', { x: Math.floor(x), y: Math.floor(y) });
     }
 
     if (grid) {

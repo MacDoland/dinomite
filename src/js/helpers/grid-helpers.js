@@ -41,13 +41,16 @@ export const isBlockingTile = (tile) => {
     || tile === TileState.CLIFF
 }
 
-export const isDestructableTile = (tile) => {
-    return tile === TileState.DESTRUCTIBLE 
+export const isTileThatStopsExplosion = (tile) => {
+    return tile === TileState.DESTRUCTABLE 
     || tile === TileState.GRAVESTONE
     || tile === TileState.GRAVESTONE_RUBBLE
     || tile === TileState.GRAVESTONE_SORCH
     || tile === TileState.GRAVESTONE_STAIRS
     || tile === TileState.GRAVESTONE_TAR
+    || tile === TileState.INDESTRUCTIBLE
+    || tile === TileState.CLIFF
+    || tile === TileState.OCEAN
 }
 
 export const isPlayerBlockingTile = (tile) => {
@@ -67,6 +70,7 @@ export const isPlayerBlockingTile = (tile) => {
     || tile === TileState.GRAVESTONE_STAIRS
     || tile === TileState.GRAVESTONE_TAR
 }
+
 
 export const getPlayersOnTile = (tileId, players, gridColumnCount, gridRowCount) => {
     return players.filter(player => {
