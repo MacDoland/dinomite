@@ -50,13 +50,14 @@ class GameManager {
         }
         Object.freeze(this.#events);
 
-        const addPlayer = ({ id, state, position, direction, characterId }, playerId) => {
+        const addPlayer = ({ id, state, position, direction, characterId, timeOfDeath }, playerId) => {
             const player = new Player(playerId, characterId, 48);
 
             if (player) {
                 player.setPosition(position);
                 player.setState(state);
                 player.setDirection(direction);
+                player.setTimeOfDeath(timeOfDeath);
             }
 
             if (!findById(this.#players, playerId)) {
@@ -109,7 +110,7 @@ class GameManager {
         });
 
         this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs, blasts }) => {
-            players.forEach(({ id, position, state, direction }) => {
+            players.forEach(({ id, position, state, direction, timeOfDeath }) => {
                 let player = findById(this.#players, id);
 
                 if (!player) {
@@ -121,6 +122,7 @@ class GameManager {
                     player.setPosition(position);
                     player.setState(state);
                     player.setDirection(direction);
+                    player.setTimeOfDeath(timeOfDeath);
                 }
 
                 if (bombs) {

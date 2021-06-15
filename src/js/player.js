@@ -2,6 +2,8 @@ import directions from './helpers/direction';
 import Rectangle from './structures/rectangle';
 import Vector from './structures/vector';
 import EventDispatcher from "./helpers/event-dispatcher";
+import Timer from './helpers/timer';
+import Grid from './structures/grid';
 
 class Player {
     #position;
@@ -16,6 +18,7 @@ class Player {
     #startPosition
     #characterIndex;
     #id;
+    #timeOfDeath;
 
     constructor(id, characterIndex, startPosition) {
         this.#id = id;
@@ -27,12 +30,12 @@ class Player {
         this.#width = 50;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
-        this.#boundingBox = new Rectangle(this.#origin, 60, 60);
+        this.#boundingBox = new Rectangle(this.#origin, 55, 30);
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             MOVE: 'MOVE',
             DEATH: 'DEATH'
-        }
+        };
         Object.freeze(this.#events);
     }
 
@@ -71,7 +74,17 @@ class Player {
     }
 
     die() {
+        this.#timeOfDeath = new Date();
+        this.#state = PlayerState.DEATH;
         this.#eventDispatcher.dispatch(this.#events.DEATH, this);
+    }
+
+    getTimeOfDeath() {
+        return this.#timeOfDeath;
+    }
+
+    setTimeOfDeath( timeOfDeath) {
+        this.#timeOfDeath = timeOfDeath;
     }
 
     setPosition(newPosition) {
@@ -96,6 +109,13 @@ class Player {
     }
     getBoundingBox() {
         return this.#boundingBox;
+    }
+
+    respawn(){
+        
+        this.setPosition(Grid.convertIndexToCoordinate(this.#startPosition, 15, 15).multiplyScalar(100).add(new Vector(50, 50)));
+        this.#state = PlayerState.IDLE;
+
     }
 
     getBounds() {
@@ -165,7 +185,8 @@ class Player {
 
 export const PlayerState = {
     IDLE: 'IDLE',
-    WALKING: 'WALKING'
+    WALKING: 'WALKING',
+    DEATH: 'DEATH'
 }
 
 export default Player;

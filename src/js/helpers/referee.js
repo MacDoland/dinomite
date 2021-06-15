@@ -1,5 +1,6 @@
 import { TileState } from "../state/tile-state";
 import Vector from "../structures/vector";
+import { isBlockingTile, isPlayerBlockingTile } from "./grid-helpers";
 
 export const processPlayerMovement = (grid, bounds, offset) => {
     let newOffset = new Vector();
@@ -30,20 +31,11 @@ export const processPlayerMovement = (grid, bounds, offset) => {
 
 export const canMove = (offset, position, grid) => {
     const potentialPosition = Vector.add(position, offset);
+    let currentGridCoordinate = Vector.multiplyScalar(position, 1 / 100).floor();
     let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
+    let currentIndex = grid.getIndex(currentGridCoordinate.x, currentGridCoordinate.y);
     let index = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
     return index > 0 && index < grid.getGrid().length
-        && (grid.getGrid()[index] === TileState.EMPTY
-            || grid.getGrid()[index] === TileState.BOMB
-            || grid.getGrid()[index] === TileState.RUBBLE
-            || grid.getGrid()[index] === TileState.SCORCH
-            || grid.getGrid()[index] === TileState.BOMB_RUBBLE_SCORCH
-            || grid.getGrid()[index] === TileState.BOMB_SCORCH
-            || grid.getGrid()[index] === TileState.BOMB_RUBBLE
-            || grid.getGrid()[index] === TileState.RUBBLE_SCORCH
-            || grid.getGrid()[index] === TileState.EXPLOSION
-            || grid.getGrid()[index] === TileState.EXPLOSION_RUBBLE
-            || grid.getGrid()[index] === TileState.EXPLOSION_SCORCH
-            || grid.getGrid()[index] === TileState.EXPLOSION_RUBBLE_SCORCH
-        );
+        && (currentIndex == index
+        || !isPlayerBlockingTile(grid.getElementAt(index)))
 }

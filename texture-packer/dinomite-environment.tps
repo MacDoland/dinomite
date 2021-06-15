@@ -197,14 +197,17 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom/bottom-edge-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/corner-bottom-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom-random/bottom-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom-random/tile-bottom-edge-2.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-right/corner-bottom-right.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-left/top-left_corner-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-right/top-right-corner-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left/left-edge_.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right/right-edge-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-top/top-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large/plant_1-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/stairs-bottom/stairs-bottom.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-middle/swamp-middle.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-edge/bottom-edge-2.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-grass/grass-2_1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/tile-grass-random/grass-2_1.png</key>
@@ -221,6 +224,21 @@
                 <rect>200,200,400,400</rect>
                 <key>scale9Paddings</key>
                 <rect>200,200,400,400</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/tile-corner-bottom-left.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,200,399,400</rect>
+                <key>scale9Paddings</key>
+                <rect>200,200,399,400</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

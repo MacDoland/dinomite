@@ -36,7 +36,8 @@ class LocalClient {
                     cId: newPlayer.getCharacterIndex(),
                     p: newPlayer.getPosition().raw(),
                     d: newPlayer.getDirection(),
-                    s: newPlayer.getState()
+                    s: newPlayer.getState(),
+                    tod: newPlayer.getTimeOfDeath()
                 });
                 break;
             case GameEvents.PLAYER_INPUT:

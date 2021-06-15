@@ -1,5 +1,5 @@
 import { processPlayerMovement } from "../helpers/referee";
-import Player from "../player";
+import Player, { PlayerState } from "../player";
 import Vector from "../structures/vector";
 import stateManager, { StateEvents } from "./state-manager";
 import Timer from "../helpers/timer";
@@ -8,6 +8,7 @@ import Grid from "../structures/grid";
 import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
 import { nanoid } from "nanoid";
+import { isBlockingTile } from "../helpers/grid-helpers";
 
 class GameAuthority {
     players;
@@ -53,16 +54,22 @@ class GameAuthority {
 
             this.#bombShop.createExplosion(index, 30, 800);
 
+            targets.push(index);
+
             targets.forEach((target) => {
                 this.#bombShop.createExplosion(target, 30, 800);
 
-                // [this.#player].forEach(player => {
-                //     let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-                //     let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
-                //     if (target === playerIndex) {
-                //         player.die();
-                //     }
-                // });
+                Object.keys(this.players).map(key => this.players[key]).forEach(player => {
+                    let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+                    let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+                    if (target === playerIndex) {
+                        player.die();
+
+                        setTimeout(() => {
+                            player.respawn();
+                        }, 3000);
+                    }
+                });
             });
 
         });
@@ -152,7 +159,7 @@ class GameAuthority {
 
             while (!hasHitDeadEnd && index < tiles.length) {
                 targetIndex = tiles[index];
-                hasHitDeadEnd = this.#grid.getElementAt(targetIndex) === TileState.INDESTRUCTIBLE || this.#grid.getElementAt(targetIndex) === TileState.OCEAN;
+                hasHitDeadEnd = isBlockingTile(this.#grid.getElementAt(targetIndex));
                 if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
                     targets.push(targetIndex);
                 }
@@ -178,7 +185,8 @@ class GameAuthority {
                     position: player.getPosition().raw(),
                     state: player.getState(),
                     direction: player.getDirection(),
-                    characterId: player.getCharacterIndex()
+                    characterId: player.getCharacterIndex(),
+                    timeOfDeath: player.getTimeOfDeath()
                 }
             }),
             grid: this.#grid.getGrid(),
@@ -208,6 +216,7 @@ class GameAuthority {
                     position: player.getPosition().raw(),
                     state: player.getState(),
                     direction: player.getDirection(),
+                    timeOfDeath: player.getTimeOfDeath()
                 }
             }),
             tiles: this.#grid.flushHistory(),
@@ -235,9 +244,14 @@ class GameAuthority {
 
     processPlayerInput(id, input) {
         const player = this.players[id];
+        const position = player.getPosition().multiplyScalar(1/100);
+        
+        let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+        let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+        const currentTileState = this.#grid.getElementAt(playerIndex);
 
-        if (player) {
-            const speed = 400;
+        if (player && player.getState() !== PlayerState.DEATH) {
+            const speed = currentTileState === TileState.TAR ? 200 : 400;
             let offset = new Vector(0, 0);
 
             if (input.DOWN) {

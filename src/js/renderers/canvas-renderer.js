@@ -26,6 +26,7 @@ class CanvasRenderer {
     #drawQueue;
     #columnCount;
     #rowCount;
+    #plants;
 
     constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
         this.#borderWidth = 0;
@@ -41,18 +42,23 @@ class CanvasRenderer {
         this.#rowCount = rowCount;
         this.#canvas.height = this.#cellSize * columnCount;
         this.#canvas.width = this.#cellSize * rowCount;
+        this.#plants = [];
     }
 
     clear() {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawImageTile({ queue, image, sprite, coordinate, size, anchor = directions.DOWN, zIndex = coordinate.y * size - size, useSpriteDimensions = false }) {
+    drawImageTile({ queue, image, sprite, coordinate, size, anchor = directions.DOWN, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height }) {
         let yoffset = 0;
 
         if (anchor === directions.UP) {
             yoffset = yoffset - sprite.frame.h + size;
         }
+
+        width = typeof (width) !== 'undefined' ? width : size;
+        height = typeof (height) !== 'undefined' ? height : size;
+
 
         let drawParams = [
             image,
@@ -60,8 +66,8 @@ class CanvasRenderer {
             sprite.frame.y,
             sprite.frame.w,
             sprite.frame.h,
-            coordinate.x * size,
-            coordinate.y * size + yoffset,
+            coordinate.x * size - (width / 2) + (size / 2),
+            coordinate.y * size - (height / 2) + (size / 2) + yoffset,
             useSpriteDimensions ? sprite.frame.w : size,
             useSpriteDimensions ? sprite.frame.h : size];
 
@@ -187,7 +193,7 @@ class CanvasRenderer {
 
             if (sprite) {
                 let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
-                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 20;
+                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
 
                 let bombDrawParams = [
                     this.#spriteSheetItems.getImage(),
@@ -253,7 +259,7 @@ class CanvasRenderer {
                     this.#cellSize,
                     this.#cellSize];
 
-                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + 20));
+                this.#drawQueue.push(new Drawable('image', drawParams, coordinate.y * this.#cellSize + 200));
             }
         }
     }
@@ -272,6 +278,59 @@ class CanvasRenderer {
 
         this.#drawQueue.push(new Drawable('image', playerSpriteParams, coordinate.y * this.#cellSize - 100));
     }
+
+    drawStairs(coordinate, index) {
+        const sprite = this.#spriteSheetEnvironment.getAnimation('stairs-bottom').getCurrentFrame();
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+        });
+    }
+
+    drawTar(coordinate, index) {
+        const sprite = this.#spriteSheetEnvironment.getAnimation('swamp-middle').getCurrentFrame();
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+        });
+    }
+
+    drawCliff(coordinate, index) {
+        const sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-bottom-random', index);
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+        });
+    }
+
+    drawFern(coordinate) {
+        const sprite = this.#spriteSheetEnvironment.getAnimation('plant-fern-large').getCurrentFrame();
+        const image = this.#spriteSheetEnvironment.getImage();
+        this.drawImageTile({
+            queue: this.#drawQueue,
+            image,
+            sprite,
+            coordinate,
+            size: this.#cellSize,
+            width: sprite.frame.w,
+            height: sprite.frame.h,
+            useSpriteDimensions: true,
+            zIndex: coordinate.y * this.#cellSize - this.#cellSize + 150
+        });
+    }
+
 
     drawGrid(grid, config, bombs, blasts, player, players) {
 
@@ -355,6 +414,38 @@ class CanvasRenderer {
                 this.drawScorch(coordinate);
                 this.drawExplosion(coordinate, blast);
             }
+            else if (element === TileState.STAIRS) {
+                this.drawBasicTile(coordinate, index);
+                this.drawStairs(coordinate, index);
+            }
+            else if (element === TileState.STAIRS_BOMB) {
+                this.drawBasicTile(coordinate, index);
+                this.drawStairs(coordinate, index);
+                this.drawBomb(coordinate, bomb, player, players);
+            }
+            else if (element === TileState.STAIRS_EXPLOSION) {
+                this.drawBasicTile(coordinate, index);
+                this.drawStairs(coordinate, index);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.TAR) {
+                this.drawBasicTile(coordinate, index);
+                this.drawTar(coordinate, index);
+            }
+            else if (element === TileState.TAR_BOMB) {
+                this.drawBasicTile(coordinate, index);
+                this.drawTar(coordinate, index);
+                this.drawBomb(coordinate, bomb, player, players);
+            }
+            else if (element === TileState.TAR_EXPLOSION) {
+                this.drawBasicTile(coordinate, index);
+                this.drawTar(coordinate, index);
+                this.drawExplosion(coordinate, blast);
+            }
+            else if (element === TileState.CLIFF) {
+                this.drawBasicTile(coordinate, index);
+                this.drawCliff(coordinate, index);
+            }
 
             if (config.showGrid) {
                 let drawParams = [
@@ -372,6 +463,29 @@ class CanvasRenderer {
                 this.#drawQueue.push(new Drawable('rect', drawParams, 10000, false, '#000'));
             }
         });
+
+
+        if (this.#plants.length === 0) {
+            let emptySpaces = grid.map((element, index) => {
+                return { element, index };
+            })
+
+            emptySpaces = emptySpaces.filter((item) => {
+                return item && item.element === TileState.EMPTY
+            })
+
+            emptySpaces.sort(() => 0.5 - Math.random());
+
+            let plantSpaces = emptySpaces.slice(0, emptySpaces.length / 4);
+
+            plantSpaces.forEach(({ index, element }) => {
+                let coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
+                this.#plants.push(coordinate);
+            })
+        }
+
+        this.#plants.forEach(plant => this.drawFern(plant));
+
     }
 
 
@@ -385,10 +499,22 @@ class CanvasRenderer {
             this.#previousTime = this.#currentTime;
             let character = characterNames[player.getCharacterIndex()] || 'rex';
 
-            if (player && direction) {
+            if (player && direction && state) {
 
                 let sprite;
-                if (state === PlayerState.WALKING && direction === directions.LEFT) {
+                if (state === PlayerState.DEATH) {
+                    let timeOfDeath = player.getTimeOfDeath();
+                    let currentTime = new Date() - timeOfDeath;
+                    let progress =  currentTime / 1830;
+
+                    // if(progress > 1){
+                    //     progress= 1;
+                    // }
+
+                    console.log(Math.floor(progress * 100));
+                    sprite = this.#spriteSheetGeneral.getAnimation(`dino-rex-death-right`).getFrameAtProgress(Math.floor(progress * 100));
+                }
+                else if (state === PlayerState.WALKING && direction === directions.LEFT) {
                     sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-walking-left-loop`).getCurrentFrame();
                 }
                 else if (state === PlayerState.WALKING && direction === directions.DOWN) {
@@ -404,21 +530,22 @@ class CanvasRenderer {
                     sprite = this.#spriteSheetGeneral.getAnimation(`dino-${character}-idle-${direction.toLowerCase()}-loop`).getCurrentFrame()
                 }
 
-                this.#context.fill();
-                let x = player.getPosition().x - sprite.frame.w / 2;
-                let y = player.getPosition().y - sprite.frame.h + 48;
-                let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
-                sprite.frame.x,
-                sprite.frame.y,
-                sprite.frame.w,
-                sprite.frame.h,
-                    x,
-                    y,
-                sprite.frame.w,
-                sprite.frame.h];
+                if (sprite) {
+                    this.#context.fill();
+                    let x = player.getPosition().x - sprite.frame.w / 2;
+                    let y = player.getPosition().y - sprite.frame.h + 28;
+                    let playerSpriteParams = [this.#spriteSheetGeneral.getImage(),
+                    sprite.frame.x,
+                    sprite.frame.y,
+                    sprite.frame.w,
+                    sprite.frame.h,
+                        x,
+                        y,
+                    sprite.frame.w,
+                    sprite.frame.h];
 
-                this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y));
-
+                    this.#drawQueue.push(new Drawable('image', playerSpriteParams, player.getPosition().y));
+                }
                 // let drawParams = [
                 //     coordinate.x * 100,
                 //     coordinate.y * 100,

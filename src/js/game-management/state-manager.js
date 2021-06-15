@@ -17,6 +17,31 @@ emptyTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION;
 const explosionTileEvents = {};
 explosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.EMPTY;
 
+//Stairs
+const stairTileEvents = {};
+stairTileEvents[StateEvents.PLANT_BOMB] = Tiles.STAIRS_BOMB;
+stairTileEvents[StateEvents.EXPLOSION] = Tiles.STAIRS_EXPLOSION;
+
+//Stairs Bomb
+const stairBombTileEvents = {};
+stairBombTileEvents[StateEvents.EXPLOSION] = Tiles.STAIRS_EXPLOSION;
+
+//Stairs Explosion
+const stairExplosionTileEvents = {};
+stairExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.STAIRS;
+
+//Tar
+const tarTileEvents = {};
+tarTileEvents[StateEvents.PLANT_BOMB] = Tiles.TAR_BOMB;
+tarTileEvents[StateEvents.EXPLOSION] = Tiles.TAR_EXPLOSION;
+
+//Tar Bomb
+const tarBombTileEvents = {};
+tarBombTileEvents[StateEvents.EXPLOSION] = Tiles.TAR_EXPLOSION;
+
+//Tar Explosion
+const tarExplosionTileEvents = {};
+tarExplosionTileEvents[StateEvents.EXPLOSION_END] = Tiles.TAR;
 
 //Ocean
 const oceanTileEvents = {};
@@ -80,6 +105,13 @@ destructableTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
 let states = {};
 states[Tiles.EMPTY] = { on: emptyTileEvents };
 states[Tiles.OCEAN] = { on: oceanTileEvents };
+states[Tiles.STAIRS] = { on: stairTileEvents };
+states[Tiles.STAIRS_BOMB] = { on: stairBombTileEvents };
+states[Tiles.STAIRS_EXPLOSION] = { on: stairExplosionTileEvents };
+
+states[Tiles.TAR] = { on: tarTileEvents };
+states[Tiles.TAR_BOMB] = { on: tarBombTileEvents };
+states[Tiles.TAR_EXPLOSION] = { on: tarExplosionTileEvents };
 
 states[Tiles.DESTRUCTABLE] = { on: destructableTileEvents };
 states[Tiles.RUBBLE] = { on: rubbleTileEvents };
