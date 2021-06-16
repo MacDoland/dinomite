@@ -59,6 +59,7 @@ rubbleExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE;
 const scorchTileEvents = {};
 scorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_SCORCH;
 scorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_SCORCH;
+scorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 
 //Scorch Explosion Tile
 const scorchExplosionTileEvents = {};
@@ -69,11 +70,13 @@ scorchExplosionTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 const rubbleTileEvents = {};
 rubbleTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE;
 rubbleTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE;
+rubbleTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE;
 
 //Rubble Scorch Tile
 const rubbleScorchTileEvents = {};
 rubbleScorchTileEvents[StateEvents.PLANT_BOMB] = Tiles.BOMB_RUBBLE_SCORCH;
 rubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORCH;
+rubbleScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
 //Rubble Scorch Explosion Tile
 const rubbleScorchExplosionTileEvents = {};
@@ -108,20 +111,6 @@ bombRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.EXPLOSION_RUBBLE_SCORC
 bombRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 bombRubbleScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
-/*
-    GRAVESTONE: 23,
-    GRAVESTONE_SORCH: 24,
-    GRAVESTONE_RUBBLE: 25,
-    GRAVESTONE_SCORCH_RUBBLE: 26,
-    GRAVESTONE_STAIRS: 27,
-    GRAVESTONE_TAR: 28,
-    GRAVESTONE_EXPLOSION: 29,
-    GRAVESTONE_EXPLOSION_SORCH: 30,
-    GRAVESTONE_EXPLOSION_RUBBLE: 31,
-    GRAVESTONE_EXPLOSION_SORCH_RUBBLE: 32,
-    GRAVESTONE_EXPLOSION_STAIRS: 33,
-    GRAVESTONE_EXPLOSION_TAR: 34,
-*/
 
 //Gravestone
 const gravestoneTileEvents = {};
@@ -137,17 +126,21 @@ gravestoneRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
 
 const gravestoneExplosionRubbleScorchTileEvents = {};
 gravestoneExplosionRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+gravestoneExplosionRubbleScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
 const gravestoneExplosionRubbleTileEvents = {};
 gravestoneExplosionRubbleTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE;
+gravestoneExplosionRubbleTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE;
 
 const gravestoneScorchTileEvents = {};
 gravestoneScorchTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_SCORCH;
 gravestoneScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+gravestoneScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_SCORCH;
 
 const gravestoneRubbleScorchTileEvents = {};
 gravestoneRubbleScorchTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_RUBBLE_SCORCH;
 gravestoneRubbleScorchTileEvents[StateEvents.EXPLOSION_END] = Tiles.RUBBLE_SCORCH;
+gravestoneRubbleScorchTileEvents[StateEvents.DEATH] = Tiles.GRAVESTONE_RUBBLE_SCORCH;
 
 const gravestoneStairsTileEvents = {};
 gravestoneStairsTileEvents[StateEvents.EXPLOSION] = Tiles.GRAVESTONE_EXPLOSION_STAIRS;

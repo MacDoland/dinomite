@@ -197,14 +197,50 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom-random/bottom-edge-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-bottom-random/tile-bottom-edge-2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/tile-corner-bottom-left.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>200,200,399,400</rect>
+                <key>scale9Paddings</key>
+                <rect>200,200,399,400</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-right/corner-bottom-right.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-left/top-left_corner-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-top-right/top-right-corner-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left/left-edge_.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right/right-edge-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-top/top-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/bottom-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/tile-bottom-edge-2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left-random/left-edge_.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right-random/right-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back/plant-fern-back-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front/plant-fern-front-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/stairs-bottom/stairs-bottom.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-middle/swamp-middle.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-edge/bottom-edge-2.png</key>
@@ -226,7 +262,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-corner-bottom-left/tile-corner-bottom-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-up-random/top-edge-1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -235,9 +271,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>200,200,399,400</rect>
+                <rect>200,200,400,399</rect>
                 <key>scale9Paddings</key>
-                <rect>200,200,399,400</rect>
+                <rect>200,200,400,399</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

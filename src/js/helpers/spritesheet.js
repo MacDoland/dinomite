@@ -54,7 +54,17 @@ class SpriteSheet {
 
         if (!this.#tiles[name][index]) {
             let randomTiles = this.#randomFrames[name];
-            this.#tiles[name][index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
+            if (randomTiles) {
+                try{
+                this.#tiles[name][index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
+                }
+                catch(e){
+                    console.log(randomTiles);
+                }
+            }
+            else {
+                console.log('no random frames')
+            }
         }
 
         let sprite = this.#tiles[name][index];

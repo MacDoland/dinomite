@@ -11,6 +11,34 @@ export const isOceanCornerBottomRight = (grid, tiles) => {
         && grid[tiles[directions.LEFTUP][0]] !== TileState.OCEAN;
 }
 
+export const isCliffCornerBottomLeft = (grid, tiles) => {
+    return tiles[directions.UP].length > 0
+        && tiles[directions.RIGHT].length > 0
+        && grid[tiles[directions.UP][0]] === TileState.CLIFF_LEFT
+        && (grid[tiles[directions.RIGHT][0]] === TileState.CLIFF_DOWN || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
+}
+
+export const isCliffCornerBottomRight = (grid, tiles) => {
+    return tiles[directions.UP].length > 0
+        && tiles[directions.LEFT].length > 0
+        && grid[tiles[directions.UP][0]] === TileState.CLIFF_RIGHT
+        && (grid[tiles[directions.LEFT][0]] === TileState.CLIFF_DOWN || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
+}
+
+export const isCliffCornerTopLeft = (grid, tiles) => {
+    return tiles[directions.DOWN].length > 0
+        && tiles[directions.RIGHT].length > 0
+        && grid[tiles[directions.DOWN][0]] === TileState.CLIFF_LEFT
+        && (grid[tiles[directions.RIGHT][0]] === TileState.CLIFF_UP || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
+}
+
+export const isCliffCornerTopRight = (grid, tiles) => {
+    return tiles[directions.DOWN].length > 0
+        && tiles[directions.LEFT].length > 0
+        && grid[tiles[directions.DOWN][0]] === TileState.CLIFF_RIGHT
+        && (grid[tiles[directions.LEFT][0]] === TileState.CLIFF_UP || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
+}
+
 export const isOceanCornerBottomLeft = (grid, tiles) => {
     return tiles[directions.UP].length > 0
         && tiles[directions.RIGHT].length > 0
@@ -50,13 +78,17 @@ export const isTileThatStopsExplosion = (tile) => {
     || tile === TileState.GRAVESTONE_TAR
     || tile === TileState.INDESTRUCTIBLE
     || tile === TileState.CLIFF
+    || tile === TileState.CLIFF_DOWN
+    || tile === TileState.CLIFF_LEFT
+    || tile === TileState.CLIFF_RIGHT
+    || tile === TileState.CLIFF_UP
     || tile === TileState.OCEAN
 }
 
 export const isPlayerBlockingTile = (tile) => {
     return tile === TileState.INDESTRUCTIBLE 
     || tile === TileState.OCEAN 
-    || tile === TileState.CLIFF 
+    || tile === TileState.CLIFF_DOWN 
     || tile === TileState.DESTRUCTABLE
     || tile === TileState.BOMB
     || tile === TileState.BOMB_RUBBLE

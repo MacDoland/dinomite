@@ -10,7 +10,7 @@ import { TileState } from "../state/tile-state";
 import { BombState } from "../items/bomb";
 import { characterNames } from "../state/characters";
 import { findById } from "../helpers/helpers";
-import { isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
+import { isCliffCornerBottomLeft, isCliffCornerBottomRight, isCliffCornerTopLeft, isCliffCornerTopRight, isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
 import { Anchors } from "../helpers/anchor";
 import Vector from "../structures/vector";
 import { AnimationManager } from "../game-management/animation-manager";
@@ -92,8 +92,11 @@ class CanvasRenderer {
     }
 
     drawBasicTile(coordinate, index) {
-        const sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
         const image = this.#spriteSheetEnvironment.getImage();
+
+        let sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
+        const neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+
         this.drawImageTile({
             queue: this.#drawQueue,
             image,
@@ -102,6 +105,28 @@ class CanvasRenderer {
             size: this.#cellSize,
             zIndex: 0,
         });
+  
+        if (isCliffCornerBottomLeft(this.#currentTiles, neighbours)) {
+            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-bottom-left').getCurrentFrame();
+            this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
+        }
+
+        if (isCliffCornerBottomRight(this.#currentTiles, neighbours)) {
+            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-bottom-right').getCurrentFrame();
+            this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
+        }
+
+        if (isCliffCornerTopLeft(this.#currentTiles, neighbours)) {
+            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-top-left').getCurrentFrame();
+            this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
+        }
+
+        if (isCliffCornerTopRight(this.#currentTiles, neighbours)) {
+            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-corner-top-right').getCurrentFrame();
+            this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
+        }
+
+
     }
 
     drawBasicSolidBlock(coordinate) {
@@ -134,22 +159,22 @@ class CanvasRenderer {
         let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
 
         if (neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.OCEAN) {
-            sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-bottom-random', index);
+            sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-down-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
         }
 
         if (neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.OCEAN) {
-            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-top').getCurrentFrame();
+            sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-up-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
         }
 
         if (neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.OCEAN) {
-            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-left').getCurrentFrame();
+            sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-left-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
         }
 
         if (neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.OCEAN) {
-            sprite = this.#spriteSheetEnvironment.getAnimation('grass-edge-right').getCurrentFrame();
+            sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-right-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize });
         }
 
@@ -362,24 +387,25 @@ class CanvasRenderer {
         // this.#drawQueue.push(new Drawable('rect', debugDrawParams, 10000, false, 'red'));
     }
 
-    drawCliff(coordinate, index) {
-        const sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-bottom-random', index);
-        const image = this.#spriteSheetEnvironment.getImage();
-        this.drawImageTile({
-            queue: this.#drawQueue,
-            image,
-            sprite,
-            coordinate,
-            size: this.#cellSize,
-        });
+    drawCliff(coordinate, index, direction) {
+        const sprite = this.#spriteSheetEnvironment.getRandomFrame(`grass-edge-${direction.toString().toLowerCase()}-random`, index);
+
+        if (sprite) {
+            const image = this.#spriteSheetEnvironment.getImage();
+            this.drawImageTile({
+                queue: this.#drawQueue,
+                image,
+                sprite,
+                coordinate,
+                size: this.#cellSize,
+            });
+        }
     }
 
     drawFern(coordinate) {
         const sprite = this.#spriteSheetEnvironment.getAnimation('plant-fern-large-back').getCurrentFrame();
         const sprite2 = this.#spriteSheetEnvironment.getAnimation('plant-fern-large-front').getCurrentFrame();
-
         const image = this.#spriteSheetEnvironment.getImage();
-    
 
         this.drawImageTile({
             queue: this.#drawQueue,
@@ -390,7 +416,7 @@ class CanvasRenderer {
             width: sprite.frame.w,
             height: sprite.frame.h,
             useSpriteDimensions: true,
-            zIndex: coordinate.y * this.#cellSize - this.#cellSize 
+            zIndex: coordinate.y * this.#cellSize - this.#cellSize
         });
 
         this.drawImageTile({
@@ -520,9 +546,21 @@ class CanvasRenderer {
                 this.drawTar(coordinate, index);
                 this.drawExplosion(coordinate, blast);
             }
-            else if (element === TileState.CLIFF) {
+            else if (element === TileState.CLIFF_DOWN) {
                 this.drawBasicTile(coordinate, index);
-                this.drawCliff(coordinate, index);
+                this.drawCliff(coordinate, index, directions.DOWN);
+            }
+            else if (element === TileState.CLIFF_RIGHT) {
+                this.drawBasicTile(coordinate, index);
+                this.drawCliff(coordinate, index, directions.RIGHT);
+            }
+            else if (element === TileState.CLIFF_UP) {
+                this.drawBasicTile(coordinate, index);
+                this.drawCliff(coordinate, index, directions.UP);
+            }
+            else if (element === TileState.CLIFF_LEFT) {
+                this.drawBasicTile(coordinate, index);
+                this.drawCliff(coordinate, index, directions.LEFT);
             }
             else if (element === TileState.GRAVESTONE) {
                 this.drawBasicTile(coordinate, index);
