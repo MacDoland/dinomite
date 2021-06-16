@@ -39,7 +39,10 @@ const TileState = {
     CLIFF_LEFT: 36,
     CLIFF_UP: 37,
     CLIFF_RIGHT: 38,
-
+    CLIFF_TOP_LEFT: 39,
+    CLIFF_TOP_RIGHT: 40,
+    CLIFF_BOTTOM_LEFT: 41,
+    CLIFF_BOTTOM_RIGHT: 42,
 }
 
 Object.freeze(TileState);

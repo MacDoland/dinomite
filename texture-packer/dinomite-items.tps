@@ -216,6 +216,57 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave00.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave01.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave02.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave03.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave04.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave05.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave06.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave07.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave08.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave09.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave10.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave11.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave12.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave13.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave14.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave15.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave16.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave17.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave18.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave19.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave20.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave21.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave22.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave23.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave24.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave25.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave26.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave27.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave28.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave29.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave30.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave31.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave32.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave33.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave34.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave35.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/items/grave-appear/Grave36.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9Paddings</key>
+                <rect>270,270,540,540</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/humphry-egg-crack/humpry-egg-crack38.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/humphry-egg-crack/humpry-egg-crack39.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/items/humphry-egg-crack/humpry-egg-crack40.png</key>

@@ -276,7 +276,7 @@ class GameAuthority {
                 this.plantBomb(playerTile, id);
             }
 
-            const result = this.processPlayerMovement(id, player.getBounds(), offset);
+            const result = this.processPlayerMovement(id, player.getBounds(), offset, this.#gameConfig);
 
             this.players[id].move(result.offset);
 
@@ -290,7 +290,7 @@ class GameAuthority {
     }
 
     processPlayerMovement(id, bounds, offset) {
-        const newPosition = processPlayerMovement(this.#grid, bounds, offset);
+        const newPosition = processPlayerMovement(this.#grid, bounds, offset, this.#gameConfig.elevation);
 
         return {
             offset: newPosition,

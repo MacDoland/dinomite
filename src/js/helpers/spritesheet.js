@@ -63,7 +63,7 @@ class SpriteSheet {
                 }
             }
             else {
-                console.log('no random frames')
+                // console.log('no random frames')
             }
         }
 

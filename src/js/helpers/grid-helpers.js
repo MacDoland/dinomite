@@ -3,13 +3,36 @@ import Grid from "../structures/grid";
 import Vector from "../structures/vector";
 import directions from "./direction"
 
-export const isOceanCornerBottomRight = (grid, tiles) => {
+
+export const isCliffBottom = (grid, tiles, currentElevation, elevationMap) => {
     return tiles[directions.UP].length > 0
-        && tiles[directions.LEFT].length > 0
-        && grid[tiles[directions.UP][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFT][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFTUP][0]] !== TileState.OCEAN;
+        && elevationMap[tiles[directions.UP][0]] > currentElevation
+        && grid[tiles[directions.UP][0]] !== TileState.STAIRS
 }
+
+export const isCliffTop = (grid, tiles, currentElevation, elevationMap) => {
+    return tiles[directions.DOWN].length > 0
+        && elevationMap[tiles[directions.DOWN][0]] > currentElevation
+        && grid[tiles[directions.DOWN][0]] !== TileState.STAIRS
+        && Number.isInteger(elevationMap[tiles[directions.DOWN][0]])
+}
+
+
+export const isCliffRight = (grid, tiles, currentElevation, elevationMap) => {
+    return tiles[directions.LEFT].length > 0
+    && elevationMap[tiles[directions.LEFT][0]] > currentElevation
+    && grid[tiles[directions.LEFT][0]] !== TileState.STAIRS
+    && Number.isInteger(elevationMap[tiles[directions.LEFT][0]])
+}
+
+export const isCliffLeft = (grid, tiles, currentElevation, elevationMap) => {
+    return tiles[directions.DOWN].length > 0
+        && tiles[directions.RIGHT].length > 0
+        && grid[tiles[directions.DOWN][0]] === TileState.CLIFF_LEFT
+        && (grid[tiles[directions.RIGHT][0]] === TileState.CLIFF_UP || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
+}
+
+
 
 export const isCliffCornerBottomLeft = (grid, tiles) => {
     return tiles[directions.UP].length > 0
@@ -39,6 +62,15 @@ export const isCliffCornerTopRight = (grid, tiles) => {
         && (grid[tiles[directions.LEFT][0]] === TileState.CLIFF_UP || grid[tiles[directions.LEFT][0]] === TileState.STAIRS)
 }
 
+
+export const isOceanCornerBottomRight = (grid, tiles) => {
+    return tiles[directions.UP].length > 0
+        && tiles[directions.LEFT].length > 0
+        && grid[tiles[directions.UP][0]] === TileState.OCEAN
+        && grid[tiles[directions.LEFT][0]] === TileState.OCEAN
+        && grid[tiles[directions.LEFTUP][0]] !== TileState.OCEAN;
+}
+
 export const isOceanCornerBottomLeft = (grid, tiles) => {
     return tiles[directions.UP].length > 0
         && tiles[directions.RIGHT].length > 0
@@ -64,43 +96,43 @@ export const isOceanCornerTopLeft = (grid, tiles) => {
 }
 
 export const isBlockingTile = (tile) => {
-    return tile === TileState.INDESTRUCTIBLE 
-    || tile === TileState.OCEAN 
-    || tile === TileState.CLIFF
+    return tile === TileState.INDESTRUCTIBLE
+        || tile === TileState.OCEAN
+        || tile === TileState.CLIFF
 }
 
 export const isTileThatStopsExplosion = (tile) => {
-    return tile === TileState.DESTRUCTABLE 
-    || tile === TileState.GRAVESTONE
-    || tile === TileState.GRAVESTONE_RUBBLE
-    || tile === TileState.GRAVESTONE_SORCH
-    || tile === TileState.GRAVESTONE_STAIRS
-    || tile === TileState.GRAVESTONE_TAR
-    || tile === TileState.INDESTRUCTIBLE
-    || tile === TileState.CLIFF
-    || tile === TileState.CLIFF_DOWN
-    || tile === TileState.CLIFF_LEFT
-    || tile === TileState.CLIFF_RIGHT
-    || tile === TileState.CLIFF_UP
-    || tile === TileState.OCEAN
+    return tile === TileState.DESTRUCTABLE
+        || tile === TileState.GRAVESTONE
+        || tile === TileState.GRAVESTONE_RUBBLE
+        || tile === TileState.GRAVESTONE_SORCH
+        || tile === TileState.GRAVESTONE_STAIRS
+        || tile === TileState.GRAVESTONE_TAR
+        || tile === TileState.INDESTRUCTIBLE
+        || tile === TileState.CLIFF
+        || tile === TileState.CLIFF_DOWN
+        || tile === TileState.CLIFF_LEFT
+        || tile === TileState.CLIFF_RIGHT
+        || tile === TileState.CLIFF_UP
+        || tile === TileState.OCEAN
 }
 
 export const isPlayerBlockingTile = (tile) => {
-    return tile === TileState.INDESTRUCTIBLE 
-    || tile === TileState.OCEAN 
-    || tile === TileState.CLIFF_DOWN 
-    || tile === TileState.DESTRUCTABLE
-    || tile === TileState.BOMB
-    || tile === TileState.BOMB_RUBBLE
-    || tile === TileState.BOMB_RUBBLE_SCORCH
-    || tile === TileState.BOMB_SCORCH
-    || tile === TileState.TAR_BOMB
-    || tile === TileState.STAIRS_BOMB
-    || tile === TileState.GRAVESTONE
-    || tile === TileState.GRAVESTONE_RUBBLE
-    || tile === TileState.GRAVESTONE_SORCH
-    || tile === TileState.GRAVESTONE_STAIRS
-    || tile === TileState.GRAVESTONE_TAR
+    return tile === TileState.INDESTRUCTIBLE
+        || tile === TileState.OCEAN
+        || tile === TileState.CLIFF_DOWN
+        || tile === TileState.DESTRUCTABLE
+        || tile === TileState.BOMB
+        || tile === TileState.BOMB_RUBBLE
+        || tile === TileState.BOMB_RUBBLE_SCORCH
+        || tile === TileState.BOMB_SCORCH
+        || tile === TileState.TAR_BOMB
+        || tile === TileState.STAIRS_BOMB
+        || tile === TileState.GRAVESTONE
+        || tile === TileState.GRAVESTONE_RUBBLE
+        || tile === TileState.GRAVESTONE_SORCH
+        || tile === TileState.GRAVESTONE_STAIRS
+        || tile === TileState.GRAVESTONE_TAR
 }
 
 
@@ -111,3 +143,4 @@ export const getPlayersOnTile = (tileId, players, gridColumnCount, gridRowCount)
         return playerIndex === tileId;
     });
 }
+

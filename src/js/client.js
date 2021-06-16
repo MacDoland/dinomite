@@ -96,20 +96,22 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     const currentPlayer = findById(players, playerId);
 
     if (currentPlayer) {
-        const {x, y} = currentPlayer.getPosition();
+        const { x, y } = currentPlayer.getPosition();
         logger.log('player-position', { x: Math.floor(x), y: Math.floor(y) });
     }
 
-    if (grid) {
-        renderer.drawGrid(grid.getGrid(), config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
+    if (players && players.length > 0) {
+        renderer.drawPlayers(players, defaultLevel.elevation);
     }
 
-    if (players && players.length > 0) {
-        renderer.drawPlayers(players);
+    if (grid) {
+        renderer.drawGrid(grid.getGrid(), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
     }
+
+
 
     if (grid && config.showGrid) {
-        renderer.drawDebug(grid.getGrid(), 100, players);
+        renderer.drawDebug(grid.getGrid(), 100, players, defaultLevel);
     }
 
     renderer.draw(deltaTime * 1000);
