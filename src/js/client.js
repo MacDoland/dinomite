@@ -64,7 +64,7 @@ var app = new Vue({
         showDebug
     },
     mounted() {
-        gameManager.onUpdate(({ grid, players, bombs, blasts, colliders, deltaTime, playerId }) => {
+        gameManager.onUpdate(() => {
             this.logs = logger.retrieveLogs();
             this.showDebug = config.showGrid;
         });
@@ -88,9 +88,11 @@ var legend = new Vue({
 
 
 
-const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, playerId }) => {
+const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, playerId, graveYard }) => {
     inputManager.update();
     renderer.clear();
+
+    logger.log('graveYard', graveYard)
 
 
     const currentPlayer = findById(players, playerId);
@@ -104,8 +106,8 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
         renderer.drawPlayers(players, defaultLevel.elevation);
     }
 
-    drawBombs(bombs, currentPlayer, players, defaultLevel.elevation);
-    drawBlasts(blasts, defaultLevel.elevation);
+    renderer.drawBombs(bombs, currentPlayer, players, defaultLevel.elevation, logger);
+    renderer.drawBlasts(blasts, defaultLevel.elevation);
 
     if (grid) {
         renderer.drawGrid(grid.getGrid(), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
@@ -118,27 +120,6 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     renderer.draw(deltaTime * 1000);
 }
 
-const drawBombs = (bombs, player, players, elevationMap) => {
-    let coordinate, elevation;
-    bombs.forEach(bomb => {
-        elevation = elevationMap[bomb.id];
-        coordinate = Grid.convertIndexToCoordinate(bomb.id, 15, 15);
-        renderer.drawBomb(coordinate, bomb, player, players, elevation);
-    })
-
-}
-
-
-const drawBlasts = (blasts, elevationMap) => {
-    let coordinate, elevation;
-    blasts.forEach(blast => {
-        console.log(blast);
-        elevation = elevationMap[blast.id];
-        coordinate = Grid.convertIndexToCoordinate(blast.id, 15, 15);
-        renderer.drawExplosion(coordinate, blast, elevation);
-    })
-
-}
 
 gameManager.onUpdate(updateGame);
 

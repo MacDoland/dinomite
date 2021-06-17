@@ -22,6 +22,7 @@ class GameManager {
     #bombs;
     #blasts;
     #playerId;
+    #graveYard;
 
     constructor(client) {
         this.#client = client;
@@ -109,7 +110,7 @@ class GameManager {
             }
         });
 
-        this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs, blasts }) => {
+        this.#client.on(GameEvents.UPDATE, ({ players, tiles, bombs, blasts, graveYard }) => {
             players.forEach(({ id, position, state, direction, timeOfDeath }) => {
                 let player = findById(this.#players, id);
 
@@ -131,6 +132,10 @@ class GameManager {
 
                 if (blasts) {
                     this.#blasts = blasts;
+                }
+
+                if (graveYard) {
+                    this.#graveYard = graveYard;
                 }
             });
 
@@ -168,7 +173,8 @@ class GameManager {
                 blasts: this.#blasts || [],
                 deltaTime,
                 players: this.#players,
-                playerId: this.#playerId
+                playerId: this.#playerId,
+                graveYard: this.#graveYard
             });
 
             prev = now;

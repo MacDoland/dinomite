@@ -95,6 +95,13 @@ export const isOceanCornerTopLeft = (grid, tiles) => {
         && grid[tiles[directions.RIGHTDOWN][0]] !== TileState.RESTRICTED;
 }
 
+export const shouldDrawEmptyTile = (tile) => {
+    return tile === TileState.EMPTY
+    || tile !== TileState.NULL
+    && tile !== TileState.RESTRICTED
+    && tile !== TileState.SLOW
+}
+
 export const isBlockingTile = (tile) => {
     return tile === TileState.INDESTRUCTIBLE
         || tile === TileState.RESTRICTED
@@ -103,36 +110,18 @@ export const isBlockingTile = (tile) => {
 
 export const isTileThatStopsExplosion = (tile) => {
     return tile === TileState.DESTRUCTABLE
-        || tile === TileState.GRAVESTONE
-        || tile === TileState.GRAVESTONE_RUBBLE
-        || tile === TileState.GRAVESTONE_SORCH
-        || tile === TileState.GRAVESTONE_STAIRS
-        || tile === TileState.GRAVESTONE_TAR
+        || tile === TileState.OBJECT
         || tile === TileState.INDESTRUCTIBLE
         || tile === TileState.CLIFF
-        || tile === TileState.CLIFF_DOWN
-        || tile === TileState.CLIFF_LEFT
-        || tile === TileState.CLIFF_RIGHT
-        || tile === TileState.CLIFF_UP
         || tile === TileState.RESTRICTED
 }
 
 export const isPlayerBlockingTile = (tile) => {
     return tile === TileState.INDESTRUCTIBLE
         || tile === TileState.RESTRICTED
-        || tile === TileState.CLIFF_DOWN
+        || tile === TileState.CLIFF
         || tile === TileState.DESTRUCTABLE
-        || tile === TileState.BOMB
-        || tile === TileState.BOMB_RUBBLE
-        || tile === TileState.BOMB_RUBBLE_SCORCH
-        || tile === TileState.BOMB_SCORCH
-        || tile === TileState.TAR_BOMB
-        || tile === TileState.STAIRS_BOMB
-        || tile === TileState.GRAVESTONE
-        || tile === TileState.GRAVESTONE_RUBBLE
-        || tile === TileState.GRAVESTONE_SORCH
-        || tile === TileState.GRAVESTONE_STAIRS
-        || tile === TileState.GRAVESTONE_TAR
+        || tile === TileState.OBJECT
 }
 
 

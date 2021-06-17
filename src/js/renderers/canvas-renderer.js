@@ -10,7 +10,7 @@ import { TileState } from "../state/tile-state";
 import { BombState } from "../items/bomb";
 import { characterNames } from "../state/characters";
 import { findById } from "../helpers/helpers";
-import { isCliffBottom, isCliffCornerBottomLeft, isCliffCornerBottomRight, isCliffCornerTopLeft, isCliffCornerTopRight, isCliffRight, isCliffTop, isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight } from "../helpers/grid-helpers";
+import { isCliffBottom, isCliffCornerBottomLeft, isCliffCornerBottomRight, isCliffCornerTopLeft, isCliffCornerTopRight, isCliffRight, isCliffTop, isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight, shouldDrawEmptyTile } from "../helpers/grid-helpers";
 import { Anchors } from "../helpers/anchor";
 import Vector from "../structures/vector";
 import { AnimationManager } from "../game-management/animation-manager";
@@ -35,6 +35,10 @@ class CanvasRenderer {
     #currentTiles;
     #animationManager;
     #elevationMultiplier;
+    #previousBombs;
+    #currentBombs;
+    #rubble;
+    #scorches;
 
     constructor(canvas, cellSize = 50, columnCount = 15, rowCount = 15) {
         this.#borderWidth = 0;
@@ -53,8 +57,12 @@ class CanvasRenderer {
         this.#plants = [];
         this.#previousTiles = [];
         this.#currentTiles = [];
+        this.#previousBombs = [];
+        this.#currentBombs = [];
         this.#animationManager = new AnimationManager();
         this.#elevationMultiplier = 10;
+        this.#rubble = [];
+        this.#scorches = [];
     }
 
     clear() {
@@ -202,43 +210,6 @@ class CanvasRenderer {
         });
     }
 
-    drawBomb(coordinate, bomb, player, players, elevation) {
-        if (bomb) {
-
-            let ownerId = bomb.owner;
-
-
-            let bombOwner = findById(players, ownerId);
-            if (!bombOwner) {
-                return;
-            }
-
-            let characterId = bombOwner.getCharacterIndex();
-            let character = characterNames[characterId] || 'rex';
-            let sprite = bomb.state === BombState.NEAR_DETONATION
-                ? this.#spriteSheetItems.getAnimation(`${character}-egg-crack`).getFrameAtProgress(bomb.progress)
-                : this.#spriteSheetItems.getAnimation(`${character}-egg-wobble-loop`).getCurrentFrame();
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 550;
-            const image = this.#spriteSheetItems.getImage();
-
-            if (sprite) {
-                let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
-                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
-
-                this.drawImageTile({
-                    queue: this.#drawQueue,
-                    image,
-                    sprite,
-                    coordinate,
-                    anchor: Anchors.UP,
-                    size: this.#cellSize,
-                    zIndex,
-                    useSpriteDimensions: true
-                });
-            }
-        }
-    }
-
     drawRubble(coordinate, elevation) {
         const sprite = this.#spriteSheetEnvironment.getAnimation('rock-rubble').getCurrentFrame();
         const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier);
@@ -255,7 +226,7 @@ class CanvasRenderer {
 
     drawScorch(coordinate, elevation) {
         let sprite = this.#spriteSheetEnvironment.getAnimation('scorched-terrain').getCurrentFrame();
-        const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier);
+        const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 20;
         const image = this.#spriteSheetEnvironment.getImage();
         this.drawImageTile({
             queue: this.#drawQueue,
@@ -267,24 +238,6 @@ class CanvasRenderer {
         });
     }
 
-    drawExplosion(coordinate, blast, elevation) {
-        if (blast) {
-            let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * 500) + 1000;
-            const image = this.#spriteSheetItems.getImage();
-
-            if (sprite) {
-                this.drawImageTile({
-                    queue: this.#drawQueue,
-                    image,
-                    sprite,
-                    coordinate,
-                    size: this.#cellSize,
-                    zIndex
-                });
-            }
-        }
-    }
 
     drawShadow(coordinate, elevation) {
         let sprite = this.#spriteSheetEnvironment.getAnimation('shadow-indestructable').getCurrentFrame();
@@ -426,6 +379,104 @@ class CanvasRenderer {
     }
 
 
+    drawBombs(bombs, player, players, elevationMap, logger) {
+        let coordinate, elevation;
+        bombs.forEach(bomb => {
+            elevation = elevationMap[bomb.id];
+            coordinate = Grid.convertIndexToCoordinate(bomb.id, this.#columnCount, this.#rowCount);
+            this.drawBomb(coordinate, bomb, player, players, elevation);
+
+            if (!this.#previousBombs.includes(bomb.id) && !this.#currentBombs.includes(bomb.id) ) {
+                this.#currentBombs.push(bomb.id);
+            }
+        });
+
+
+
+        for (var i = this.#currentBombs.length - 1; i >= 0; i--) {
+            if (!bombs.find(bomb => bomb.id === this.#currentBombs[i])) { 
+                this.#scorches.push(this.#currentBombs[i]);
+                this.#currentBombs.splice(i, 1);
+            }
+        }
+
+        logger.log('current bombs', this.#currentBombs);
+        logger.log('previous bombs', this.#previousBombs);
+        logger.log('scorches', this.#scorches);
+
+
+        this.#previousBombs = this.#currentBombs;
+    }
+
+    drawBomb(coordinate, bomb, player, players, elevation) {
+        if (bomb) {
+
+            let ownerId = bomb.owner;
+
+
+            let bombOwner = findById(players, ownerId);
+            if (!bombOwner) {
+                return;
+            }
+
+            let characterId = bombOwner.getCharacterIndex();
+            let character = characterNames[characterId] || 'rex';
+            let sprite = bomb.state === BombState.NEAR_DETONATION
+                ? this.#spriteSheetItems.getAnimation(`${character}-egg-crack`).getFrameAtProgress(bomb.progress)
+                : this.#spriteSheetItems.getAnimation(`${character}-egg-wobble-loop`).getCurrentFrame();
+            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 550;
+            const image = this.#spriteSheetItems.getImage();
+
+            if (sprite) {
+                let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
+                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
+
+                this.drawImageTile({
+                    queue: this.#drawQueue,
+                    image,
+                    sprite,
+                    coordinate,
+                    anchor: Anchors.UP,
+                    size: this.#cellSize,
+                    zIndex,
+                    useSpriteDimensions: true
+                });
+            }
+        }
+    }
+
+
+    drawBlasts(blasts, elevationMap) {
+        let coordinate, elevation;
+        blasts.forEach(blast => {
+            elevation = elevationMap[blast.id];
+            coordinate = Grid.convertIndexToCoordinate(blast.id, this.#columnCount, this.#rowCount);
+            this.drawExplosion(coordinate, blast, elevation);
+        })
+
+    }
+
+    drawExplosion(coordinate, blast, elevation) {
+        if (blast) {
+            let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
+            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * 500) + 1000;
+            const image = this.#spriteSheetItems.getImage();
+
+            if (sprite) {
+                this.drawImageTile({
+                    queue: this.#drawQueue,
+                    image,
+                    sprite,
+                    coordinate,
+                    size: this.#cellSize,
+                    zIndex
+                });
+            }
+        }
+    }
+
+
+
     drawGrid(grid, elevationMap, config, bombs, blasts, player, players, deltaTime) {
         this.#currentTiles = grid;
 
@@ -442,11 +493,18 @@ class CanvasRenderer {
             blastsByIndex = blasts.filter((blast) => blast.id === index);
             blast = blastsByIndex.length > 0 ? blastsByIndex[0] : null;
 
-            if (element === TileState.EMPTY) {
+
+            if (shouldDrawEmptyTile(element)) {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);
             }
-            else if (element === TileState.INDESTRUCTIBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
+
+
+
+
+            //DRAW TILES
+
+
+            if (element === TileState.INDESTRUCTIBLE) {
                 this.drawShadow(coordinate, elevation);
                 this.drawBasicSolidBlock(coordinate, elevation);
             }
@@ -457,175 +515,17 @@ class CanvasRenderer {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);
                 this.drawBasicBlock(coordinate, index, elevation);
             }
-            else if (element === TileState.BOMB) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
-            }
-            else if (element === TileState.RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-            }
-            else if (element === TileState.SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawScorch(coordinate, elevation);
-            }
-            else if (element === TileState.BOMB_RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
-            }
-            else if (element === TileState.BOMB_SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawScorch(coordinate, elevation);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
-            }
-            else if (element === TileState.RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawScorch(coordinate, elevation);
-            }
-            else if (element === TileState.BOMB_RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawScorch(coordinate, elevation);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
-            }
-            else if (element === TileState.EXPLOSION) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.EXPLOSION_RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.EXPLOSION_SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawScorch(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.EXPLOSION_RUBBLE_SCORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawScorch(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
             else if (element === TileState.STAIRS) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
                 this.drawStairs(coordinate, index, elevation);
             }
-            else if (element === TileState.STAIRS_BOMB) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawStairs(coordinate, index, elevation);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
-            }
-            else if (element === TileState.STAIRS_EXPLOSION) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawStairs(coordinate, index, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.TAR) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
+            else if (element === TileState.SLOW) {
                 this.drawTar(coordinate, index, elevation);
             }
-            else if (element === TileState.TAR_BOMB) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawTar(coordinate, index, elevation);
-                this.drawBomb(coordinate, bomb, player, players, elevation);
+
+            if(this.#previousTiles[index] === TileState.DESTRUCTABLE && this.#currentTiles[index] !== TileState.DESTRUCTABLE ){
+                this.#rubble.push(index);
             }
-            else if (element === TileState.TAR_EXPLOSION) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawTar(coordinate, index, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.CLIFF_DOWN) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.DOWN, elevation);
-            }
-            else if (element === TileState.CLIFF_RIGHT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.RIGHT, elevation);
-            }
-            else if (element === TileState.CLIFF_UP) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.UP, elevation);
-            }
-            else if (element === TileState.CLIFF_LEFT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.LEFT, elevation);
-            }
-            else if (element === TileState.CLIFF_TOP_LEFT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.LEFTUP, elevation);
-            }
-            else if (element === TileState.CLIFF_TOP_RIGHT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.RIGHTUP, elevation);
-            }
-            else if (element === TileState.CLIFF_BOTTOM_LEFT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.LEFTDOWN, elevation);
-            }
-            else if (element === TileState.CLIFF_BOTTOM_RIGHT) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.RIGHTDOWN, elevation);
-            }
-            else if (element === TileState.GRAVESTONE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawGravestone(coordinate, index, deltaTime, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawGravestone(coordinate, index, deltaTime, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_SORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawScorch(coordinate, index, elevation);
-                this.drawGravestone(coordinate, index, deltaTime, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_TAR) {
-                this.drawTar(coordinate, index, elevation);
-                this.drawGravestone(coordinate, index, deltaTime, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_STAIRS) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawStairs(coordinate, index, elevation);
-                this.drawGravestone(coordinate, index, deltaTime, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION_RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawScorch(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION_SORCH_RUBBLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawRubble(coordinate, elevation);
-                this.drawScorch(coordinate, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION_STAIRS) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawStairs(coordinate, index, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
-            else if (element === TileState.GRAVESTONE_EXPLOSION_TAR) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawTar(coordinate, index, elevation);
-                this.drawExplosion(coordinate, blast, elevation);
-            }
+
 
             if (config.showGrid) {
                 let drawParams = [
@@ -650,6 +550,16 @@ class CanvasRenderer {
                 this.#drawQueue.push(new Drawable('rect', drawParams, 10000, false, '#000'));
             }
         });
+
+        this.#rubble.forEach(rubble => {
+            let coordinate = Grid.convertIndexToCoordinate(rubble, 15, 15);
+            this.drawRubble(coordinate, elevationMap[rubble])
+        })
+
+        this.#scorches.forEach(scorch => {
+            let coordinate = Grid.convertIndexToCoordinate(scorch, 15, 15);
+            this.drawScorch(coordinate, elevationMap[scorch])
+        })
 
 
         if (this.#plants.length === 0) {
@@ -783,7 +693,7 @@ class CanvasRenderer {
             ];
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, null, 'red'));
-            this.#drawQueue.push(new Drawable('rect', bombPlacementParams, 10000, null, 'green'));
+            this.#drawQueue.push(new Drawable('rect', bombPlacementParams, 10000, null, 'white'));
             this.#drawQueue.push(new Drawable('rect', colliderParams, 10000, null, 'magenta'));
         });
 

@@ -1,7 +1,7 @@
 import { processPlayerMovement } from "../helpers/referee";
 import Player, { PlayerState } from "../player";
 import Vector from "../structures/vector";
-import stateManager, { StateEvents } from "./state-manager";
+import { StateEvents, tileStateMachine } from "./state-manager";
 import Timer from "../helpers/timer";
 import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
@@ -17,6 +17,7 @@ class GameAuthority {
     #gameConfig;
     #timer;
     #bombShop;
+    #graveYard;
 
     #playerMovementUpdates;
 
@@ -31,16 +32,17 @@ class GameAuthority {
         let now;
         this.#playerMovementUpdates = {};
         this.#bombShop = new BombShop();
+        this.#graveYard = [];
 
         this.#bombShop.onPlant(({ index }) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
-            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
+            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
             this.#grid.set(index, newState);
         });
 
         this.#bombShop.onBombExpired(({ index, strength }) => {
             const currentState = indexToTileState(this.#grid.getElementAt(index));
-            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
+            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
             this.#grid.set(index, newState);
 
             let neighbours = this.#grid.getNeighbours(index, strength);
@@ -78,7 +80,7 @@ class GameAuthority {
                 }, 100);
             }
 
-            const newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION).value);
+            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION).value);
             this.#grid.set(index, newState);
         });
 
@@ -91,10 +93,10 @@ class GameAuthority {
                     const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
                     let newState;
                     if (playersOnTile.length === 0) {
-                        newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                        newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
                     }
                     else {
-                        newState = parseInt(stateManager.transition(currentState.toString(), StateEvents.DEATH).value);
+                        newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.DEATH).value);
                     }
 
                     this.#grid.set(index, newState);
@@ -203,7 +205,8 @@ class GameAuthority {
                     id: blast.getIndex(),
                     progress: blast.getProgress()
                 };
-            })
+            }),
+            graveYard: this.#graveYard
         }
     }
 
@@ -233,8 +236,8 @@ class GameAuthority {
                     id: blast.getIndex(),
                     progress: blast.getProgress()
                 };
-            })
-
+            }),
+            graveYard: this.#graveYard
         }
     }
 
@@ -252,7 +255,7 @@ class GameAuthority {
             const currentTileState = this.#grid.getElementAt(playerIndex);
 
             if (player && player.getState() !== PlayerState.DEATH) {
-                const speed = currentTileState === TileState.TAR ? 200 : 400;
+                const speed = currentTileState === TileState.SLOW ? 200 : 400;
                 let offset = new Vector(0, 0);
 
                 if (input.DOWN) {
