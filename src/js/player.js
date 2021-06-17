@@ -1,4 +1,4 @@
-import directions from './helpers/direction';
+import directions, { directionAsVector, getDirectionOpposite } from './helpers/direction';
 import Rectangle from './structures/rectangle';
 import Vector from './structures/vector';
 import EventDispatcher from "./helpers/event-dispatcher";
@@ -26,11 +26,11 @@ class Player {
         this.#startPosition = startPosition;
         this.#direction = directions.DOWN;
         this.#position = new Vector(0, 0);
-        this.#height = 50;
-        this.#width = 50;
+        this.#height = 64;
+        this.#width = 64;
         this.#origin = new Vector(0, 0);
         this.#state = PlayerState.IDLE;
-        this.#boundingBox = new Rectangle(this.#origin, 75, 50);
+        this.#boundingBox = new Rectangle(this.#origin, this.#width, this.#height);
         this.#eventDispatcher = new EventDispatcher();
         this.#events = {
             MOVE: 'MOVE',
@@ -107,6 +107,21 @@ class Player {
     getPosition() {
         return Vector.add(this.#position, this.#origin);
     }
+
+    getBombPosition() {
+        let oppositeDirection = getDirectionOpposite(this.#direction);
+        let offset = directionAsVector(oppositeDirection);
+
+        if(oppositeDirection === directions.LEFT || oppositeDirection === directions.RIGHT){
+            offset.multiplyScalar(this.#width / 2);
+        }
+        else if(oppositeDirection === directions.UP || oppositeDirection === directions.DOWN){
+            offset.multiplyScalar(this.#height / 2);
+        }
+
+        return Vector.add(this.#position, offset);
+    }
+
     getBoundingBox() {
         return this.#boundingBox;
     }

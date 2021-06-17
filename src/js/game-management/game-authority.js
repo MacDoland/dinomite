@@ -244,48 +244,50 @@ class GameAuthority {
 
     processPlayerInput(id, input) {
         const player = this.players[id];
-        const position = player.getPosition().multiplyScalar(1 / 100);
+        if (player) {
+            const position = player.getPosition().multiplyScalar(1 / 100);
 
-        let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-        let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
-        const currentTileState = this.#grid.getElementAt(playerIndex);
+            let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+            let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+            const currentTileState = this.#grid.getElementAt(playerIndex);
 
-        if (player && player.getState() !== PlayerState.DEATH) {
-            const speed = currentTileState === TileState.TAR ? 200 : 400;
-            let offset = new Vector(0, 0);
+            if (player && player.getState() !== PlayerState.DEATH) {
+                const speed = currentTileState === TileState.TAR ? 200 : 400;
+                let offset = new Vector(0, 0);
 
-            if (input.DOWN) {
-                offset.add(new Vector(0, speed * this.#deltaTime));
+                if (input.DOWN) {
+                    offset.add(new Vector(0, speed * this.#deltaTime));
+                }
+
+                if (input.RIGHT) {
+                    offset.add(new Vector(speed * this.#deltaTime, 0))
+                }
+
+                if (input.UP) {
+                    offset.add(new Vector(0, -speed * this.#deltaTime))
+                }
+
+                if (input.LEFT) {
+                    offset.add(new Vector(-speed * this.#deltaTime, 0))
+                }
+
+                if (input.ACTION_UP) {
+                    let gridCoordinate = Vector.multiplyScalar(player.getBombPosition(), 1 / 100).floor();
+                    let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
+                    this.plantBomb(playerTile, id);
+                }
+
+                const result = this.processPlayerMovement(id, player.getBounds(), offset, this.#gameConfig);
+
+                this.players[id].move(result.offset);
+
+                return {
+                    id,
+                    position: this.players[id].getPosition(),
+                    state: this.players[id].getState(),
+                    direction: this.players[id].getDirection()
+                };
             }
-
-            if (input.RIGHT) {
-                offset.add(new Vector(speed * this.#deltaTime, 0))
-            }
-
-            if (input.UP) {
-                offset.add(new Vector(0, -speed * this.#deltaTime))
-            }
-
-            if (input.LEFT) {
-                offset.add(new Vector(-speed * this.#deltaTime, 0))
-            }
-
-            if (input.ACTION_UP) {
-                let gridCoordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-                let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
-                this.plantBomb(playerTile, id);
-            }
-
-            const result = this.processPlayerMovement(id, player.getBounds(), offset, this.#gameConfig);
-
-            this.players[id].move(result.offset);
-
-            return {
-                id,
-                position: this.players[id].getPosition(),
-                state: this.players[id].getState(),
-                direction: this.players[id].getDirection()
-            };
         }
     }
 

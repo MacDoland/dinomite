@@ -270,7 +270,7 @@ class CanvasRenderer {
     drawExplosion(coordinate, blast, elevation) {
         if (blast) {
             let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * 500);
+            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * 500) + 1000;
             const image = this.#spriteSheetItems.getImage();
 
             if (sprite) {
@@ -741,7 +741,7 @@ class CanvasRenderer {
     }
 
     drawDebug(grid, size, players, config) {
-        let coordinate, drawParams, elevationIdParams, colliderParams, textParams, playerPosition;
+        let coordinate, drawParams, elevationIdParams, colliderParams, bombPlacementParams;
 
         grid.forEach((element, index) => {
             coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
@@ -758,6 +758,8 @@ class CanvasRenderer {
 
         players.forEach(player => {
             let playerPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
+            let bombPlacementPosition = Vector.multiplyScalar(player.getBombPosition(), 1 / 100).floor();
+
 
             drawParams = [
                 playerPosition.x * size + 5,
@@ -771,9 +773,17 @@ class CanvasRenderer {
                 player.getBounds().topLeft.y,
                 player.getBounds().topRight.x - player.getBounds().topLeft.x,
                 player.getBounds().bottomLeft.y - player.getBounds().topLeft.y
-            ]
+            ];
+
+            bombPlacementParams = [
+                bombPlacementPosition.x * size + 15,
+                bombPlacementPosition.y * size + 15,
+                size - 30,
+                size - 30
+            ];
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, null, 'red'));
+            this.#drawQueue.push(new Drawable('rect', bombPlacementParams, 10000, null, 'green'));
             this.#drawQueue.push(new Drawable('rect', colliderParams, 10000, null, 'magenta'));
         });
 

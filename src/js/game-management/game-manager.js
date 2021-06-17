@@ -51,7 +51,7 @@ class GameManager {
         Object.freeze(this.#events);
 
         const addPlayer = ({ id, state, position, direction, characterId, timeOfDeath }, playerId) => {
-            const player = new Player(playerId, characterId, 48);
+            const player = new Player(playerId, characterId, 32);
 
             if (player) {
                 player.setPosition(position);
