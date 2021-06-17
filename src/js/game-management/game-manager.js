@@ -7,6 +7,7 @@ import Player from "../player";
 import controlConfig from '../config/controls';
 import { GameEvents } from "../events/events";
 import { findById, objectPropertiesAreFalse } from "../helpers/helpers";
+import { LayerState } from "../state/layers";
 
 class GameManager {
     #grid;
@@ -141,7 +142,13 @@ class GameManager {
 
             if (Array.isArray(tiles)) {
                 tiles.forEach((tileUpdate) => {
-                    this.#grid.set(tileUpdate.index, tileUpdate.value, false);
+                    if (tileUpdate.layer === LayerState.TILES) {
+                        this.#grid.set(tileUpdate.index, tileUpdate.value, false, LayerState.TILES);
+                    }
+
+                    if (tileUpdate.layer === LayerState.ITEMS) {
+                        this.#grid.set(tileUpdate.index, tileUpdate.value, false, LayerState.ITEMS);
+                    }
                 });
             }
         });

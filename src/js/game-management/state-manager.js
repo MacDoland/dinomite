@@ -45,15 +45,25 @@ noneItemEvents[StateEvents.DEATH] = Items.GRAVE;
 
 const bombItemEvents = {}
 bombItemEvents[StateEvents.BOMB_DETONATE] = Items.NONE;
+bombItemEvents[StateEvents.EXPLOSION] = Items.NONE;
+
+const graveItemEvents = {}
+graveItemEvents[StateEvents.BOMB_DETONATE] = Items.NONE;
 
 let itemStates = {};
 itemStates[Items.NONE] = { on: noneItemEvents };
 itemStates[Items.BOMB] = { on: bombItemEvents };
+itemStates[Items.GRAVE] = { on: graveItemEvents };
 
 const itemStateMachine = createMachine({
     id: 'items',
-    initial: Tiles.EMPTY,
+    initial: Items.NONE,
     states: itemStates
 });
 
-export { StateEvents, tileStateMachine, itemStateMachine };
+const transitionNewState = (element, stateMap, stateMachine, stateEvent) => {
+    const currentState = stateMap(element);
+    return parseInt(stateMachine.transition(currentState.toString(), stateEvent).value);
+};
+
+export { StateEvents, tileStateMachine, itemStateMachine, transitionNewState };

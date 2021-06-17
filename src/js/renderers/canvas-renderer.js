@@ -386,24 +386,17 @@ class CanvasRenderer {
             coordinate = convertIndexToCoordinate(bomb.id, this.#columnCount, this.#rowCount);
             this.drawBomb(coordinate, bomb, player, players, elevation);
 
-            if (!this.#previousBombs.includes(bomb.id) && !this.#currentBombs.includes(bomb.id) ) {
+            if (!this.#previousBombs.includes(bomb.id) && !this.#currentBombs.includes(bomb.id)) {
                 this.#currentBombs.push(bomb.id);
             }
         });
 
-
-
         for (var i = this.#currentBombs.length - 1; i >= 0; i--) {
-            if (!bombs.find(bomb => bomb.id === this.#currentBombs[i])) { 
+            if (!bombs.find(bomb => bomb.id === this.#currentBombs[i])) {
                 this.#scorches.push(this.#currentBombs[i]);
                 this.#currentBombs.splice(i, 1);
             }
         }
-
-        logger.log('current bombs', this.#currentBombs);
-        logger.log('previous bombs', this.#previousBombs);
-        logger.log('scorches', this.#scorches);
-
 
         this.#previousBombs = this.#currentBombs;
     }
@@ -459,7 +452,7 @@ class CanvasRenderer {
     drawExplosion(coordinate, blast, elevation) {
         if (blast) {
             let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * 500) + 1000;
+            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier ) + 1000;
             const image = this.#spriteSheetItems.getImage();
 
             if (sprite) {
@@ -522,7 +515,7 @@ class CanvasRenderer {
                 this.drawTar(coordinate, index, elevation);
             }
 
-            if(this.#previousTiles[index] === TileState.DESTRUCTABLE && this.#currentTiles[index] !== TileState.DESTRUCTABLE ){
+            if (this.#previousTiles[index] === TileState.DESTRUCTABLE && this.#currentTiles[index] !== TileState.DESTRUCTABLE) {
                 this.#rubble.push(index);
             }
 
@@ -650,9 +643,8 @@ class CanvasRenderer {
         })
     }
 
-    drawDebug(grid, size, players, config) {
+    drawDebug(grid, items, size, players, config, logger) {
         let coordinate, drawParams, elevationIdParams, colliderParams, bombPlacementParams;
-
         grid.forEach((element, index) => {
             coordinate = convertIndexToCoordinate(index, 15, 15);
 
@@ -665,6 +657,20 @@ class CanvasRenderer {
             this.#drawQueue.push(new Drawable('text', elevationIdParams, 10000, '#2e2e2e'));
             // this.#drawQueue.push(new Drawable('rect', drawParams, 10000, 'rgba(255,0,0,0.25)'));
         });
+
+        // logger.log(items);
+
+        items.forEach((element, index) => {
+            coordinate = convertIndexToCoordinate(index, 15, 15);
+
+            let textItemIdParams = [
+                items[index].toString(),
+                coordinate.x * size + size/2,
+                coordinate.y * size + size - 30
+            ]
+
+            this.#drawQueue.push(new Drawable('text', textItemIdParams, 10000, 'blue'));
+        })
 
         players.forEach(player => {
             let playerPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
@@ -691,6 +697,7 @@ class CanvasRenderer {
                 size - 30,
                 size - 30
             ];
+
 
             this.#drawQueue.push(new Drawable('rect', drawParams, 10000, null, 'red'));
             this.#drawQueue.push(new Drawable('rect', bombPlacementParams, 10000, null, 'white'));

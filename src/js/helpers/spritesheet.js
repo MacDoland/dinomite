@@ -59,7 +59,6 @@ class SpriteSheet {
                 this.#tiles[name][index] = randomTiles[Math.floor(Math.random() * randomTiles.length)];
                 }
                 catch(e){
-                    console.log(randomTiles);
                 }
             }
             else {

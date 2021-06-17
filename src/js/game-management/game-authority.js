@@ -1,7 +1,7 @@
 import { processPlayerMovement } from "../helpers/referee";
 import Player, { PlayerState } from "../player";
 import Vector from "../structures/vector";
-import { StateEvents, tileStateMachine } from "./state-manager";
+import { itemStateMachine, StateEvents, tileStateMachine, transitionNewState } from "./state-manager";
 import Timer from "../helpers/timer";
 import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
@@ -9,6 +9,8 @@ import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
 import { convertCoordinateToIndex, getPlayersOnTile, isBlockingTile, isDestructableTile, isTileThatStopsExplosion } from "../helpers/grid-helpers";
 import { killPlayersOnTile } from "../helpers/helpers";
+import { LayerState } from "../state/layers";
+import { indexToItemsState, ItemsState } from "../state/item";
 
 class GameAuthority {
     players;
@@ -35,15 +37,15 @@ class GameAuthority {
         this.#graveYard = [];
 
         this.#bombShop.onPlant(({ index }) => {
-            const currentState = indexToTileState(this.#grid.getElementAt(index));
-            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.PLANT_BOMB).value);
-            this.#grid.set(index, newState);
+            const currentState = this.#grid.getElementAt(index, LayerState.ITEMS);
+            const itemState = transitionNewState(currentState, indexToItemsState, itemStateMachine, StateEvents.PLANT_BOMB);
+            this.#grid.set(index, itemState, true, LayerState.ITEMS);
         });
 
         this.#bombShop.onBombExpired(({ index, strength }) => {
-            const currentState = indexToTileState(this.#grid.getElementAt(index));
-            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.BOMB_DETONATE).value);
-            this.#grid.set(index, newState);
+            const currentState = this.#grid.getElementAt(index, LayerState.ITEMS);
+            const itemState = transitionNewState(currentState, indexToItemsState, itemStateMachine, StateEvents.BOMB_DETONATE);
+            this.#grid.set(index, itemState, true, LayerState.ITEMS);
 
             let neighbours = this.#grid.getNeighbours(index, strength);
             let targets = [];
@@ -68,41 +70,39 @@ class GameAuthority {
 
         this.#bombShop.onExplosion((index) => {
             //this.#audioManager.play('boom');
-            const currentState = indexToTileState(this.#grid.getElementAt(index));
-
-            if (currentState === TileState.BOMB
-                || currentState === TileState.BOMB_RUBBLE
-                || currentState === TileState.BOMB_RUBBLE_SCORCH
-                || currentState === TileState.BOMB_SCORCH) {
+            const currentState = indexToItemsState(this.#grid.getElementAt(index, LayerState.ITEMS));
+            const currentGridState = indexToTileState(this.#grid.getElementAt(index, LayerState.TILES));
+            if (currentState === ItemsState.BOMB) {
                 //theres a bomb on this tile - detonate it
                 setTimeout(() => {
                     this.#bombShop.detonateBombAt(index);
                 }, 100);
             }
 
-            const newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION).value);
-            this.#grid.set(index, newState);
+            const newStateItems = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION).value);
+            this.#grid.set(index, newStateItems, true, LayerState.ITEMS);
+
+            const newStateTiles = parseInt(tileStateMachine.transition(currentGridState.toString(), StateEvents.EXPLOSION).value);
+            this.#grid.set(index, newStateTiles, true, LayerState.TILES);
         });
 
         this.#bombShop.onExplosionEnd((index) => {
-            if (!this.#bombShop.hasActiveBlastAt(index)) {
-                const currentState = indexToTileState(this.#grid.getElementAt(index));
+            // if (!this.#bombShop.hasActiveBlastAt(index)) {
+            //     const currentState = indexToItemsState(this.#grid.getElementAt(index, LayerState.ITEMS));
 
-                if (currentState >= 0) {
+            //     if (currentState >= 0) {
 
-                    const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
-                    let newState;
-                    if (playersOnTile.length === 0) {
-                        newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
-                    }
-                    else {
-                        newState = parseInt(tileStateMachine.transition(currentState.toString(), StateEvents.DEATH).value);
-                    }
-
-                    this.#grid.set(index, newState);
-
-                }
-            }
+            //         const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
+            //         let newState;
+            //         if (playersOnTile.length === 0) {
+            //             //  newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+            //         }
+            //         else {
+            //             newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.DEATH).value);
+            //             this.#grid.set(index, newState, true, LayerState.ITEMS);
+            //         }
+            //     }
+            // }
         });
 
         const loop = () => {
@@ -161,12 +161,12 @@ class GameAuthority {
 
             while (!hasHitDeadEnd && index < tiles.length) {
                 targetIndex = tiles[index];
-                hasHitDeadEnd = isBlockingTile(this.#grid.getElementAt(targetIndex));
-                if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex) !== TileState.INDESTRUCTIBLE) {
+                hasHitDeadEnd = isBlockingTile(this.#grid.getElementAt(targetIndex, LayerState.TILES));
+                if (!hasHitDeadEnd && this.#grid.getElementAt(targetIndex, LayerState.TILES) !== TileState.INDESTRUCTIBLE && targetIndex > 0) {
                     targets.push(targetIndex);
                 }
 
-                if (!isTileThatStopsExplosion(this.#grid.getElementAt(targetIndex))) {
+                if (!isTileThatStopsExplosion(this.#grid.getElementAt(targetIndex, LayerState.TILES))) {
                     index++;
                 }
                 else {

@@ -1,3 +1,4 @@
+import { ItemsState } from "../state/item";
 import { TileState } from "../state/tile-state"
 import Grid from "../structures/grid";
 import Vector from "../structures/vector";
@@ -110,7 +111,6 @@ export const isBlockingTile = (tile) => {
 
 export const isTileThatStopsExplosion = (tile) => {
     return tile === TileState.DESTRUCTABLE
-        || tile === TileState.OBJECT
         || tile === TileState.INDESTRUCTIBLE
         || tile === TileState.CLIFF
         || tile === TileState.RESTRICTED
@@ -121,7 +121,11 @@ export const isPlayerBlockingTile = (tile) => {
         || tile === TileState.RESTRICTED
         || tile === TileState.CLIFF
         || tile === TileState.DESTRUCTABLE
-        || tile === TileState.OBJECT
+}
+
+export const isPlayerBlockingItem = (item) => {
+    return item === ItemsState.BOMB
+        || item === ItemsState.GRAVE
 }
 
 

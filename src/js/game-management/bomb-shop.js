@@ -32,11 +32,11 @@ class BombShop {
     }
 
     getActiveBombs() {
-        return this.#bombs.filter(bomb => bomb.getIsActive());
+        return this.#bombs.filter(bomb => bomb.getIsActive() && bomb.getIndex() > 0);
     }
 
     getActiveBlasts() {
-        return this.#blasts.filter(blast => blast.getIsActive());
+        return this.#blasts.filter(blast => blast.getIsActive() && blast.getIndex() > 0);
     }
 
     getInactiveBlasts() {

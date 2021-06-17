@@ -11,6 +11,7 @@ import { NetworkClient } from './transport/network-client';
 import { LocalClient } from './transport/local-client';
 import { findById } from './helpers/helpers';
 import { TileState } from './state/tile-state';
+import { LayerState } from './state/layers';
 
 let logger = new Logger();
 const grid = new Grid(15, 15, defaultLevel.grid);
@@ -86,38 +87,47 @@ var legend = new Vue({
 })
 
 
+let previousTime;
+let currentTime;
 
 
 const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, playerId, graveYard }) => {
+    previousTime = new Date();
     inputManager.update();
     renderer.clear();
-
-    logger.log('graveYard', graveYard)
 
 
     const currentPlayer = findById(players, playerId);
 
+
+
     if (currentPlayer) {
         const { x, y } = currentPlayer.getPosition();
-        logger.log('player-position', { x: Math.floor(x), y: Math.floor(y) });
+        // logger.log('player-position', { x: Math.floor(x), y: Math.floor(y) });
     }
 
     if (players && players.length > 0) {
         renderer.drawPlayers(players, defaultLevel.elevation);
     }
 
+    logger.log('bombs', bombs.map(bomb => bomb.id));
+
+    logger.log('blasts', blasts.map(bomb => bomb.id));
+
     renderer.drawBombs(bombs, currentPlayer, players, defaultLevel.elevation, logger);
     renderer.drawBlasts(blasts, defaultLevel.elevation);
 
     if (grid) {
-        renderer.drawGrid(grid.get(), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
+        renderer.drawGrid(grid.get(LayerState.TILES), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
     }
 
     if (grid && config.showGrid) {
-        renderer.drawDebug(grid.get(), 100, players, defaultLevel);
+        renderer.drawDebug(grid.get(), grid.get(LayerState.ITEMS), 100, players, defaultLevel, logger);
     }
 
     renderer.draw(deltaTime * 1000);
+    logger.log('draw time', new Date() - previousTime);
+
 }
 
 

@@ -1,6 +1,7 @@
+import { LayerState } from "../state/layers";
 import { TileState } from "../state/tile-state";
 import Vector from "../structures/vector";
-import { isBlockingTile, isPlayerBlockingTile } from "./grid-helpers";
+import { isBlockingTile, isPlayerBlockingItem, isPlayerBlockingTile } from "./grid-helpers";
 
 export const processPlayerMovement = (grid, bounds, offset, elevation) => {
     let newOffset = new Vector();
@@ -42,5 +43,5 @@ export const canMove = (offset, position, grid, elevation) => {
             && elevation[currentIndex] === elevation[nextIndex]
             || grid.getElementAt(currentIndex) === TileState.STAIRS
             || grid.getElementAt(nextIndex) === TileState.STAIRS);
-    return isWithinGrid && canMoveOnElevation && (isAlreadyOnTile || !isPlayerBlockingTile(grid.getElementAt(nextIndex)))
+    return isWithinGrid && canMoveOnElevation && (isAlreadyOnTile || (!isPlayerBlockingTile(grid.getElementAt(nextIndex))/* && !isPlayerBlockingItem(grid.getElementAt(nextIndex, LayerState.ITEMS))*/))
 }

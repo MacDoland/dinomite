@@ -1,7 +1,7 @@
 const ItemsState = {
     NONE: 0,
-    BOMB: 0,
-    GRAVE: 1,
+    BOMB: 1,
+    GRAVE: 2,
 }
 
 Object.freeze(ItemsState);
