@@ -143,7 +143,6 @@ class GameManager {
 
         let characterId = window.localStorage.getItem('dinomiteCharacterId') || 0
         this.#client.send(GameEvents.NEW_PLAYER, { id: "123", cId: characterId });
-
         this.#client.send(GameEvents.NEW_PLAYER, { id: "456", cId: 1 });
     }
 

@@ -547,7 +547,7 @@ class CanvasRenderer {
             }
             else if (element === TileState.CLIFF_UP) {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.UP, elevation + 1);
+                this.drawCliff(coordinate, index, directions.UP, elevation);
             }
             else if (element === TileState.CLIFF_LEFT) {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);
@@ -563,7 +563,7 @@ class CanvasRenderer {
             }
             else if (element === TileState.CLIFF_BOTTOM_LEFT) {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);
-                this.drawCliff(coordinate, index, directions.LEFTDOWN, elevation + 1);
+                this.drawCliff(coordinate, index, directions.LEFTDOWN, elevation);
             }
             else if (element === TileState.CLIFF_BOTTOM_RIGHT) {
                 this.drawBasicTile(coordinate, index, elevation, elevationMap);

@@ -1,3 +1,13 @@
+const GridState = {
+    EMPTY: 0,
+    DESTRUCTABLE: 1,
+    INDESTRUCTIBLE: 2,
+    SLOW: 3,
+    SLIDE: 4,
+    SPEED: 5
+}
+
+
 const TileState = {
     NULL: -1,
     EMPTY: 0,

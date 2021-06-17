@@ -1,5 +1,5 @@
 import { createMachine } from 'xstate';
-import { TileStateStrings as Tiles } from "../state/tile-state";
+import { TileState, TileStateStrings as Tiles } from "../state/tile-state";
 
 const StateEvents = {
     PLANT_BOMB: 'PLANT_BOMB',
@@ -8,6 +8,65 @@ const StateEvents = {
     EXPLOSION_END: 'EXPLOSION_END',
     DEATH: 'DEATH'
 }
+
+const BombStates = {
+    INACTIVE: 0,
+    ACTIVE: 1,
+    EXPLOSION: 2,
+    SCORCH: 3
+}
+
+
+let bStates = {};
+bStates[StateEvents.PLANT_BOMB] = BombStates.ACTIVE;
+bStates[StateEvents.BOMB_DETONATE] = BombStates.EXPLOSION;
+bStates[StateEvents.EXPLOSION_END] = BombStates.SCORCH;
+
+//Bomb States
+const bombStates = {
+    initial: "0",
+    states: {
+        "0": {
+            on: {
+                PLANT_BOMB: { target: "1" }
+            }
+        },
+        "1": {
+            on: {
+                BOMB_DETONATE: { target: "2" }
+            }
+        },
+        "2": {
+            on: {
+                EXPLOSION_END: { target: "2" }
+            }
+        },
+        "3": {},
+    }
+};
+
+
+
+
+
+const gridSM = createMachine({
+    id: 'level',
+    initial: "0",
+    states: {
+        "0": {
+            on: {},
+            ...bombStates
+        }
+    }
+});
+
+
+console.log('state machine test', gridSM.initialState.value);
+console.log('state machine test2', gridSM.transition("0.0", StateEvents.PLANT_BOMB).value);
+console.log('state machine test2', gridSM.transition("0.1", StateEvents.BOMB_DETONATE).value);
+
+
+
 
 //Empty Tile
 const emptyTileEvents = {};
