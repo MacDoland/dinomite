@@ -7,7 +7,7 @@ import BombShop from "./bomb-shop";
 import Grid from "../structures/grid";
 import { indexToTileState, TileState } from "../state/tile-state";
 import directions from "../helpers/direction";
-import { getPlayersOnTile, isBlockingTile, isDestructableTile, isTileThatStopsExplosion } from "../helpers/grid-helpers";
+import { convertCoordinateToIndex, getPlayersOnTile, isBlockingTile, isDestructableTile, isTileThatStopsExplosion } from "../helpers/grid-helpers";
 import { killPlayersOnTile } from "../helpers/helpers";
 
 class GameAuthority {
@@ -251,7 +251,7 @@ class GameAuthority {
             const position = player.getPosition().multiplyScalar(1 / 100);
 
             let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-            let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
+            let playerIndex = convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, this.#grid.getColumnCount(), this.#grid.getRowCount());
             const currentTileState = this.#grid.getElementAt(playerIndex);
 
             if (player && player.getState() !== PlayerState.DEATH) {
@@ -276,7 +276,7 @@ class GameAuthority {
 
                 if (input.ACTION_UP) {
                     let gridCoordinate = Vector.multiplyScalar(player.getBombPosition(), 1 / 100).floor();
-                    let playerTile = Grid.convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
+                    let playerTile = convertCoordinateToIndex(gridCoordinate.x, gridCoordinate.y, this.#grid.getColumnCount());
                     this.plantBomb(playerTile, id);
                 }
 

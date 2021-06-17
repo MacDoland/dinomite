@@ -1,5 +1,6 @@
 import Grid from "../structures/grid";
 import Vector from "../structures/vector";
+import { convertCoordinateToIndex } from "./grid-helpers";
 
 export const findById = (items, id) => {
     const result = items.filter((item) => item.getId() === id);
@@ -19,7 +20,7 @@ export const objectPropertiesAreFalse = (targetObject) => {
 export const killPlayersOnTile = (tileId, players, grid) => {
     players.forEach(player => {
         let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-        let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, grid.getColumnCount(), grid.getRowCount());
+        let playerIndex = convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, grid.getColumnCount(), grid.getRowCount());
         if (tileId === playerIndex) {
             player.die();
 

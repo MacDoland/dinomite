@@ -128,8 +128,77 @@ export const isPlayerBlockingTile = (tile) => {
 export const getPlayersOnTile = (tileId, players, gridColumnCount, gridRowCount) => {
     return players.filter(player => {
         let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-        let playerIndex = Grid.convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, gridColumnCount, gridRowCount);
+        let playerIndex = convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, gridColumnCount, gridRowCount);
         return playerIndex === tileId;
     });
 }
 
+export const convertIndexToCoordinate = (index, numberOfColumns, numberOfRows) => {
+    return new Vector(index % numberOfColumns, Math.floor(index / numberOfRows));
+}
+
+export const convertCoordinateToIndex = (x, y, numberOfColumns) => {
+    return (y * numberOfColumns) + x;
+}
+
+export const getNeighbours = (index, depth, columnCount, rowCount) => {
+    let neighbours = {}, offset;
+    let coordinate = convertIndexToCoordinate(index, columnCount, rowCount);
+
+    neighbours[directions.UP] = [];
+    neighbours[directions.DOWN] = [];
+    neighbours[directions.LEFT] = [];
+    neighbours[directions.RIGHT] = [];
+
+    neighbours[directions.LEFTDOWN] = [];
+    neighbours[directions.LEFTUP] = [];
+    neighbours[directions.RIGHTDOWN] = [];
+    neighbours[directions.RIGHTUP] = [];
+
+    for (let i = 0; i < depth; i++) {
+        offset = Vector.add(coordinate, new Vector(0, -(i + 1)))
+        if (offset.y > 0) {
+            neighbours[directions.UP].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(0, (i + 1)))
+        if (offset.y < rowCount - 1) {
+            neighbours[directions.DOWN].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), 0))
+        if (offset.x > 0) {
+            neighbours[directions.LEFT].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), 0))
+        if (offset.x < columnCount - 1) {
+            neighbours[directions.RIGHT].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), (i + 1)))
+        if (offset.y > 0) {
+            neighbours[directions.LEFTDOWN].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), -(i + 1)))
+        if (offset.y < rowCount - 1) {
+            neighbours[directions.RIGHTUP].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector(-(i + 1), -(i + 1)))
+        if (offset.x > 0) {
+            neighbours[directions.LEFTUP].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+        offset = Vector.add(coordinate, new Vector((i + 1), (i + 1)))
+        if (offset.x < columnCount - 1) {
+            neighbours[directions.RIGHTDOWN].push(convertCoordinateToIndex(offset.x, offset.y, columnCount));
+        }
+
+    }
+
+    return neighbours;
+}

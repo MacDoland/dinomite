@@ -10,7 +10,7 @@ import { TileState } from "../state/tile-state";
 import { BombState } from "../items/bomb";
 import { characterNames } from "../state/characters";
 import { findById } from "../helpers/helpers";
-import { isCliffBottom, isCliffCornerBottomLeft, isCliffCornerBottomRight, isCliffCornerTopLeft, isCliffCornerTopRight, isCliffRight, isCliffTop, isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight, shouldDrawEmptyTile } from "../helpers/grid-helpers";
+import { convertCoordinateToIndex, convertIndexToCoordinate, getNeighbours, isCliffBottom, isCliffCornerBottomLeft, isCliffCornerBottomRight, isCliffCornerTopLeft, isCliffCornerTopRight, isCliffRight, isCliffTop, isOceanCornerBottomLeft, isOceanCornerBottomRight, isOceanCornerTopLeft, isOceanCornerTopRight, shouldDrawEmptyTile } from "../helpers/grid-helpers";
 import { Anchors } from "../helpers/anchor";
 import Vector from "../structures/vector";
 import { AnimationManager } from "../game-management/animation-manager";
@@ -105,7 +105,7 @@ class CanvasRenderer {
         const image = this.#spriteSheetEnvironment.getImage();
 
         let sprite = this.#spriteSheetEnvironment.getRandomFrame('tile-grass-random', index);
-        const neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+        const neighbours = getNeighbours(index, 1, this.#columnCount, this.#rowCount);
 
         let zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier);
 
@@ -147,7 +147,7 @@ class CanvasRenderer {
         ];
         let sprite;
 
-        let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+        let neighbours = getNeighbours(index, 1, this.#columnCount, this.#rowCount);
 
         this.#drawQueue.push(new Drawable('rect', drawParams, 0, color));
 
@@ -383,7 +383,7 @@ class CanvasRenderer {
         let coordinate, elevation;
         bombs.forEach(bomb => {
             elevation = elevationMap[bomb.id];
-            coordinate = Grid.convertIndexToCoordinate(bomb.id, this.#columnCount, this.#rowCount);
+            coordinate = convertIndexToCoordinate(bomb.id, this.#columnCount, this.#rowCount);
             this.drawBomb(coordinate, bomb, player, players, elevation);
 
             if (!this.#previousBombs.includes(bomb.id) && !this.#currentBombs.includes(bomb.id) ) {
@@ -450,7 +450,7 @@ class CanvasRenderer {
         let coordinate, elevation;
         blasts.forEach(blast => {
             elevation = elevationMap[blast.id];
-            coordinate = Grid.convertIndexToCoordinate(blast.id, this.#columnCount, this.#rowCount);
+            coordinate = convertIndexToCoordinate(blast.id, this.#columnCount, this.#rowCount);
             this.drawExplosion(coordinate, blast, elevation);
         })
 
@@ -485,7 +485,7 @@ class CanvasRenderer {
         this.#currentTiles.forEach((element, index) => {
             elevation = elevationMap[index];
 
-            coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
+            coordinate = convertIndexToCoordinate(index, 15, 15);
 
             bombsByIndex = bombs.filter((bomb) => bomb.id == index);
             bomb = bombsByIndex.length > 0 ? bombsByIndex[0] : null;
@@ -552,12 +552,12 @@ class CanvasRenderer {
         });
 
         this.#rubble.forEach(rubble => {
-            let coordinate = Grid.convertIndexToCoordinate(rubble, 15, 15);
+            let coordinate = convertIndexToCoordinate(rubble, 15, 15);
             this.drawRubble(coordinate, elevationMap[rubble])
         })
 
         this.#scorches.forEach(scorch => {
-            let coordinate = Grid.convertIndexToCoordinate(scorch, 15, 15);
+            let coordinate = convertIndexToCoordinate(scorch, 15, 15);
             this.drawScorch(coordinate, elevationMap[scorch])
         })
 
@@ -577,7 +577,7 @@ class CanvasRenderer {
 
             plantSpaces.forEach(({ index, element }) => {
                 if (Number.isInteger(elevationMap[index])) {
-                    let coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
+                    let coordinate = convertIndexToCoordinate(index, 15, 15);
                     this.#plants.push(coordinate);
                 }
             })
@@ -593,7 +593,7 @@ class CanvasRenderer {
 
         players.forEach(player => {
             coordinate = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
-            let playerIndex = Grid.convertCoordinateToIndex(coordinate.x, coordinate.y, 15, 15);
+            let playerIndex = convertCoordinateToIndex(coordinate.x, coordinate.y, 15, 15);
             elevation = elevationMap[playerIndex];
 
             let state = player.getState();
@@ -654,7 +654,7 @@ class CanvasRenderer {
         let coordinate, drawParams, elevationIdParams, colliderParams, bombPlacementParams;
 
         grid.forEach((element, index) => {
-            coordinate = Grid.convertIndexToCoordinate(index, 15, 15);
+            coordinate = convertIndexToCoordinate(index, 15, 15);
 
             elevationIdParams = [
                 config.elevation[index].toString(),
