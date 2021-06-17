@@ -141,22 +141,25 @@ class CanvasRenderer {
 
         let neighbours = Grid.getNeighbours(index, 1, this.#columnCount, this.#rowCount);
 
-        if (neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.OCEAN) {
+        this.#drawQueue.push(new Drawable('rect', drawParams, 0, color));
+
+
+        if (neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.RESTRICTED) {
             sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-down-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
         }
 
-        if (neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.OCEAN) {
+        if (neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.RESTRICTED) {
             sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-up-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
         }
 
-        if (neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.OCEAN) {
+        if (neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.RESTRICTED) {
             sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-left-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
         }
 
-        if (neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.OCEAN) {
+        if (neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.RESTRICTED) {
             sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-right-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
         }
@@ -164,7 +167,6 @@ class CanvasRenderer {
         if (isOceanCornerBottomLeft(grid, neighbours)) {
             sprite = this.#spriteSheetEnvironment.getRandomFrame('grass-edge-leftdown-random', index);
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
-
         }
 
         if (isOceanCornerBottomRight(grid, neighbours)) {
@@ -182,7 +184,6 @@ class CanvasRenderer {
             this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
         }
 
-        this.#drawQueue.push(new Drawable('rect', drawParams, 20, color));
     }
 
     drawBasicBlock(coordinate, index, elevation) {
@@ -449,7 +450,7 @@ class CanvasRenderer {
                 this.drawShadow(coordinate, elevation);
                 this.drawBasicSolidBlock(coordinate, elevation);
             }
-            else if (element === TileState.OCEAN) {
+            else if (element === TileState.RESTRICTED) {
                 this.drawOcean(grid, index, coordinate, elevation);
             }
             else if (element === TileState.DESTRUCTABLE) {

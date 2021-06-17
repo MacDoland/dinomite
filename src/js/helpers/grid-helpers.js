@@ -66,38 +66,38 @@ export const isCliffCornerTopRight = (grid, tiles) => {
 export const isOceanCornerBottomRight = (grid, tiles) => {
     return tiles[directions.UP].length > 0
         && tiles[directions.LEFT].length > 0
-        && grid[tiles[directions.UP][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFT][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFTUP][0]] !== TileState.OCEAN;
+        && grid[tiles[directions.UP][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.LEFT][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.LEFTUP][0]] !== TileState.RESTRICTED;
 }
 
 export const isOceanCornerBottomLeft = (grid, tiles) => {
     return tiles[directions.UP].length > 0
         && tiles[directions.RIGHT].length > 0
-        && grid[tiles[directions.UP][0]] === TileState.OCEAN
-        && grid[tiles[directions.RIGHT][0]] === TileState.OCEAN
-        && grid[tiles[directions.RIGHTUP][0]] !== TileState.OCEAN;
+        && grid[tiles[directions.UP][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.RIGHT][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.RIGHTUP][0]] !== TileState.RESTRICTED;
 }
 
 export const isOceanCornerTopRight = (grid, tiles) => {
     return tiles[directions.DOWN].length > 0
         && tiles[directions.LEFT].length > 0
-        && grid[tiles[directions.DOWN][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFT][0]] === TileState.OCEAN
-        && grid[tiles[directions.LEFTDOWN][0]] !== TileState.OCEAN;
+        && grid[tiles[directions.DOWN][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.LEFT][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.LEFTDOWN][0]] !== TileState.RESTRICTED;
 }
 
 export const isOceanCornerTopLeft = (grid, tiles) => {
     return tiles[directions.DOWN].length > 0
         && tiles[directions.RIGHT].length > 0
-        && grid[tiles[directions.DOWN][0]] === TileState.OCEAN
-        && grid[tiles[directions.RIGHT][0]] === TileState.OCEAN
-        && grid[tiles[directions.RIGHTDOWN][0]] !== TileState.OCEAN;
+        && grid[tiles[directions.DOWN][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.RIGHT][0]] === TileState.RESTRICTED
+        && grid[tiles[directions.RIGHTDOWN][0]] !== TileState.RESTRICTED;
 }
 
 export const isBlockingTile = (tile) => {
     return tile === TileState.INDESTRUCTIBLE
-        || tile === TileState.OCEAN
+        || tile === TileState.RESTRICTED
         || tile === TileState.CLIFF
 }
 
@@ -114,12 +114,12 @@ export const isTileThatStopsExplosion = (tile) => {
         || tile === TileState.CLIFF_LEFT
         || tile === TileState.CLIFF_RIGHT
         || tile === TileState.CLIFF_UP
-        || tile === TileState.OCEAN
+        || tile === TileState.RESTRICTED
 }
 
 export const isPlayerBlockingTile = (tile) => {
     return tile === TileState.INDESTRUCTIBLE
-        || tile === TileState.OCEAN
+        || tile === TileState.RESTRICTED
         || tile === TileState.CLIFF_DOWN
         || tile === TileState.DESTRUCTABLE
         || tile === TileState.BOMB
