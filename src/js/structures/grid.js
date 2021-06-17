@@ -1,5 +1,5 @@
-import directions from "../helpers/direction";
-import { convertCoordinateToIndex, convertIndexToCoordinate, getNeighbours } from "../helpers/grid-helpers";
+import { convertIndexToCoordinate, getNeighbours } from "../helpers/grid-helpers";
+import { LayerState } from "../state/layers";
 import Vector from "./vector";
 
 class Grid {
@@ -9,12 +9,12 @@ class Grid {
     #gridUpdateHistory;
 
     constructor(numberOfColumns = 0, numberOfRows = 0, data) {
-
+        this.#grid = {};
         this.#numberOfColumns = numberOfColumns;
         this.#numberOfRows = numberOfRows;
         data = data || new Array(this.#numberOfColumns * this.#numberOfRows);
         this.#gridUpdateHistory = [];
-        this.#grid = data;
+        this.#grid[LayerState.GROUND] = data;
     }
 
     getCenter() {
@@ -29,12 +29,12 @@ class Grid {
         return this.#numberOfRows;
     }
 
-    getGrid() {
-        return this.#grid;
+    get(layer = LayerState.GROUND) {
+        return this.#grid[layer];
     }
 
-    getElementAt(index) {
-        return this.#grid[index];
+    getElementAt(index, layer = LayerState.GROUND) {
+        return this.#grid[layer][index];
     }
 
     getIndex(x, y) {
@@ -42,11 +42,11 @@ class Grid {
     }
 
     getGridCoordinates() {
-        return [...this.getGrid().keys()].map((element, index) => convertIndexToCoordinate(index, this.#numberOfColumns, this.#numberOfRows));
+        return [...this.get().keys()].map((element, index) => convertIndexToCoordinate(index, this.#numberOfColumns, this.#numberOfRows));
     }
 
     getRandomIndex(excludedIndices = []) {
-        const indices = [...this.getGrid().keys()].map((element, index) => index).filter(element => !excludedIndices.includes(element));
+        const indices = [...this.get().keys()].map((element, index) => index).filter(element => !excludedIndices.includes(element));
         const randomNumber = Math.floor(Math.random() * indices.length);
         return indices[randomNumber];
     }
@@ -61,8 +61,8 @@ class Grid {
         return getNeighbours(index, depth, this.#numberOfColumns, this.#numberOfRows);
     }
 
-    fillGrid(indices, value) {
-        return this.#grid.map((gridItem, index) => {
+    fillGrid(indices, value, layer = LayerState.GROUND) {
+        return this.#grid[layer].map((gridItem, index) => {
             if (indices.includes(index)) {
                 gridItem = value;
             }
@@ -70,9 +70,9 @@ class Grid {
         });
     }
 
-    set(index, value, includeInHistory = true) {
-        if (index > 0 && index < this.#grid.length) {
-            this.#grid[index] = value;
+    set(index, value, includeInHistory = true, layer = LayerState.GROUND) {
+        if (index > 0 && index < this.#grid[layer].length) {
+            this.#grid[layer][index] = value;
 
             if (includeInHistory) {
                 this.#gridUpdateHistory.push({ index, value })
@@ -90,8 +90,8 @@ class Grid {
         return convertIndexToCoordinate(cellIndex, this.#numberOfColumns, this.#numberOfRows).multiplyScalar(cellSize).add(new Vector(cellSize / 2, cellSize / 2));
     }
 
-    load(cells) {
-        this.#grid = cells;
+    load(cells, layer = LayerState.GROUND) {
+        this.#grid[layer] = cells;
     }
 }
 

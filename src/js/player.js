@@ -4,6 +4,7 @@ import Vector from './structures/vector';
 import EventDispatcher from "./helpers/event-dispatcher";
 import Timer from './helpers/timer';
 import Grid from './structures/grid';
+import { convertIndexToCoordinate } from './helpers/grid-helpers';
 
 class Player {
     #position;
@@ -128,7 +129,7 @@ class Player {
 
     respawn(){
         
-        this.setPosition(Grid.convertIndexToCoordinate(this.#startPosition, 15, 15).multiplyScalar(100).add(new Vector(50, 50)));
+        this.setPosition(convertIndexToCoordinate(this.#startPosition, 15, 15).multiplyScalar(100).add(new Vector(50, 50)));
         this.#state = PlayerState.IDLE;
 
     }

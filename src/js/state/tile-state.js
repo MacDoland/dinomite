@@ -6,7 +6,7 @@ const TileState = {
     DESTRUCTABLE: 3,
     CLIFF: 4,
     STAIRS: 5,
-    SLOW: 6
+    SLOW: 6,
 }
 
 Object.freeze(TileState);

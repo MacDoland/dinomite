@@ -35,7 +35,7 @@ export const canMove = (offset, position, grid, elevation) => {
     let gridCoordinate = Vector.multiplyScalar(potentialPosition, 1 / 100).floor();
     let currentIndex = grid.getIndex(currentGridCoordinate.x, currentGridCoordinate.y);
     let nextIndex = grid.getIndex(gridCoordinate.x, gridCoordinate.y);
-    let isWithinGrid = nextIndex > 0 && nextIndex < grid.getGrid().length;
+    let isWithinGrid = nextIndex > 0 && nextIndex < grid.get().length;
     let isAlreadyOnTile = currentIndex == nextIndex;
     let canMoveOnElevation = currentIndex === nextIndex
         || (currentIndex !== nextIndex 

@@ -191,7 +191,7 @@ class GameAuthority {
                     timeOfDeath: player.getTimeOfDeath()
                 }
             }),
-            grid: this.#grid.getGrid(),
+            grid: this.#grid.get(),
             bombs: this.#bombShop.getActiveBombs().map(bomb => {
                 return {
                     id: bomb.getIndex(),

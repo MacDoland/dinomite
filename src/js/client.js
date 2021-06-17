@@ -110,11 +110,11 @@ const updateGame = ({ grid, players, bombs, blasts, colliders, deltaTime, player
     renderer.drawBlasts(blasts, defaultLevel.elevation);
 
     if (grid) {
-        renderer.drawGrid(grid.getGrid(), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
+        renderer.drawGrid(grid.get(), defaultLevel.elevation, config, bombs, blasts, currentPlayer, players, deltaTime * 1000);
     }
 
     if (grid && config.showGrid) {
-        renderer.drawDebug(grid.getGrid(), 100, players, defaultLevel);
+        renderer.drawDebug(grid.get(), 100, players, defaultLevel);
     }
 
     renderer.draw(deltaTime * 1000);
