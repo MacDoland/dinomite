@@ -198,10 +198,9 @@
                 <false/>
             </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/bottom-edge-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/tile-bottom-edge-2.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left-random/left-edge_.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right-random/right-edge-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightdown-random/corner-bottom-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left-random/tile-left-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right-random/tile-right-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightdown-random/tile-corner-bottom-right.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back02.png</key>
@@ -225,6 +224,10 @@
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front-rustle/fern-front09.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-front/plant-fern-front-1.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/stairs-bottom/stairs-bottom.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-down/tile-swamp-bottom-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-left/tile-swamp-left-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-right/tile-swamp-right-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-rightdown/tile-swamp-corner-bottom-righrt.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-middle/swamp-middle.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-edge/bottom-edge-2.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/temp-grass/grass-2_1.png</key>
@@ -246,6 +249,7 @@
                 <false/>
             </struct>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-leftdown-random/tile-corner-bottom-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-leftdown/tile-swamp-corner-bottom-left.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -260,9 +264,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-leftup-random/top-left_corner-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightup-random/top-right-corner-1.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-up-random/top-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-leftup-random/tile-corner-top-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightup-random/tile-corner-top-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-up-random/tile-top-edge.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-leftup/tile-swamp-corner-top-left.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-rightup/tile-swamp-corner-top-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/swamp-edge-up/tile-swamp-top-edge.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

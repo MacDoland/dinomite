@@ -15,6 +15,7 @@ import { Anchors } from "../helpers/anchor";
 import Vector from "../structures/vector";
 import { AnimationManager } from "../game-management/animation-manager";
 import Animation from "../helpers/animation";
+import { ItemsState } from "../state/item";
 
 class CanvasRenderer {
     #canvas;
@@ -33,6 +34,8 @@ class CanvasRenderer {
     #plants;
     #previousTiles;
     #currentTiles;
+    #previousItems;
+    #currentItems;
     #animationManager;
     #elevationMultiplier;
     #previousBombs;
@@ -57,6 +60,8 @@ class CanvasRenderer {
         this.#plants = [];
         this.#previousTiles = [];
         this.#currentTiles = [];
+        this.#previousItems = [];
+        this.#currentItems = [];
         this.#previousBombs = [];
         this.#currentBombs = [];
         this.#animationManager = new AnimationManager();
@@ -312,9 +317,9 @@ class CanvasRenderer {
         const image = this.#spriteSheetItems.getImage();
         const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier);
 
-        if (this.#previousTiles[index] !== this.#currentTiles[index]) {
+        if (this.#previousItems[index] !== this.#currentItems[index]) {
             const frames = this.#spriteSheetItems.getAnimationFrames('grave-appear');
-            animation = new Animation('grave-appear', frames, 1000 / 24, false);
+            animation = new Animation('grave-appear', frames, 1000 / 24, false, 2000);
             this.#animationManager.add(index, image, animation);
         }
 
@@ -325,21 +330,23 @@ class CanvasRenderer {
             animation.update(deltaTime);
 
             const sprite = this.#animationManager.get(index).getCurrentFrame();
-            let x = coordinate.x * this.#cellSize - (sprite.frame.w / 2) + (this.#cellSize / 2);
-            let y = coordinate.y * this.#cellSize - (sprite.frame.h / 2) + (this.#cellSize / 2) - (this.#cellSize);
-            this.drawImageTile({
-                queue: this.#drawQueue,
-                image: animationImage,
-                sprite,
-                coordinate,
-                size: this.#cellSize,
-                width: sprite.frame.w,
-                height: sprite.frame.h,
-                useSpriteDimensions: true,
-                anchor: Anchors.BOTTOM,
-                yoffset: -30,
-                zIndex
-            });
+
+            if (sprite) {
+                let x = coordinate.x * this.#cellSize - (sprite.frame.w / 2) + (this.#cellSize / 2);
+                let y = coordinate.y * this.#cellSize - (sprite.frame.h / 2) + (this.#cellSize / 2) - (this.#cellSize);
+                this.drawImageTile({
+                    queue: this.#drawQueue,
+                    image: animationImage,
+                    sprite,
+                    coordinate,
+                    size: this.#cellSize,
+                    useSpriteDimensions: true,
+                    anchor: Anchors.CENTER_BOTTOM,
+                    yOffset: -20,
+                    isDebugMode: false,
+                    zIndex
+                });
+            }
         }
         // const debugDrawParams = [
         //     x,
@@ -455,7 +462,7 @@ class CanvasRenderer {
                     size: this.#cellSize,
                     zIndex,
                     useSpriteDimensions: true,
-                    isDebugMode: true,
+                    isDebugMode: false,
                     yOffset: -20
                 });
             }
@@ -491,7 +498,26 @@ class CanvasRenderer {
         }
     }
 
-    drawGrid(grid, elevationMap, config, bombs, blasts, player, players, deltaTime) {
+    drawItems(itemsGrid, elevationMap, deltaTime) {
+        this.#currentItems = itemsGrid;
+        let coordinate, elevation;
+
+        itemsGrid.forEach((element, index) => {
+            elevation = elevationMap[index];
+
+            coordinate = convertIndexToCoordinate(index, 15, 15);
+
+            if (element === ItemsState.GRAVE) {
+                this.drawGravestone(coordinate, index, deltaTime, elevation);
+            }
+        })
+
+        this.#previousItems = [...this.#currentItems];
+    }
+
+
+
+    drawGrid(grid, elevationMap, config, bombs, blasts) {
         this.#currentTiles = grid;
 
         let coordinate, bomb, bombsByIndex, blast, blastsByIndex, elevation;

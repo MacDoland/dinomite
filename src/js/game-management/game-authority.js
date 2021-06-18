@@ -87,22 +87,22 @@ class GameAuthority {
         });
 
         this.#bombShop.onExplosionEnd((index) => {
-            // if (!this.#bombShop.hasActiveBlastAt(index)) {
-            //     const currentState = indexToItemsState(this.#grid.getElementAt(index, LayerState.ITEMS));
+            if (!this.#bombShop.hasActiveBlastAt(index)) {
+                const currentState = indexToItemsState(this.#grid.getElementAt(index, LayerState.ITEMS));
 
-            //     if (currentState >= 0) {
+                if (currentState >= 0) {
 
-            //         const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
-            //         let newState;
-            //         if (playersOnTile.length === 0) {
-            //             //  newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
-            //         }
-            //         else {
-            //             newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.DEATH).value);
-            //             this.#grid.set(index, newState, true, LayerState.ITEMS);
-            //         }
-            //     }
-            // }
+                    const playersOnTile = getPlayersOnTile(index, Object.keys(this.players).map(key => this.players[key]), this.#grid.getColumnCount(), this.#grid.getRowCount());
+                    let newState;
+                    if (playersOnTile.length === 0) {
+                        //  newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.EXPLOSION_END).value);
+                    }
+                    else {
+                        newState = parseInt(itemStateMachine.transition(currentState.toString(), StateEvents.DEATH).value);
+                        this.#grid.set(index, newState, true, LayerState.ITEMS);
+                    }
+                }
+            }
         });
 
         const loop = () => {

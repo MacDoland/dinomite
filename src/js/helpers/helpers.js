@@ -26,7 +26,7 @@ export const killPlayersOnTile = (tileId, players, grid) => {
 
             setTimeout(() => {
                 player.respawn();
-            }, 3000);
+            }, 2800);
         }
     });
 }

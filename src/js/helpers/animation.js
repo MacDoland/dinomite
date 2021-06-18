@@ -8,7 +8,8 @@ class Animation {
     currentIndex;
     currentStepTime;
     shouldLoop;
-    constructor(name, frames, speed, shouldLoop) {
+    delay;
+    constructor(name, frames, speed, shouldLoop, delay = 0) {
         this.frames = frames;
         this.name = name;
         this.speed = speed;
@@ -16,23 +17,33 @@ class Animation {
         this.currentIndex = 0;
         this.currentStepTime = 0;
         this.shouldLoop = shouldLoop;
+        this.delay = delay;
+        this.startTime = new Date().getTime() + delay;
     }
 
     play() {
         this.currentStepTime = 0;
+        this.startTime = new Date().getTime() + delay;
     }
 
     update(deltaTime) {
-        this.currentStepTime += deltaTime;
+        if (new Date().getTime() >= this.startTime) {
+            this.currentStepTime += deltaTime;
 
-        if (this.currentStepTime > this.speed) {
-            this.currentStepTime = 0;
-            this.incrementIndex();
+            if (this.currentStepTime > this.speed) {
+                this.currentStepTime = 0;
+                this.incrementIndex();
+            }
         }
     }
 
     getCurrentFrame() {
-        return this.frames[this.currentIndex];
+        if (new Date().getTime() >= this.startTime) {
+            return this.frames[this.currentIndex];
+        }
+        else {
+            return null
+        }
     }
 
     getFrameAt(milliseconds, targetDuration) {
@@ -42,11 +53,11 @@ class Animation {
     }
 
     getFrameAtProgress(progress) {
-        if(progress > 100){
+        if (progress > 100) {
             progress = 100;
         }
-        let frameIndex = Math.floor((progress/100) * this.frames.length);
-        return this.frames.length >= frameIndex ? this.frames[frameIndex-1] : this.frames[this.frames.length - 1];
+        let frameIndex = Math.floor((progress / 100) * this.frames.length);
+        return this.frames.length >= frameIndex ? this.frames[frameIndex - 1] : this.frames[this.frames.length - 1];
     }
 
     stop() {

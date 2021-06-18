@@ -49,6 +49,7 @@ bombItemEvents[StateEvents.EXPLOSION] = Items.NONE;
 
 const graveItemEvents = {}
 graveItemEvents[StateEvents.BOMB_DETONATE] = Items.NONE;
+graveItemEvents[StateEvents.EXPLOSION] = Items.NONE;
 
 let itemStates = {};
 itemStates[Items.NONE] = { on: noneItemEvents };
