@@ -535,7 +535,76 @@ class CanvasRenderer {
 
 
             if (shouldDrawEmptyTile(element)) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
+                const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier);
+                let image = this.#spriteSheetEnvironment.getImage()
+                let drawParams = [
+                    coordinate.x * this.#cellSize + this.#borderWidth,
+                    coordinate.y * this.#cellSize + this.#borderWidth,
+                    this.#cellSize,
+                    this.#cellSize
+                ];
+                
+                let sprite;
+                const neighbours = getNeighbours(index, 1, this.#columnCount, this.#rowCount);
+                const slowDown = neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] === TileState.SLOW;
+                const slowUp = neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] === TileState.SLOW;
+                const slowRight = neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] === TileState.SLOW;
+                const slowLeft = neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] === TileState.SLOW;
+
+                const slowUpLeft = neighbours[directions.LEFTUP].length > 0 && grid[neighbours[directions.LEFTUP][0]] === TileState.SLOW
+                    && neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.SLOW
+                    && neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.SLOW;
+
+                const slowUpRight = neighbours[directions.RIGHTUP].length > 0 && grid[neighbours[directions.RIGHTUP][0]] === TileState.SLOW
+                    && neighbours[directions.UP].length > 0 && grid[neighbours[directions.UP][0]] !== TileState.SLOW
+                    && neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.SLOW;
+
+                const slowDownLeft = neighbours[directions.LEFTDOWN].length > 0 && grid[neighbours[directions.LEFTDOWN][0]] === TileState.SLOW
+                    && neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.SLOW
+                    && neighbours[directions.RIGHT].length > 0 && grid[neighbours[directions.RIGHT][0]] !== TileState.SLOW;
+
+                const slowDownRight = neighbours[directions.RIGHTDOWN].length > 0 && grid[neighbours[directions.RIGHTDOWN][0]] === TileState.SLOW
+                    && neighbours[directions.DOWN].length > 0 && grid[neighbours[directions.DOWN][0]] !== TileState.SLOW
+                    && neighbours[directions.LEFT].length > 0 && grid[neighbours[directions.LEFT][0]] !== TileState.SLOW;
+
+
+                if (slowUpLeft) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-rightdown').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowUpRight) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-leftdown').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowDownLeft) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-rightup').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowDownRight) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-leftup').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+
+                if (slowDown) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-up').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowUp) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-down').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowRight) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-left').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+                else if (slowLeft) {
+                    sprite = this.#spriteSheetEnvironment.getAnimation('swamp-edge-right').getCurrentFrame();
+                    this.drawImageTile({ queue: this.#drawQueue, image, sprite, coordinate, size: this.#cellSize, zIndex });
+                }
+
+                if (!sprite) {
+                    this.drawBasicTile(coordinate, index, elevation, elevationMap);
+                }
             }
 
 
@@ -552,7 +621,6 @@ class CanvasRenderer {
                 this.drawOcean(grid, index, coordinate, elevation);
             }
             else if (element === TileState.DESTRUCTABLE) {
-                this.drawBasicTile(coordinate, index, elevation, elevationMap);
                 this.drawBasicBlock(coordinate, index, elevation);
             }
             else if (element === TileState.STAIRS) {

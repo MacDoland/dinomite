@@ -15,16 +15,18 @@ class SpriteSheet {
         this.#tiles = {};
         this.#config = config;
 
+        const splitName = (name) => {
+            return name.includes('/')
+            ? name.split('/')[0]
+            : name;
+        }
 
-        const animationNames = config.frames.map((frame) => {
-            return frame.filename.includes('/')
-                ? frame.filename.split('/')[0]
-                : frame.filename;
-        });
+
+        const animationNames = config.frames.map((frame) => splitName(frame.filename));
 
         animationNames.forEach(animationName => {
             const animationFrames = config.frames
-                .filter(frame => frame.filename.includes(animationName));
+                .filter(frame => splitName(frame.filename) === animationName);
 
             if (animationName.includes('random')) {
                 this.#randomFrames[animationName] = animationFrames;
