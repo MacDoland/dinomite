@@ -39,9 +39,9 @@ export const canMove = (offset, position, grid, elevation) => {
     let isWithinGrid = nextIndex > 0 && nextIndex < grid.get().length;
     let isAlreadyOnTile = currentIndex == nextIndex;
     let canMoveOnElevation = currentIndex === nextIndex
-        || (currentIndex !== nextIndex 
+        || (currentIndex !== nextIndex
             && elevation[currentIndex] === elevation[nextIndex]
             || grid.getElementAt(currentIndex) === TileState.STAIRS
             || grid.getElementAt(nextIndex) === TileState.STAIRS);
-    return isWithinGrid && canMoveOnElevation && (isAlreadyOnTile || (!isPlayerBlockingTile(grid.getElementAt(nextIndex))/* && !isPlayerBlockingItem(grid.getElementAt(nextIndex, LayerState.ITEMS))*/))
+    return isWithinGrid && canMoveOnElevation && (isAlreadyOnTile || (!isPlayerBlockingTile(grid.getElementAt(nextIndex)) && !isPlayerBlockingItem(grid.getElementAt(nextIndex, LayerState.ITEMS))))
 }

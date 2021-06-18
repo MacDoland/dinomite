@@ -69,7 +69,7 @@ class GameAuthority {
         });
 
         this.#bombShop.onExplosion((index) => {
-            //this.#audioManager.play('boom');
+          //  this.#audioManager.play('boom');
             const currentState = indexToItemsState(this.#grid.getElementAt(index, LayerState.ITEMS));
             const currentGridState = indexToTileState(this.#grid.getElementAt(index, LayerState.TILES));
             if (currentState === ItemsState.BOMB) {
@@ -132,7 +132,7 @@ class GameAuthority {
 
     addPlayer(id, characterId) {
         if (!this.players[id]) {
-            this.players[id] = new Player(id, characterId, 48);
+            this.players[id] = new Player(id, characterId, 32);
             let startIndex = Object.keys(this.players).length === 1 ? this.#gameConfig.startPlayerOne : this.#gameConfig.startPlayerTwo;
             this.players[id].setPosition(this.#grid.getCellCenter(startIndex, this.#gameConfig.cellSize));
         }

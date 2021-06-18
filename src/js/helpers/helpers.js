@@ -21,7 +21,7 @@ export const killPlayersOnTile = (tileId, players, grid) => {
     players.forEach(player => {
         let playerGridPosition = Vector.multiplyScalar(player.getPosition(), 1 / 100).floor();
         let playerIndex = convertCoordinateToIndex(playerGridPosition.x, playerGridPosition.y, grid.getColumnCount(), grid.getRowCount());
-        if (tileId === playerIndex) {
+        if (tileId === playerIndex && player.isAlive()) {
             player.die();
 
             setTimeout(() => {

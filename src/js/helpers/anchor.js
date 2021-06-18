@@ -1,5 +1,5 @@
 export const Anchors = {
-    UP: 'UP',
+    TOP: 'TOP',
     RIGHT: 'RIGHT',
     BOTTOM: 'BOTTOM',
     LEFT: 'LEFT',

@@ -44,7 +44,11 @@ class Player {
         return this.#id;
     }
 
-   
+    isAlive() {
+        return this.#state !== PlayerState.DEATH;
+    }
+
+
     move(offset) {
 
         if (offset.x < 0) {
@@ -84,7 +88,7 @@ class Player {
         return this.#timeOfDeath;
     }
 
-    setTimeOfDeath( timeOfDeath) {
+    setTimeOfDeath(timeOfDeath) {
         this.#timeOfDeath = timeOfDeath;
     }
 
@@ -113,10 +117,10 @@ class Player {
         let oppositeDirection = getDirectionOpposite(this.#direction);
         let offset = directionAsVector(oppositeDirection);
 
-        if(oppositeDirection === directions.LEFT || oppositeDirection === directions.RIGHT){
+        if (oppositeDirection === directions.LEFT || oppositeDirection === directions.RIGHT) {
             offset.multiplyScalar(this.#width / 2);
         }
-        else if(oppositeDirection === directions.UP || oppositeDirection === directions.DOWN){
+        else if (oppositeDirection === directions.UP || oppositeDirection === directions.DOWN) {
             offset.multiplyScalar(this.#height / 2);
         }
 
@@ -127,8 +131,8 @@ class Player {
         return this.#boundingBox;
     }
 
-    respawn(){
-        
+    respawn() {
+
         this.setPosition(convertIndexToCoordinate(this.#startPosition, 15, 15).multiplyScalar(100).add(new Vector(50, 50)));
         this.#state = PlayerState.IDLE;
 

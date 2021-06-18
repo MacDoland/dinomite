@@ -83,7 +83,7 @@ class GameManager {
         });
 
         this.#client.on(GameEvents.NEW_PLAYER, ({ id, cId: characterId, s: state, p: position, d: direction }) => {
-            const player = new Player(id, characterId, 48);
+            const player = new Player(id, characterId, 32);
 
             if (player) {
                 player.setPosition(position);
@@ -116,7 +116,7 @@ class GameManager {
                 let player = findById(this.#players, id);
 
                 if (!player) {
-                    player = new Player(id, 'janedoe', 0, 48);
+                    player = new Player(id, 'janedoe', 0, 32);
                     this.#players.push(player);
                 }
 

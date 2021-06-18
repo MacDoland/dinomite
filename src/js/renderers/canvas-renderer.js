@@ -69,23 +69,33 @@ class CanvasRenderer {
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
-    drawImageTile({ queue, image, sprite, coordinate, size, anchor = Anchors.CENTER, zIndex = coordinate.y * size - size, useSpriteDimensions = false, width, height, yoffset = 0 }) {
+    drawImageTile({ queue, image, sprite, coordinate, size, anchor = Anchors.CENTER, zIndex, useSpriteDimensions = false, width = 100, height = 100, yOffset = 0, xOffset = 0, isDebugMode }) {
 
-        if (anchor === Anchors.UP) {
-            yoffset = yoffset - sprite.frame.h + size;
-        }
-        else if (anchor === Anchors.BOTTOM) {
-            yoffset = yoffset - size / 2;
-            zIndex += size;
-        }
-        else if (anchor === Anchors.CENTER_BOTTOM) {
-            yoffset = yoffset - size;
-            zIndex += size / 2;
+        width = useSpriteDimensions ? sprite.frame.w : width;
+        height = useSpriteDimensions ? sprite.frame.h : height;
+        zIndex = zIndex || coordinate.y * size;
+
+
+
+        if (anchor === Anchors.CENTER) {
+            xOffset = xOffset + (width - size) / 2;
+            yOffset = yOffset + (height - size) / 2;
         }
 
-        width = typeof (width) !== 'undefined' ? width : size;
-        height = typeof (height) !== 'undefined' ? height : size;
+        if (anchor === Anchors.BOTTOM) {
+            xOffset = xOffset + (width - size) / 2;
+            yOffset = yOffset + (height - size);
+        }
 
+        if (anchor === Anchors.TOP) {
+            xOffset = xOffset + (width - size) / 2;
+        }
+
+        if (anchor === Anchors.CENTER_BOTTOM) {
+            xOffset = xOffset + (width - size) / 2;
+            yOffset = yOffset + (height - size) + (size / 2);
+            zIndex += yOffset
+        }
 
         let drawParams = [
             image,
@@ -93,12 +103,24 @@ class CanvasRenderer {
             sprite.frame.y,
             sprite.frame.w,
             sprite.frame.h,
-            coordinate.x * size - (width / 2) + (size / 2),
-            coordinate.y * size - (height / 2) + (size / 2) + yoffset,
-            useSpriteDimensions ? sprite.frame.w : size,
-            useSpriteDimensions ? sprite.frame.h : size];
+            coordinate.x * size - xOffset,
+            coordinate.y * size - yOffset,
+            width,
+            height];
 
         queue.push(new Drawable('image', drawParams, zIndex));
+
+
+        if (isDebugMode) {
+
+            let rectParams = [
+                coordinate.x * size - xOffset,
+                coordinate.y * size - yOffset,
+                width,
+                height
+            ];
+            this.#drawQueue.push(new Drawable('rect', rectParams, 10000000, '', 'magenta'));
+        }
     }
 
     drawBasicTile(coordinate, index, elevation, elevationMap) {
@@ -115,23 +137,24 @@ class CanvasRenderer {
             sprite,
             coordinate,
             size: this.#cellSize,
-            zIndex
+            zIndex,
         });
     }
 
     drawBasicSolidBlock(coordinate, elevation) {
         const sprite = this.#spriteSheetEnvironment.getAnimation('indestructable-terrain').getCurrentFrame();
         const image = this.#spriteSheetEnvironment.getImage();
-        const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 100;
+        const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 200;
         this.drawImageTile({
             queue: this.#drawQueue,
             image,
             sprite,
             coordinate,
-            anchor: Anchors.UP,
+            anchor: Anchors.BOTTOM,
             size: this.#cellSize,
             zIndex,
-            useSpriteDimensions: true
+            useSpriteDimensions: true,
+            isDebugMode: false
         });
     }
 
@@ -206,7 +229,9 @@ class CanvasRenderer {
             anchor: Anchors.UP,
             size: this.#cellSize,
             zIndex,
-            useSpriteDimensions: true
+            useSpriteDimensions: true,
+            isDebugMode: false
+
         });
     }
 
@@ -237,7 +262,6 @@ class CanvasRenderer {
             zIndex
         });
     }
-
 
     drawShadow(coordinate, elevation) {
         let sprite = this.#spriteSheetEnvironment.getAnimation('shadow-indestructable').getCurrentFrame();
@@ -362,7 +386,7 @@ class CanvasRenderer {
             width: sprite.frame.w,
             height: sprite.frame.h,
             useSpriteDimensions: true,
-            zIndex: zIndex + 205
+            zIndex: zIndex
         });
 
         this.drawImageTile({
@@ -374,10 +398,10 @@ class CanvasRenderer {
             width: sprite.frame.w,
             height: sprite.frame.h,
             useSpriteDimensions: true,
-            zIndex: zIndex + 210
+            zIndex: zIndex + 200,
+            isDebugMode: false
         });
     }
-
 
     drawBombs(bombs, player, players, elevationMap, logger) {
         let coordinate, elevation;
@@ -417,27 +441,26 @@ class CanvasRenderer {
             let sprite = bomb.state === BombState.NEAR_DETONATION
                 ? this.#spriteSheetItems.getAnimation(`${character}-egg-crack`).getFrameAtProgress(bomb.progress)
                 : this.#spriteSheetItems.getAnimation(`${character}-egg-wobble-loop`).getCurrentFrame();
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 550;
+            const zIndex = coordinate.y * this.#cellSize + (elevation * this.#elevationMultiplier);
             const image = this.#spriteSheetItems.getImage();
 
             if (sprite) {
-                let x = coordinate.x * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.w / 2);
-                let y = coordinate.y * this.#cellSize + (this.#cellSize / 2) - (sprite.frame.h / 2) - 40;
 
                 this.drawImageTile({
                     queue: this.#drawQueue,
                     image,
                     sprite,
                     coordinate,
-                    anchor: Anchors.UP,
+                    anchor: Anchors.CENTER_BOTTOM,
                     size: this.#cellSize,
                     zIndex,
-                    useSpriteDimensions: true
+                    useSpriteDimensions: true,
+                    isDebugMode: true,
+                    yOffset: -20
                 });
             }
         }
     }
-
 
     drawBlasts(blasts, elevationMap) {
         let coordinate, elevation;
@@ -452,7 +475,7 @@ class CanvasRenderer {
     drawExplosion(coordinate, blast, elevation) {
         if (blast) {
             let sprite = this.#spriteSheetItems.getAnimation('explosion-center').getFrameAtProgress(blast.progress)
-            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier ) + 1000;
+            const zIndex = coordinate.y * this.#cellSize - this.#cellSize + (elevation * this.#elevationMultiplier) + 1000;
             const image = this.#spriteSheetItems.getImage();
 
             if (sprite) {
@@ -467,8 +490,6 @@ class CanvasRenderer {
             }
         }
     }
-
-
 
     drawGrid(grid, elevationMap, config, bombs, blasts, player, players, deltaTime) {
         this.#currentTiles = grid;
@@ -580,7 +601,6 @@ class CanvasRenderer {
         this.#previousTiles = [...this.#currentTiles];
     }
 
-
     drawPlayers(players, elevationMap) {
         let elevation, coordinate;
 
@@ -665,7 +685,7 @@ class CanvasRenderer {
 
             let textItemIdParams = [
                 items[index].toString(),
-                coordinate.x * size + size/2,
+                coordinate.x * size + size / 2,
                 coordinate.y * size + size - 30
             ]
 
