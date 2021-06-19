@@ -197,10 +197,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/bottom-edge-1.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/tile-bottom-edge-2.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-down-random/tile-bottom-edge.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-left-random/tile-left-edge.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-right-random/tile-right-edge.png</key>
-            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightdown-random/tile-corner-bottom-right.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/grass-edge-rightdown-random/tile-corner-bottom-righrt.png</key>
+            <key type="filename">../../../../Dropbox/dinomite-sprites/environment/ocean/ocean.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back00.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back01.png</key>
             <key type="filename">../../../../Dropbox/dinomite-sprites/environment/plant-fern-large-back-rustle/fern-back02.png</key>
